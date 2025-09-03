@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solutions Papers - Edu Smartspark</title>
+    <style>
+        :root {
+            --primary: #0a9621;
+            --secondary: #05be3d;
+            --dark: #0b9b47;
+            --light: #f8f9fa;
+            --accent: #34a456;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header */
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo img {
+            height: 40px;
+        }
+        
+        .logo-text {
+            font-weight: 700;
+            color: var(--dark);
+            font-size: 1.2rem;
+        }
+        
+        .logo-text span {
+            color: var(--primary);
+        }
+        
+        /* Hero */
+        .papers-hero {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 120px 0 60px;
+            text-align: center;
+            margin-top: 70px;
+        }
+        
+        .papers-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .papers-hero p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Papers Section */
+        .papers-main {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--dark);
+            font-size: 2rem;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+        }
+        
+        .course-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .tab-btn {
+            padding: 10px 25px;
+            background: white;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .tab-btn.active, .tab-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .semester-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .semester-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .semester-header {
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        .papers-list {
+            padding: 20px;
+        }
+        
+        .paper-item {
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .paper-item:last-child {
+            border-bottom: none;
+        }
+        
+        .paper-name {
+            color: #555;
+            font-weight: 500;
+        }
+        
+        .download-btn {
+            padding: 5px 15px;
+            background: var(--accent);
+            color: white;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        
+        .download-btn:hover {
+            background: #2d8488;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 0;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-about h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .footer-about p {
+            color: #bbb;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 20px 0;
+            text-align: center;
+            color: #bbb;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .papers-hero {
+                padding: 100px 0 40px;
+            }
+            
+            .papers-hero h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .papers-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .papers-main {
+                padding: 60px 0;
+            }
+            
+            .tab-btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="papers-hero">
+        <div class="container">
+            <h1>University Question Papers Solved & Answers </h1>
+            <p>Access Solved previous year question papers & Notes</p>
+        </div>
+    </section>
+
+    <main class="papers-main">
+        <div class="container">
+            <h2 class="section-title">Available Solved Paper and Notes</h2>
+            
+            <div class="course-tabs">
+                <button class="tab-btn active" data-course="ba">BA</button>
+                <button class="tab-btn" data-course="bcom">B.Com</button>
+                <button class="tab-btn" data-course="bsc">B.Sc</button>
+            </div>
+            
+            <div id="ba-papers" class="course-content">
+                <div class="semester-grid">
+                    <div class="semester-card">
+                        <div class="semester-header">BA Semester 2</div>
+                        <div class="papers-list">
+                            <div class="paper-item">
+                                <span class="paper-name">Solved AEC Question Paper 2024</span>
+                                <a href="https://youtu.be/NntAmdnweJk" class="download-btn">Open</a>
+                            </div>
+                            <div class="paper-item">
+                                <span class="paper-name">The Lottery -AEC Notes</span>
+                                <a href="https://youtu.be/ya6E92bg8Tc" class="download-btn">Open</a>
+                            </div>
+                            <div class="paper-item">
+                                <span class="paper-name">Growing Up with Science Fiction -AEC Notes</span>
+                                <a href="https://youtu.be/0V-Mmgjjrl4" class="download-btn">Open</a>
+                            </div>
+                            <div class="paper-item">
+                                <span class="paper-name">On Saying Please -AEC Notes</span>
+                                <a href="https://youtu.be/2wTIv6ljQC0" class="download-btn">Open</a>
+                            </div>
+                            <div class="paper-item">
+                                <span class="paper-name">Solved ICT question Paper 2024</span>
+                                <a href="https://youtu.be/IZcotz1ArCg" class="download-btn">Open</a>
+                            </div>
+                            <div class="paper-item">
+                                <span class="paper-name">Indian constitution: Emergence and Distinctiveness main concept (Unit1) </span>
+                                <a href="https://youtu.be/BGaGQds3Lbk" class="download-btn">Open</a>
+                            </div>
+                        
+                        
+                        </div>
+                    </div>
+                    
+                    <div class="semester-card">
+                        <div class="semester-header">BA Semester 2 QP (Question Paper)</div>
+                        <div class="papers-list">
+                            <div class="paper-item">
+                                <span class="paper-name">English Communication</span>
+                                <a href="" class="download-btn">nul</a>
+                            </div>
+                            <div class="paper-item">
+                                <span class="paper-name">Education</span>
+                                <a href="" class="download-btn">nul</a>
+                            </div>
+                            <div class="paper-item">
+                                <span class="paper-name">Political Science</span>
+                                <a href="https://youtu.be/ngCy7NRgbi4" class="download-btn">Qp</a>
+                            </div>
+                            <div class="paper-item">
+                                <span class="paper-name">Economics</span>
+                                <a href="https://youtu.be/80PkA1bRzNc" class="download-btn">QP</a>
+                            </div>
+                            <div class="paper-item">
+                                <span class="paper-name">ICT (MDC)</span>
+                                <a href="https://youtu.be/DRwCfVbEULs" class="download-btn">QP</a>
+                            </div>
+                            <div class="paper-item">
+                                <span class="paper-name">Enviromnent- EVS (VAC)</span>
+                                <a href="https://youtu.be/uGbGnts1ykg" class="download-btn">QP</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="semester-card">
+                        <div class="semester-header">BA Semester 3</div>
+                        <div class="papers-list">
+                            <div class="paper-item">
+                                <span class="paper-name">English</span>
+                                <a href="#" class="download-btn">Not Available</a>
+                            </div>
+                            <div class="paper-item">
+                                <span class="paper-name">Education</span>
+                                <a href="#" class="download-btn">Upcoming..</a>
+                            </div>
+                            <div class="paper-item">
+                                <span class="paper-name">Political Science</span>
+                                <a href="#" class="download-btn">Upcoming..</a>
+                            </div>
+                        <div class="paper-item">
+                                <span class="paper-name">Indian Economy</span>
+                                <a href="#" class="download-btn">Upcoming..</a>
+                            </div>
+                            <div class="paper-item">
+                                <span class="paper-name">Economics</span>
+                                <a href="#" class="download-btn">Upcoming..</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="bcom-papers" class="course-content" style="display: none;">
+                
+                  <div class="semester-grid">
+                    <div class="semester-card">
+                        <div class="semester-header">B.Com Semester 1</div>
+                        <div class="papers-list">
+                            <div class="paper-item">
+                                <span class="paper-name">English Communication</span>
+                                <a href="https://youtu.be/uYlbVhiJWM0" class="download-btn">QP</a>
+                            </div>
+                            <div class="paper-item">
+                                <span class="paper-name">Finnance</span>
+                                <a href="#" class="download-btn">Not Available</a>
+                            </div>
+                            <div class="paper-item">
+                                <span class="paper-name">Accounting</span>
+                                <a href="#" class="download-btn">Upcoming..</a>
+                            </div>
+                            <div class="paper-item">
+                                <span class="paper-name">Management</span>
+                                <a href="#" class="download-btn">Upcoming..</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="semester-card">
+                        <div class="semester-header">B.Com Semester 2</div>
+                        <div class="papers-list">
+                            <div class="paper-item">
+                                <span class="paper-name">English Communication (AEC)</span>
+                                <a href="https://youtu.be/9crusIHADS0" class="download-btn">QP</a>
+                            </div>
+                            <div class="paper-item">
+                                <span class="paper-name">Principle of Marketing</span>
+                                <a href="https://youtu.be/2zjgwnNoMUs" class="download-btn">QP</a>
+                            </div>
+                            <div class="paper-item">
+                                <span class="paper-name">Management</span>
+                                <a href="https://youtu.be/2zjgwnNoMUs" class="download-btn">QP</a>
+                            </div>
+                            <div class="paper-item">
+                                <span class="paper-name">EVS (VAC)</span>
+                                <a href="https://youtu.be/uGbGnts1ykg" class="download-btn">QP</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="semester-card">
+                        <div class="semester-header">BA Semester 3</div>
+                        <div class="papers-list">
+                            <div class="paper-item">
+                                <span class="paper-name">English Literature</span>
+                                <a href="#" class="download-btn">nul</a>
+                            </div>
+                            <div class="paper-item">
+                                <span class="paper-name">History</span>
+                                <a href="#" class="download-btn">nul</a>
+                            </div>
+                            <div class="paper-item">
+                                <span class="paper-name">Political Science</span>
+                                <a href="#" class="download-btn">nul</a>
+                            </div>
+                            <div class="paper-item">
+                                <span class="paper-name">Economics</span>
+                                <a href="#" class="download-btn">nul</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- B.Com papers would go here -->
+            </div>
+            
+            <div id="bsc-papers" class="course-content" style="display: none;">
+
+                <div class="semester-grid">
+                    <div class="semester-card">
+                        <div class="semester-header">B.Sc Semester 1</div>
+                        <div class="papers-list">
+                            <div class="paper-item">
+                                <span class="paper-name">English Communication(AEC)</span>
+                                <a href="https://youtu.be/uYlbVhiJWM0" class="download-btn">QP</a>
+                            </div>
+                            <div class="paper-item">
+                                <span class="paper-name">ICT (MDC)</span>
+                                <a href="#" class="download-btn">Nul</a>
+                            </div>                        
+                        
+                        </div>
+                    </div>
+                    
+                    <div class="semester-card">
+                        <div class="semester-header">B.Sc Semester 2</div>
+                        <div class="papers-list">
+                            <div class="paper-item">
+                                <span class="paper-name">English Communication (AEC)</span>
+                                <a href="https://youtu.be/9crusIHADS0" class="download-btn">QP</a>
+                            </div>                        
+                            <div class="paper-item">
+                                <span class="paper-name">ICT (MDC)</span>
+                                <a href="https://youtu.be/DRwCfVbEULs" class="download-btn">QP</a>
+                            </div>                         
+                        </div>
+                    </div>
+                    
+                    <div class="semester-card">
+                        <div class="semester-header">B.Sc Semester 3</div>
+                        <div class="papers-list">
+                            <div class="paper-item">
+                                <span class="paper-name">Math</span>
+                                <a href="#" class="download-btn">Not Available</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <!-- B.Sc papers would go here -->
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <h3>Edu Smartspark</h3>
+                    <p>Providing quality educational resources for university students since 2022.</p>
+                </div>
+                   <div class="footer-links">
+                    <h3>Acces Resources</h3>
+                    <ul>
+                        <li><a href="books-pdf.html">Wise Books</a></li>
+                        <li><a href="NCERT Book.html">NCERT Books PDF VI-X</a></li>
+                        <li><a href="question-papers.html">B.A B.Com Question Paper</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>                        
+                        <li><a href="about.html">About Us</a></li>                      
+                        <li><a href="contact.html">Contact us</a></li>
+                        <li><a href="https://sahebali26.github.io/Graphic-Designer-shb-ali-/">Work with us- Design(Photoshop), Data entry (Excell) etc</a></li>
+                        <li><a href="https://sahebali26.github.io/Verb-Dictionary-with-Pronunciation/">Our App: Verb-Dictionary-with-Pronunciation </a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Edu Smartspark. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tab functionality for course selection
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                tabBtns.forEach(b => b.classList.remove('active'));
+                
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                // Hide all content
+                document.querySelectorAll('.course-content').forEach(content => {
+                    content.style.display = 'none';
+                });
+                
+                // Show selected content
+                const course = btn.getAttribute('data-course');
+                document.getElementById(`${course}-papers`).style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>

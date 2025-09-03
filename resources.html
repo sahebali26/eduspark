@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources - Edu Smartspark</title>
+    <style>
+        :root {
+            --primary: #7209b7;
+            --secondary: #560bad;
+            --dark: #10002b;
+            --light: #f8f9fa;
+            --accent: #b5179e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header */
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        /* Hero */
+        .resources-hero {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 60px 0 30px;
+            text-align: center;
+            margin-top: 70px;
+        }
+        
+        .resources-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .resources-hero p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Resources Grid */
+        .resources-main {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--dark);
+            font-size: 2rem;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+        }
+        
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .resource-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .resource-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .resource-content {
+            padding: 25px;
+        }
+        
+        .resource-content h3 {
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .resource-content p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background: var(--secondary);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 0;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-about h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .footer-about p {
+            color: #bbb;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 20px 0;
+            text-align: center;
+            color: #bbb;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .resources-hero {
+                padding: 100px 0 40px;
+            }
+            
+            .resources-hero h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .resources-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .resources-main {
+                padding: 60px 0;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="resources-hero">
+        <div class="container">
+            <h1>Comprehensive Educational Resources</h1>
+            <p>Access question papers, solutions, study materials and more for your academic success</p>
+        </div>
+    </section>
+
+    <main class="resources-main">
+        <div class="container">
+            <h2 class="section-title">Our Resources</h2>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <div class="resource-img" style="background-image: url('quespimage.png');"></div>
+                    <div class="resource-content">
+                        <h3>Question Papers</h3>
+                        <p>Complete collection of previous year question papers for all semesters of BA, B.Com and B.Sc programs.</p>
+                        <a href="question-papers.html" class="btn">View Papers</a>
+                    </div>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-img" style="background-image: url('solvedpaper.png');"></div>
+                    <div class="resource-content">
+                        <h3>Solved Papers</h3>
+                        <p>Step-by-step solutions to previous year questions with detailed explanations.</p>
+                        <a href="Solutions.html" class="btn">View Solutions</a>
+                    </div>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-img" style="background-image: url('gklogo.jpg');"></div>
+                    <div class="resource-content">
+                        <h3>GK & Current Affairs</h3>
+                        <p>Daily updated general knowledge and current affairs content for competitive exams.</p>
+                        <a href="gk-current-affairs.html" class="btn">Explore GK</a>
+                    </div>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-img" style="background-image: url('bookpdfimg.png');"></div>
+                    <div class="resource-content">
+                        <h3>Books & PDF Notes</h3>
+                        <p>Curated collection of recommended books and comprehensive PDF notes.</p>
+                        <a href="books-pdf.html" class="btn">View Resources</a>
+                    </div>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-img" style="background-image: url('motivationimge.png');"></div>
+                    <div class="resource-content">
+                        <h3>Motivational Shorts</h3>
+                        <p>Inspirational content to keep you motivated throughout your academic journey.</p>
+                        <a href="https://www.youtube.com/@EduSmartspark" class="btn">Get Inspired</a>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <h3>Edu Smartspark</h3>
+                    <p>Providing quality educational resources for university students since 2020.</p>
+                </div>
+                   <div class="footer-links">
+                    <h3>Acces Resources</h3>
+                    <ul>
+                        <li><a href="books-pdf.html">Wise Books</a></li>
+                        <li><a href="NCERT Book.html">NCERT Books PDF VI-X</a></li>
+                        <li><a href="question-papers.html">B.A B.Com Question Paper</a></li>
+                        <li><a href="Solutions.html">Solved B.A B.Com Question Papers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>                        
+                        <li><a href="about.html">About Us</a></li>                      
+                        <li><a href="contact.html">Contact us</a></li>
+                        <li><a href="https://sahebali26.github.io/Graphic-Designer-shb-ali-/">Work with us- Design(Photoshop), Data entry (Excell) etc</a></li>
+                        <li><a href="https://sahebali26.github.io/Verb-Dictionary-with-Pronunciation/">Our App: Verb-Dictionary-with-Pronunciation </a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Edu Smartspark. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

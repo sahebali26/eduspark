@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GK & Current Affairs - Edu Smartspark</title>
+    <style>
+        :root {
+            --primary: #d00000;
+            --secondary: #9d0208;
+            --dark: #370617;
+            --light: #f8f9fa;
+            --accent: #f48c06;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header */
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo img {
+            height: 40px;
+        }
+        
+        .logo-text {
+            font-weight: 700;
+            color: var(--dark);
+            font-size: 1.2rem;
+        }
+        
+        .logo-text span {
+            color: var(--primary);
+        }
+        
+        /* Hero */
+        .gk-hero {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 120px 0 60px;
+            text-align: center;
+            margin-top: 70px;
+        }
+        
+        .gk-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .gk-hero p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* GK Section */
+        .gk-main {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--dark);
+            font-size: 2rem;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+        }
+        
+        .gk-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .gk-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        
+        .gk-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .gk-image {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .gk-content {
+            padding: 20px;
+        }
+        
+        .gk-date {
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .gk-content h3 {
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .gk-content p {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        
+        .read-more {
+            display: inline-block;
+            padding: 8px 20px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+        
+        .read-more:hover {
+            background: var(--secondary);
+        }
+        
+        /* Categories */
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .category-btn {
+            padding: 8px 20px;
+            background: white;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .category-btn.active, .category-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Daily Quiz */
+        .daily-quiz {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 60px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .daily-quiz h3 {
+            color: var(--dark);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .quiz-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: background 0.3s;
+        }
+        
+        .quiz-btn:hover {
+            background: #e85d04;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 0;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-about h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .footer-about p {
+            color: #bbb;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 20px 0;
+            text-align: center;
+            color: #bbb;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .gk-hero {
+                padding: 100px 0 40px;
+            }
+            
+            .gk-hero h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .gk-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .gk-main {
+                padding: 60px 0;
+            }
+            
+            .category-btn {
+                padding: 6px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="gk-hero">
+        <div class="container">
+            <h1>GK & Current Affairs</h1>
+            <p>Daily updated general knowledge and current affairs for competitive exams and interviews</p>
+        </div>
+    </section>
+
+     <div class="daily-quiz">
+                <h3>Test Your Knowledge with Today's Quiz</h3>
+                <p>Join with our daily GK quiz to enhance your preparation for competitive exams</p>
+                <a href="https://whatsapp.com/channel/0029VbB1Q3e84Om9R1kVRA44" class="quiz-btn">Start Quiz</a>
+            </div>
+
+    <main class="gk-main">
+        <div class="container">
+            <h2 class="section-title">All are sample. have not provided any real information</h2>
+            
+            <div class="category-tabs">
+                <button class="category-btn active" data-category="all">All</button>
+                <button class="category-btn" data-category="national">National</button>
+                <button class="category-btn" data-category="international">International</button>
+                <button class="category-btn" data-category="science">Science & Tech</button>
+                <button class="category-btn" data-category="sports">Sports</button>
+            </div>
+            
+            <div class="gk-grid">
+                <div class="gk-card" data-category="national">
+                    <div class="gk-image" style="background-image: url('../images/gk1.jpg');"></div>
+                    <div class="gk-content">
+                        <div class="gk-date">July 15, 2023</div>
+                        <h3>New Education Policy 2023 Updates</h3>
+                        <p>Key changes and implementation updates for the New Education Policy affecting university students across India.</p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </div>
+                
+                <div class="gk-card" data-category="international">
+                    <div class="gk-image" style="background-image: url('../images/gk2.jpg');"></div>
+                    <div class="gk-content">
+                        <div class="gk-date">July 14, 2023</div>
+                        <h3>Global Climate Summit Outcomes</h3>
+                        <p>Summary of key agreements and commitments made at the recent international climate conference.</p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </div>
+                
+                <div class="gk-card" data-category="science">
+                    <div class="gk-image" style="background-image: url('../images/gk3.jpg');"></div>
+                    <div class="gk-content">
+                        <div class="gk-date">July 13, 2023</div>
+                        <h3>Breakthrough in Quantum Computing</h3>
+                        <p>Scientists achieve quantum supremacy with new processor that solves problems impossible for classical computers.</p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </div>
+                
+                <div class="gk-card" data-category="sports">
+                    <div class="gk-image" style="background-image: url('../images/gk4.jpg');"></div>
+                    <div class="gk-content">
+                        <div class="gk-date">July 12, 2023</div>
+                        <h3>India Wins Asia Cup 2023</h3>
+                        <p>Team India clinches the championship title after a thrilling final match against Pakistan.</p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </div>
+                
+                <div class="gk-card" data-category="national">
+                    <div class="gk-image" style="background-image: url('../images/gk5.jpg');"></div>
+                    <div class="gk-content">
+                        <div class="gk-date">July 11, 2023</div>
+                        <h3>Economic Survey 2022-23 Highlights</h3>
+                        <p>Key findings from the government's annual economic survey report and projections for next fiscal year.</p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </div>
+                
+                <div class="gk-card" data-category="international">
+                    <div class="gk-image" style="background-image: url('../images/gk6.jpg');"></div>
+                    <div class="gk-content">
+                        <div class="gk-date">July 10, 2023</div>
+                        <h3>UN Sustainable Development Goals Progress</h3>
+                        <p>Latest report on global progress toward achieving the 2030 Sustainable Development Goals.</p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </div>
+            </div>
+            
+           
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <h3>Edu Smartspark</h3>
+                    <p>Providing quality educational resources for university students since 2020.</p>
+                </div>
+                   <div class="footer-links">
+                    <h3>Acces Resources</h3>
+                    <ul>
+                        <li><a href="books-pdf.html">Wise Books</a></li>
+                        <li><a href="NCERT Book.html">NCERT Books PDF VI-X</a></li>
+                        <li><a href="question-papers.html">B.A B.Com Question Paper</a></li>
+                        <li><a href="Solutions.html">Solved B.A B.Com Question Papers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>                        
+                        <li><a href="about.html">About Us</a></li>                      
+                        <li><a href="contact.html">Contact us</a></li>
+                        <li><a href="https://sahebali26.github.io/Graphic-Designer-shb-ali-/">Work with us- Design(Photoshop), Data entry (Excell) etc</a></li>
+                        <li><a href="https://sahebali26.github.io/Verb-Dictionary-with-Pronunciation/">Our App: Verb-Dictionary-with-Pronunciation </a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Edu Smartspark. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Category filter functionality
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const gkCards = document.querySelectorAll('.gk-card');
+        
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                const category = btn.getAttribute('data-category');
+                
+                gkCards.forEach(card => {
+                    if (category === 'all' || card.getAttribute('data-category') === category) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scholarship Portal - Edu Smartspar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #27ae60;
+            --warning: #f39c12;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), #1a2530);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            color: var(--secondary);
+            margin-right: 10px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav li {
+            margin-left: 25px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--secondary);
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 50px 0;
+            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3') center/cover;
+            color: white;
+            border-radius: 0 0 10px 10px;
+            margin-bottom: 30px;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+        }
+        
+        .search-box input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 50px 0 0 50px;
+            font-size: 16px;
+        }
+        
+        .search-box button {
+            padding: 15px 25px;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 0 50px 50px 0;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .filter-btn {
+            padding: 10px 20px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+        
+        .scholarship-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .scholarship-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+        
+        .scholarship-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+        
+        .card-header {
+            padding: 20px;
+            background: var(--primary);
+            color: white;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .card-body h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .card-details {
+            margin: 15px 0;
+        }
+        
+        .detail-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .detail-item i {
+            color: var(--secondary);
+            margin-right: 10px;
+            width: 20px;
+        }
+        
+        .amount {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--success);
+            margin: 15px 0;
+        }
+        
+        .deadline {
+            color: var(--accent);
+            font-weight: 500;
+        }
+        
+        .apply-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        .apply-btn:hover {
+            background: #2980b9;
+        }
+        
+        .newsletter {
+            background: var(--primary);
+            color: white;
+            padding: 50px 0;
+            text-align: center;
+            margin-top: 50px;
+            border-radius: 10px;
+        }
+        
+        .newsletter h2 {
+            margin-bottom: 20px;
+        }
+        
+        .newsletter p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-form input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            font-size: 16px;
+        }
+        
+        .newsletter-form button {
+            padding: 15px 25px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 40px 0;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-section a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: var(--secondary);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            color: white;
+            transition: background 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background: var(--secondary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                justify-content: center;
+            }
+            
+            nav li {
+                margin: 0 10px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .search-box, .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .search-box input, .newsletter-form input {
+                border-radius: 5px;
+                margin-bottom: 10px;
+            }
+            
+            .search-box button, .newsletter-form button {
+                border-radius: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                Edu Smartspar
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="scholarship.html">Scholarships</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>Find the Perfect Scholarship for Your Education</h1>
+            <p>Discover hundreds of scholarships tailored to your needs, qualifications, and aspirations</p>
+            <div class="search-box">
+                <input type="text" placeholder="Search by field, university, or criteria...">
+                <button>Search</button>
+            </div>
+        </div>
+    </section>
+    
+    <div class="container">
+        <h2 style="text-align: center; margin-bottom: 20px;">Browse Scholarship Categories</h2>
+        <div class="filters">
+            <button class="filter-btn active">All</button>
+            <button class="filter-btn">Merit-Based</button>
+            <button class="filter-btn">Need-Based</button>
+            <button class="filter-btn">STEM Fields</button>
+            <button class="filter-btn">Arts & Humanities</button>
+            <button class="filter-btn">Sports</button>
+            <button class="filter-btn">International</button>
+        </div>
+        
+        <div class="scholarship-grid">
+            <!-- Scholarship Card 1 -->
+            <div class="scholarship-card">
+                <div class="card-header">
+                    <h2>HDFC Bank Parivartan's ECSS Programme</h2>
+                </div>
+                <div class="card-body">
+                    <h3>Undergraduate Courses (Merit-cum-Need Based)</h3>
+                    <div class="card-details">
+                        <div class="detail-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>For BCom, BSc, BA, BCA, BTech, MBBS, etc.</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-tag"></i>
+                            <span>Merit-cum-Need Based</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-rupee-sign"></i>
+                            <span>Family Income: ≤ INR 2.5 Lakh</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-percentage"></i>
+                            <span>Minimum 55% Marks Required</span>
+                        </div>
+                    </div>
+                    <div class="amount">Upto ₹50,000</div>
+                    <div class="deadline">Deadline: 30th October 2025</div>
+                    <a href="hdfcsclarshp.html" class="apply-btn">Apply Now</a>
+                </div>
+            </div>
+            
+            <!-- Scholarship Card 2 -->
+            <div class="scholarship-card">
+                <div class="card-header">
+                    <h2>National Scholarship Portal</h2>
+                </div>
+                <div class="card-body">
+                    <h3>Pre-Matric Scholarship for Minorities</h3>
+                    <div class="card-details">
+                        <div class="detail-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Class 1 to 10 Students</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-tag"></i>
+                            <span>Merit-Based</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-rupee-sign"></i>
+                            <span>Family Income: ≤ INR 1 Lakh</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-users"></i>
+                            <span>For Minority Communities</span>
+                        </div>
+                    </div>
+                    <div class="amount">Upto ₹10,000</div>
+                    <div class="deadline">Deadline: 15th November 2025</div>
+                    <a href="#" class="apply-btn">Apply Now</a>
+                </div>
+            </div>
+            
+            <!-- Scholarship Card 3 -->
+            <div class="scholarship-card">
+                <div class="card-header">
+                    <h2>Inspire Scholarship</h2>
+                </div>
+                <div class="card-body">
+                    <h3>For Higher Education in Science</h3>
+                    <div class="card-details">
+                        <div class="detail-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>BSc and Integrated MSc Programs</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-tag"></i>
+                            <span>Merit-Based</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-percentage"></i>
+                            <span>Top 1% in Class 12 Board Exams</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-flask"></i>
+                            <span>Science Stream Only</span>
+                        </div>
+                    </div>
+                    <div class="amount">₹80,000 per year</div>
+                    <div class="deadline">Deadline: 31st December 2025</div>
+                    <a href="#" class="apply-btn">Apply Now</a>
+                </div>
+            </div>
+            
+            <!-- Scholarship Card 4 -->
+            <div class="scholarship-card">
+                <div class="card-header">
+                    <h2>Sports Scholarship Program</h2>
+                </div>
+                <div class="card-body">
+                    <h3>For Outstanding Sportspersons</h3>
+                    <div class="card-details">
+                        <div class="detail-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>All Courses and Levels</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-tag"></i>
+                            <span>Talent-Based</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-trophy"></i>
+                            <span>National/State Level Players</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-running"></i>
+                            <span>All Sports Disciplines</span>
+                        </div>
+                    </div>
+                    <div class="amount">Upto ₹75,000</div>
+                    <div class="deadline">Deadline: 20th January 2026</div>
+                    <a href="#" class="apply-btn">Apply Now</a>
+                </div>
+            </div>
+            
+            <!-- Scholarship Card 5 -->
+            <div class="scholarship-card">
+                <div class="card-header">
+                    <h2>Women in Tech Scholarship</h2>
+                </div>
+                <div class="card-body">
+                    <h3>For Female Engineering Students</h3>
+                    <div class="card-details">
+                        <div class="detail-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>BTech/BCA/BSc Computer Science</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-tag"></i>
+                            <span>Merit-Based</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-female"></i>
+                            <span>Female Candidates Only</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-laptop-code"></i>
+                            <span>Computer Science Fields</span>
+                        </div>
+                    </div>
+                    <div class="amount">₹60,000 per year</div>
+                    <div class="deadline">Deadline: 28th February 2026</div>
+                    <a href="#" class="apply-btn">Apply Now</a>
+                </div>
+            </div>
+            
+            <!-- Scholarship Card 6 -->
+            <div class="scholarship-card">
+                <div class="card-header">
+                    <h2>Post-Matric Scholarship</h2>
+                </div>
+                <div class="card-body">
+                    <h3>For SC/ST Students</h3>
+                    <div class="card-details">
+                        <div class="detail-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Class 11 to Postgraduation</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-tag"></i>
+                            <span>Need-Based</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-rupee-sign"></i>
+                            <span>Family Income: ≤ INR 2.5 Lakh</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-user-friends"></i>
+                            <span>SC/ST Category Students</span>
+                        </div>
+                    </div>
+                    <div class="amount">Full Tuition + Maintenance</div>
+                    <div class="deadline">Deadline: 15th November 2025</div>
+                    <a href="#" class="apply-btn">Apply Now</a>
+                </div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin: 40px 0;">
+            <button class="apply-btn" style="max-width: 250px; margin: 0 auto;">View All Scholarships</button>
+        </div>
+    </div>
+    
+    <section class="newsletter">
+        <div class="container">
+            <h2>Stay Updated on New Scholarships</h2>
+            <p>Subscribe to our newsletter to get notified about new scholarship opportunities and deadlines</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Enter your email address">
+                <button>Subscribe</button>
+            </form>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Edu Smartspar</h3>
+                    <p>Helping students achieve their educational dreams through scholarship opportunities.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Scholarships</a></li>
+                        <li><a href="#">Application Process</a></li>
+                        <li><a href="#">Eligibility Criteria</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Education Street, Learning City</li>
+                        <li><i class="fas fa-phone"></i> +91 9876543210</li>
+                        <li><i class="fas fa-envelope"></i> info@edusmartspar.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Edu Smartspar. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple filter functionality
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // In a real implementation, this would filter the scholarships
+                console.log('Filtering by: ' + this.textContent);
+            });
+        });
+        
+        // Simple search functionality
+        document.querySelector('.search-box button').addEventListener('click', function() {
+            const searchTerm = document.querySelector('.search-box input').value;
+            if (searchTerm) {
+                console.log('Searching for: ' + searchTerm);
+                alert('Searching for: ' + searchTerm);
+            }
+        });
+    </script>
+</body>
+</html>

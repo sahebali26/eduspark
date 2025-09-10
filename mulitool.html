@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edu Smartspark - Multi Tools</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #4cc9f0;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4bb543;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --shadow: rgba(0, 0, 0, 0.1);
+            --text: #333;
+            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .dark-mode {
+            --light: #121212;
+            --dark: #f8f9fa;
+            --card-bg: rgba(33, 37, 41, 0.9);
+            --shadow: rgba(0, 0, 0, 0.3);
+            --text: #f8f9fa;
+            --bg-gradient: linear-gradient(135deg, #232526 0%, #414345 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text);
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--card-bg);
+            box-shadow: 0 2px 10px var(--shadow);
+            z-index: 1000;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            font-size: 24px;
+            color: var(--primary);
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-container input {
+            padding: 8px 15px 8px 35px;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            background: var(--light);
+            color: var(--text);
+            width: 200px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            color: var(--text);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tool-icon {
+            background: var(--primary);
+            color: white;
+            font-size: 24px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .tool-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tool-content h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .tool-content p {
+            margin-bottom: 20px;
+            color: var(--text);
+            flex-grow: 1;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: var(--secondary);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--card-bg);
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 40px;
+            box-shadow: 0 -2px 10px var(--shadow);
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .footer-content p {
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        .contact-email {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 10px;
+            }
+            
+            .logo {
+                margin-bottom: 10px;
+            }
+            
+            .nav-controls {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .search-container input {
+                width: 100%;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sticky Header -->
+    <header>
+        <div class="logo">
+            <div class="logo-icon"><i class="fas fa-brain"></i></div>
+            <div class="logo-text">Edu Smartspark <span style="font-weight: normal;">- Multi Tools</span></div>
+        </div>
+        <div class="nav-controls">
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchInput" placeholder="Search tools...">
+            </div>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Powerful Tools for Your Digital Needs</h1>
+            <p>Edu Smartspark provides a suite of free, easy-to-use tools to help you work with images and PDFs efficiently.</p>
+        </section>
+
+        <!-- Tools Grid -->
+        <div class="tools-grid" id="toolsGrid">
+            <!-- Tool 1: Image to PDF Converter -->
+            <div class="tool-card" data-name="Image to PDF Converter">
+                <div class="tool-icon">
+                    <i class="fas fa-file-pdf"></i>
+                </div>
+                <div class="tool-content">
+                    <h3>Image to PDF Converter</h3>
+                    <p>Convert your images to PDF format with high quality. Supports JPG, PNG, and other image formats.</p>
+                    <a href="image-to-pdf.html" class="btn">Open Tool</a>
+                </div>
+            </div>
+
+            <!-- Tool 2: PDF to Image Converter -->
+            <div class="tool-card" data-name="PDF to Image Converter">
+                <div class="tool-icon">
+                    <i class="fas fa-file-image"></i>
+                </div>
+                <div class="tool-content">
+                    <h3>PDF to Image Converter</h3>
+                    <p>Extract images from your PDF files or convert entire PDF pages to image format.</p>
+                    <a href="pdf-to-image.html" class="btn">Open Tool</a>
+                </div>
+            </div>
+
+            <!-- Tool 3: Image Format Changer -->
+            <div class="tool-card" data-name="Image Format Changer">
+                <div class="tool-icon">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                <div class="tool-content">
+                    <h3>Image Format Changer</h3>
+                    <p>Convert between different image formats like JPG, PNG, WebP, and more with ease.</p>
+                    <a href="image-format-changer.html" class="btn">Open Tool</a>
+                </div>
+            </div>
+
+            <!-- Tool 4: PDF Merger -->
+            <div class="tool-card" data-name="PDF Merger">
+                <div class="tool-icon">
+                    <i class="fas fa-object-group"></i>
+                </div>
+                <div class="tool-content">
+                    <h3>PDF Merger</h3>
+                    <p>Combine multiple PDF files into a single document. Arrange pages as you need.</p>
+                    <a href="pdf-merger.html" class="btn">Open Tool</a>
+                </div>
+            </div>
+
+            <!-- Tool 5: Watermark Tool -->
+            <div class="tool-card" data-name="Watermark Tool">
+                <div class="tool-icon">
+                    <i class="fas fa-tint"></i>
+                </div>
+                <div class="tool-content">
+                    <h3>Watermark Tool</h3>
+                    <p>Add text or image watermarks to your PDFs and images to protect your content.</p>
+                    <a href="watermark-tool.html" class="btn">Open Tool</a>
+                </div>
+            </div>
+
+            <!-- Tool 6: Image Size Tool -->
+            <div class="tool-card" data-name="Image Size Tool">
+                <div class="tool-icon">
+                    <i class="fas fa-expand-alt"></i>
+                </div>
+                <div class="tool-content">
+                    <h3>Image Size Tool</h3>
+                    <p>Increase or decrease the dimensions and file size of your images without losing quality.</p>
+                    <a href="image-size-tool.html" class="btn">Open Tool</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <h3>About Edu Smartspark</h3>
+                <p>Edu Smartspark is dedicated to providing innovative educational tools and resources to help students, teachers, and professionals work more efficiently. Our multi-tools platform is designed to simplify your digital tasks.</p>
+                <p>Contact us: <a href="mailto:contact@edusmartspark.com" class="contact-email">contact@edusmartspark.com</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Dark/Light Mode Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        });
+
+        // Search Functionality
+        const searchInput = document.getElementById('searchInput');
+        const toolCards = document.querySelectorAll('.tool-card');
+        
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            toolCards.forEach(card => {
+                const toolName = card.getAttribute('data-name').toLowerCase();
+                if (toolName.includes(searchTerm)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

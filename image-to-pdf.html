@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Edu SmartSpark — Image to PDF Converter</title>
+  <link rel="preconnect" href="https://unpkg.com">
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--muted:#94a3b8;--accent:#60a5fa;--glass: rgba(255,255,255,0.03)}
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial;color:#e6eef8;background:linear-gradient(180deg,#071029 0%, #071b2b 100%)}
+    .app{max-width:1200px;margin:20px auto;padding:18px;display:grid;gap:18px;grid-template-columns:1fr 380px}
+    header{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between}
+    h1{margin:0;font-size:1.1rem}
+    .sub{color:var(--muted);font-size:0.9rem}
+
+    /* left pane */
+    .left{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:14px;border-radius:12px;min-height:520px}
+    .drop{border:2px dashed rgba(255,255,255,0.06);padding:14px;border-radius:10px;display:flex;gap:12px;align-items:center}
+    .drop.disabled{opacity:0.55}
+    .drop .icon{width:56px;height:56px;background:var(--glass);display:flex;align-items:center;justify-content:center;border-radius:8px;font-size:26px}
+    .controls{display:flex;gap:8px;align-items:center}
+    .btn{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#dbeafe;padding:8px 10px;border-radius:8px;cursor:pointer}
+
+    .thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-top:12px}
+    .thumb{background:#071829;border-radius:8px;padding:8px;position:relative;min-height:140px;display:flex;flex-direction:column}
+    .thumb .img{flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:6px}
+    .thumb img{max-width:100%;max-height:100%;display:block}
+    .serial{position:absolute;left:8px;top:8px;background:rgba(2,6,23,0.7);padding:4px 6px;border-radius:6px;font-weight:600}
+    .thumb .meta{display:flex;gap:6px;margin-top:8px;align-items:center}
+    .meta input{width:48px;padding:6px;border-radius:6px;border:1px solid rgba(255,255,255,0.05);background:transparent;color:#e6eef8}
+    .meta .small{font-size:12px;color:var(--muted)}
+    .actions{display:flex;gap:6px}
+
+    /* right pane */
+    .right{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:14px;border-radius:12px;min-height:520px}
+    .panel{display:grid;gap:10px}
+    label{font-size:13px;color:var(--muted)}
+    select,input[type=text]{width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.05);background:transparent;color:#e6eef8}
+    .row{display:flex;gap:8px}
+    .row > *{flex:1}
+
+    .preview{margin-top:10px;border-radius:8px;overflow:auto;background:rgba(255,255,255,0.02);padding:8px;min-height:220px}
+    .preview .page{border-radius:6px;border:1px solid rgba(255,255,255,0.04);padding:8px;margin-bottom:8px;background:#071829}
+
+    .progress{height:10px;background:rgba(255,255,255,0.03);border-radius:999px;overflow:hidden}
+    .progress > i{display:block;height:100%;width:0;background:linear-gradient(90deg,#60a5fa,#7c3aed)}
+
+    footer{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:13px}
+    @media (max-width:980px){.app{grid-template-columns:1fr;}.right{order:2}.left{order:1}}
+
+    /* accessibility focus */
+    .btn:focus,.thumb:focus{outline:2px solid rgba(96,165,250,0.28);outline-offset:2px}
+  </style>
+</head>
+<body>
+  <div class="app" role="application" aria-label="Edu SmartSpark Image to PDF Converter">
+    <header>
+      <div>
+        <h1>Edu SmartSpark — Image to PDF</h1>
+        <div class="sub">Upload images, reorder, rotate, and export a PDF — all in your browser.</div>
+      </div>
+      <div class="controls">
+        <button class="btn" id="openBtn" title="Open images (Ctrl+O)">Open (Ctrl+O)</button>
+        <button class="btn" id="exportBtn">Export PDF</button>
+      </div>
+    </header>
+
+    <section class="left" aria-labelledby="uploader-heading">
+      <h2 id="uploader-heading" style="font-size:0.95rem;margin:0 0 10px 0">Upload images</h2>
+
+      <div class="drop" id="dropzone" tabindex="0" role="button" aria-label="Upload images dropzone">
+        <div class="icon" aria-hidden>🖼️</div>
+        <div style="flex:1">
+          <div style="font-weight:600">Drag & drop images here — or</div>
+          <div class="sub">Click to pick files. After initial upload this area will disable and show a plus icon for adding more images.</div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <input id="fileInput" type="file" accept="image/*" multiple style="display:none" aria-hidden="true">
+          <button class="btn" id="pickBtn">Pick files</button>
+        </div>
+      </div>
+
+      <div class="thumbs" id="thumbs" aria-live="polite"></div>
+
+    </section>
+
+    <aside class="right" aria-labelledby="settings-heading">
+      <h2 id="settings-heading" style="font-size:0.95rem;margin:0 0 10px 0">Settings & Preview</h2>
+      <div class="panel">
+        <label for="pdfName">PDF file name</label>
+        <input id="pdfName" type="text" aria-label="PDF file name">
+
+        <div class="row">
+          <div>
+            <label for="pageSize">Page size</label>
+            <select id="pageSize" aria-label="Page size">
+              <option value="auto">Auto (image native ratio)</option>
+              <option value="A0">A0</option>
+              <option value="A1">A1</option>
+              <option value="A2">A2</option>
+              <option value="A3">A3</option>
+              <option value="A4" selected>A4</option>
+              <option value="A5">A5</option>
+              <option value="Letter">Letter</option>
+              <option value="Legal">Legal</option>
+              <option value="Custom">Custom (px)</option>
+            </select>
+          </div>
+          <div>
+            <label for="orientation">Orientation</label>
+            <select id="orientation" aria-label="Orientation">
+              <option value="portrait">Portrait</option>
+              <option value="landscape">Landscape</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label for="marginToggle">Margins</label>
+            <select id="marginToggle" aria-label="Margins">
+              <option value="no">No</option>
+              <option value="yes">Yes</option>
+            </select>
+          </div>
+          <div>
+            <label for="quality">Quality</label>
+            <select id="quality" aria-label="Quality">
+              <option value="original">Original</option>
+              <option value="medium" selected>Medium</option>
+              <option value="low">Low</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="customSizeRow" style="display:none">
+          <label>Custom size (pixels)</label>
+          <div class="row">
+            <input id="customW" type="text" placeholder="width (px)">
+            <input id="customH" type="text" placeholder="height (px)">
+          </div>
+        </div>
+
+        <label>Preview</label>
+        <div class="preview" id="preview" role="region" aria-label="PDF preview">
+          <div class="sub">No pages to preview yet.</div>
+        </div>
+
+        <div style="display:grid;gap:8px;margin-top:8px">
+          <div class="progress" aria-hidden><i id="progressBar"></i></div>
+          <div style="display:flex;gap:8px">
+            <button class="btn" id="toggleServer">Server fallback: Off</button>
+            <button class="btn" id="clearBtn">Clear</button>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <footer>
+      <div>Works fully in-browser. Conversions stay local unless you toggle server fallback.</div>
+      <div class="sub">Accessible • Keyboard shortcuts • Mobile friendly</div>
+    </footer>
+  </div>
+
+  <script src="https://unpkg.com/sortablejs@1.15.0/Sortable.min.js"></script>
+  <script>
+  // --- Utilities & constants ---
+  const pageSizes = {
+    A0: {w: 2384, h: 3370}, // px @ 72dpi-ish — approximate for preview; PDF uses points conversion
+    A1: {w:1684,h:2384},A2:{w:1191,h:1684},A3:{w:842,h:1191},A4:{w:595,h:842},A5:{w:420,h:595},
+    Letter:{w:612,h:792},Legal:{w:612,h:1008}
+  };
+
+  // state
+  const state = {items:[],serverFallback:false};
+
+  // elements
+  const dropzone = document.getElementById('dropzone');
+  let fileInput = document.getElementById('fileInput'); // let so we can reassign on reset
+  const pickBtn = document.getElementById('pickBtn');
+  const thumbs = document.getElementById('thumbs');
+  const pdfName = document.getElementById('pdfName');
+  const pageSize = document.getElementById('pageSize');
+  const orientation = document.getElementById('orientation');
+  const marginToggle = document.getElementById('marginToggle');
+  const quality = document.getElementById('quality');
+  const preview = document.getElementById('preview');
+  const progressBar = document.getElementById('progressBar');
+  const exportBtn = document.getElementById('exportBtn');
+  const openBtn = document.getElementById('openBtn');
+  const toggleServer = document.getElementById('toggleServer');
+  const clearBtn = document.getElementById('clearBtn');
+  const customSizeRow = document.getElementById('customSizeRow');
+  const customW = document.getElementById('customW');
+  const customH = document.getElementById('customH');
+
+  // init filename
+  function formatDate(d){return d.getFullYear().toString()+('0'+(d.getMonth()+1)).slice(-2)+('0'+d.getDate()).slice(-2)}
+  pdfName.value = `images-to-pdf_${formatDate(new Date())}.pdf`;
+
+  // keyboard shortcut
+  document.addEventListener('keydown', (e)=>{
+    if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==='o'){ e.preventDefault(); fileInput.click(); }
+  });
+
+  openBtn.addEventListener('click', ()=>fileInput.click());
+  pickBtn.addEventListener('click', ()=>fileInput.click());
+  fileInput.addEventListener('change', handleFiles);
+
+  // drag & drop
+  ['dragenter','dragover'].forEach(ev=>dropzone.addEventListener(ev, (e)=>{e.preventDefault(); dropzone.classList.add('drag');}));
+  ['dragleave','drop'].forEach(ev=>dropzone.addEventListener(ev, (e)=>{dropzone.classList.remove('drag');}));
+  dropzone.addEventListener('drop', (e)=>{e.preventDefault(); const dt = e.dataTransfer; if(dt && dt.files) handleFiles({target:{files:dt.files}});});
+  dropzone.addEventListener('click', ()=>{ if(!dropzone.classList.contains('disabled')) fileInput.click() });
+
+  function handleFiles(e){
+    const files = Array.from(e.target.files||[]).filter(f=>f.type.startsWith('image/'));
+    if(!files.length) return;
+    // if no items yet, uploading disables main drop (per spec)
+    const initial = state.items.length===0;
+    files.forEach(file=>{
+      const id = crypto.randomUUID();
+      const item = {id,file,rotation:0,order:state.items.length+1,previewUrl:null,width:0,height:0};
+      state.items.push(item);
+      readImage(item).then(()=>{ rebalanceOrders(); renderThumbs(); updatePreview(); });
+    });
+    if(initial) disableMainDrop();
+    fileInput.value='';
+  }
+
+  function readImage(item){
+    return new Promise((res,rej)=>{
+      const fr = new FileReader();
+      fr.onload = ()=>{
+        item.previewUrl = fr.result;
+        const img = new Image(); img.onload = ()=>{ item.width=img.naturalWidth; item.height=img.naturalHeight; res(item); }; img.src = fr.result;
+      };
+      fr.onerror=rej; fr.readAsDataURL(item.file);
+    });
+  }
+
+  function disableMainDrop(){
+    dropzone.classList.add('disabled');
+    // replace pick area with plus icon to add more
+    dropzone.innerHTML = `<div class="icon">＋</div><div style="flex:1"><div style="font-weight:600">Images uploaded</div><div class="sub">Click plus to add more images</div></div><div style="display:flex;gap:8px;align-items:center"><button class="btn" id="addMore">Add more</button></div>`;
+    document.getElementById('addMore').addEventListener('click', ()=>fileInput.click());
+  }
+
+  // render thumbs
+  function renderThumbs(){
+    thumbs.innerHTML='';
+    state.items.sort((a,b)=>a.order-b.order);
+    state.items.forEach((it, idx)=>{
+      const div = document.createElement('div'); div.className='thumb'; div.setAttribute('draggable','true'); div.setAttribute('data-id',it.id);
+      div.innerHTML = `
+        <div class="serial" aria-hidden>#<span class="num">${it.order}</span></div>
+        <div class="img"><img src="${it.previewUrl}" alt="uploaded image ${it.order}"></div>
+        <div class="meta">
+          <input aria-label="serial number" class="orderInput" data-id="${it.id}" value="${it.order}">
+          <div class="small">${Math.round(it.width)}×${Math.round(it.height)}</div>
+          <div style="flex:1"></div>
+          <div class="actions">
+            <button class="btn rotate" data-id="${it.id}" title="Rotate">⤾</button>
+            <button class="btn remove" data-id="${it.id}" title="Remove">✕</button>
+          </div>
+        </div>`;
+      thumbs.appendChild(div);
+    });
+
+    // wire order editing
+    thumbs.querySelectorAll('.orderInput').forEach(inp=>{
+      inp.addEventListener('change', (e)=>{
+        const id = e.target.dataset.id; const val = parseInt(e.target.value)||1; const item = state.items.find(x=>x.id===id); if(!item) return; item.order = Math.max(1, Math.min(state.items.length, val)); rebalanceOrders(); renderThumbs(); updatePreview();
+      });
+    });
+    // rotate & remove
+    thumbs.querySelectorAll('.rotate').forEach(b=>b.addEventListener('click', (e)=>{ const id = e.currentTarget.dataset.id; const it = state.items.find(x=>x.id===id); if(!it) return; it.rotation = (it.rotation+90)%360; renderThumbs(); updatePreview(); }));
+    thumbs.querySelectorAll('.remove').forEach(b=>b.addEventListener('click', (e)=>{ const id = e.currentTarget.dataset.id; state.items = state.items.filter(x=>x.id!==id); rebalanceOrders(); renderThumbs(); if(state.items.length===0) resetDrop(); updatePreview(); }));
+
+    // sortable drag-and-drop using SortableJS
+    if(window.Sortable){
+      // destroy previous sortable if any
+      if(thumbs._sortable) thumbs._sortable.destroy();
+      thumbs._sortable = new Sortable(thumbs,{animation:150,handle:'.img',onEnd:(ev)=>{
+          // rebuild order from DOM after drag
+          const newOrder = Array.from(thumbs.children).map(ch=>ch.dataset.id);
+          state.items = newOrder.map(id => state.items.find(it => it.id === id)).filter(Boolean);
+          rebalanceOrders(); renderThumbs(); updatePreview();
+      }});
+    }
+  }
+
+  function rebalanceOrders(){ state.items.sort((a,b)=>a.order-b.order); state.items.forEach((it,i)=>it.order=i+1); }
+
+  function resetDrop(){
+    dropzone.classList.remove('disabled');
+    dropzone.innerHTML = `
+      <div class="icon" aria-hidden>🖼️</div>
+      <div style="flex:1">
+        <div style="font-weight:600">Drag & drop images here — or</div>
+        <div class="sub">Click to pick files. After initial upload this area will disable and show a plus icon for adding more images.</div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <input id="fileInput2" type="file" accept="image/*" multiple style="display:none" aria-hidden="true">
+        <button class="btn" id="pickBtn2">Pick files</button>
+      </div>`;
+    // rewire pick
+    const newInput = document.getElementById('fileInput2'); const newPick = document.getElementById('pickBtn2');
+    newInput.addEventListener('change', handleFiles); newPick.addEventListener('click', ()=>newInput.click());
+    fileInput = newInput; // safe because fileInput declared with let
+  }
+
+  // preview generation (simple canvas render for each page)
+  function updatePreview(){
+    preview.innerHTML='';
+    if(state.items.length===0){ preview.innerHTML='<div class="sub">No pages to preview yet.</div>'; return; }
+    const ps = pageSize.value; const orient = orientation.value; const margins = marginToggle.value==='yes';
+    state.items.sort((a,b)=>a.order-b.order).forEach((it,i)=>{
+      const pageDiv = document.createElement('div'); pageDiv.className='page';
+      const canvas = document.createElement('canvas');
+      // compute preview size
+      let targetW, targetH;
+      if(ps==='auto'){
+        targetW = it.width; targetH = it.height;
+      } else if(ps==='Custom'){
+        const w = parseInt(customW.value)||it.width; const h = parseInt(customH.value)||it.height; targetW = w; targetH = h;
+      } else { const p = pageSizes[ps] || pageSizes['A4']; targetW = p.w; targetH = p.h; }
+      if(orient==='landscape') [targetW,targetH]=[targetH,targetW];
+      // scale down for preview
+      const scale = Math.min(420/targetW, 260/targetH, 1);
+      canvas.width = Math.round(targetW*scale); canvas.height = Math.round(targetH*scale);
+      const ctx = canvas.getContext('2d'); ctx.fillStyle='#071829'; ctx.fillRect(0,0,canvas.width,canvas.height);
+      const img = new Image(); img.onload = ()=>{
+        // compute image drawing size considering rotation
+        let iw = img.naturalWidth, ih = img.naturalHeight; let drawW = iw, drawH = ih; const rot = it.rotation % 360;
+        const mw = canvas.width - (margins?20:0); const mh = canvas.height - (margins?20:0);
+        if(rot===90 || rot===270){ // swap
+          const ratio = Math.min(mw/ih, mh/iw, 1);
+          drawW = ih * ratio; drawH = iw * ratio;
+        } else {
+          const ratio = Math.min(mw/iw, mh/ih, 1);
+          drawW = iw * ratio; drawH = ih * ratio;
+        }
+        const cx = canvas.width/2; const cy = canvas.height/2;
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.rotate(rot * Math.PI/180);
+        ctx.drawImage(img, -drawW/2, -drawH/2, drawW, drawH);
+        ctx.restore();
+      };
+      img.src = it.previewUrl;
+      pageDiv.appendChild(canvas);
+      const meta = document.createElement('div'); meta.className='sub'; meta.textContent = `Page ${i+1} — ${orientation.value} — ${ps}`;
+      pageDiv.appendChild(meta);
+      preview.appendChild(pageDiv);
+    });
+  }
+
+  // watch settings
+  [pageSize,orientation,marginToggle,quality,customW,customH].forEach(el=>el.addEventListener('change', updatePreview));
+  pageSize.addEventListener('change', ()=>{ customSizeRow.style.display = pageSize.value==='Custom' ? 'block':'none'; updatePreview(); });
+
+  // export using Web Worker & pdf-lib
+  function createWorker(){
+    const workerCode = `
+      self.importScripts('https://unpkg.com/pdf-lib/dist/pdf-lib.min.js');
+      self.onmessage = async function(e){
+        const {items,settings} = e.data; try{
+          const PDFLib = self.PDFLib || self.pdfLib || window && window.PDFLib; // try common globals
+          const pdfDoc = await PDFLib.PDFDocument.create();
+          for(let i=0;i<items.length;i++){
+            const it = items[i];
+            const dataUrl = it.dataUrl; const imgBytes = dataURLToUint8Array(dataUrl);
+            const isPng = dataUrl.indexOf('image/png')>-1;
+            let embedded;
+            if(isPng) embedded = await pdfDoc.embedPng(imgBytes); else embedded = await pdfDoc.embedJpg(imgBytes);
+            // image dims in pixels
+            const imgWidth = embedded.width; const imgHeight = embedded.height;
+            // page size points
+            let pageW = settings.pageW; let pageH = settings.pageH;
+            if(settings.auto){ // set page size equal to image scaled to points
+              pageW = pxToPt(imgWidth); pageH = pxToPt(imgHeight);
+            } else {
+              // settings.pageW/pageH are in px for preview; convert to points
+              pageW = pxToPt(pageW); pageH = pxToPt(pageH);
+            }
+            const page = pdfDoc.addPage([pageW,pageH]);
+            const marginPt = settings.margins ? 20 : 0;
+            const maxW = pageW - marginPt*2; const maxH = pageH - marginPt*2;
+            const iw = pxToPt(imgWidth); const ih = pxToPt(imgHeight);
+            const scale = Math.min(maxW/iw, maxH/ih, 1);
+            const drawW = iw*scale; const drawH = ih*scale;
+            const x = (pageW - drawW)/2; const y = (pageH - drawH)/2;
+            page.drawImage(embedded, {x,y,width:drawW,height:drawH});
+            self.postMessage({progress: Math.round(((i+1)/items.length)*100)});
+          }
+          const pdfBytes = await pdfDoc.save({useObjectStreams:true});
+          self.postMessage({done:true,blob:pdfBytes});
+        }catch(err){ self.postMessage({error:err && err.message ? err.message : String(err)}); }
+      };
+      function pxToPt(px){ return Math.round(px * 72 / 96); }
+      function dataURLToUint8Array(dataURL){ const base64 = dataURL.split(',')[1]; const raw = atob(base64); const arr = new Uint8Array(raw.length); for(let i=0;i<raw.length;i++) arr[i]=raw.charCodeAt(i); return arr; }
+    `;
+    const blob = new Blob([workerCode],{type:'application/javascript'}); return new Worker(URL.createObjectURL(blob));
+  }
+
+  exportBtn.addEventListener('click', async ()=>{
+    if(state.items.length===0){ alert('Add at least one image'); return; }
+    // prepare items
+    const items = state.items.slice().sort((a,b)=>a.order-b.order).map(it=>({dataUrl:it.previewUrl,rotation:it.rotation,width:it.width,height:it.height}));
+    // settings
+    const ps = pageSize.value; let pageW=595,pageH=842; let auto = false;
+    if(ps==='auto') auto = true; else if(ps==='Custom'){ pageW = parseInt(customW.value)||800; pageH = parseInt(customH.value)||600; }
+    else { const p = pageSizes[ps] || pageSizes['A4']; pageW = p.w; pageH = p.h; }
+    if(orientation.value==='landscape') [pageW,pageH]=[pageH,pageW];
+
+    // create worker
+    const worker = createWorker();
+    // send pageW/pageH as px to worker; worker will convert
+    worker.postMessage({items,settings:{pageW,pageH,auto,margins:marginToggle.value==='yes'}});
+    worker.onmessage = (ev)=>{
+      if(ev.data.progress!==undefined){ progressBar.style.width = ev.data.progress+'%'; }
+      if(ev.data.error){ alert('Error: '+ev.data.error); worker.terminate(); }
+      if(ev.data.done){ const u8 = new Uint8Array(ev.data.blob); const blob = new Blob([u8],{type:'application/pdf'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href=url; a.download = pdfName.value || 'images.pdf'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); progressBar.style.width='0%'; worker.terminate(); }
+    };
+  });
+
+  // toggle server fallback (placeholder)
+  toggleServer.addEventListener('click', ()=>{ state.serverFallback = !state.serverFallback; toggleServer.textContent = `Server fallback: ${state.serverFallback? 'On':'Off'}`; });
+
+  clearBtn.addEventListener('click', ()=>{ state.items=[]; thumbs.innerHTML=''; preview.innerHTML='<div class="sub">No pages to preview yet.</div>'; resetDrop(); progressBar.style.width='0%'; });
+
+  // initial preview update
+  updatePreview();
+  </script>
+</body>
+</html>

@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Edu SmartSpark - Image Resize Tool</title>
+
+ 
+    <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#007bff">
+<link rel="icon" href="logo1.png" type="image/png">
+
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --text: #1e293b;
+      --primary: #3b82f6;
+      --primary-dark: #2563eb;
+      --primary-light: #93c5fd;
+      --card: #ffffff;
+      --border: #e2e8f0;
+      --success: #10b981;
+      --radius: 12px;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --transition: all 0.3s ease;
+    }
+    [data-theme="dark"] {
+      --bg: #0f172a;
+      --text: #f1f5f9;
+      --primary: #3b82f6;
+      --primary-dark: #60a5fa;
+      --primary-light: #1e40af;
+      --card: #1e293b;
+      --border: #334155;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.15);
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      line-height: 1.5;
+      transition: var(--transition);
+    }
+    header {
+      background: var(--primary);
+      color: white;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      box-shadow: var(--shadow);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      transition: var(--transition);
+    }
+    nav a:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+    .uploader {
+      border: 2px dashed var(--primary);
+      padding: 2.5rem;
+      text-align: center;
+      cursor: pointer;
+      border-radius: var(--radius);
+      background: var(--card);
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+    }
+    .uploader:hover {
+      border-color: var(--primary-dark);
+      background: rgba(59, 130, 246, 0.03);
+    }
+    .uploader.dragover {
+      background: rgba(59, 130, 246, 0.1);
+      transform: scale(1.01);
+    }
+    .uploader p {
+      margin: 0;
+      font-size: 1.1rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+    .uploader-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+    img {
+      max-width: 100%;
+      border-radius: var(--radius);
+      margin-top: 1rem;
+      box-shadow: var(--shadow);
+    }
+    .controls {
+      margin-top: 1.5rem;
+      display: grid;
+      gap: 1.2rem;
+    }
+    .control-group {
+      background: var(--card);
+      padding: 1.2rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .controls label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    .controls input, .controls select {
+      padding: 0.75rem;
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+    .controls input:focus, .controls select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+    input[type="range"] {
+      padding: 0;
+      height: 6px;
+      -webkit-appearance: none;
+      background: var(--border);
+      border-radius: 3px;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--primary);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    input[type="range"]::-webkit-slider-thumb:hover {
+      background: var(--primary-dark);
+      transform: scale(1.1);
+    }
+    .controls button {
+      padding: 0.875rem;
+      width: 100%;
+      border-radius: 8px;
+      border: none;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .controls button.primary {
+      background: var(--primary);
+      color: white;
+    }
+    .controls button.primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .controls button.secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .controls button.secondary:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+    .preview-info {
+      margin-top: 1.2rem;
+      font-size: 0.95rem;
+      background: var(--card);
+      padding: 1rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .preview-info .size {
+      font-weight: 600;
+      color: var(--primary);
+    }
+    .progress {
+      margin-top: 1.2rem;
+      height: 8px;
+      background: var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: var(--primary);
+      transition: width 0.3s;
+      border-radius: 4px;
+    }
+    .actions {
+      margin-top: 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .theme-toggle {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      color: white;
+      border-radius: 6px;
+      padding: 0.4rem 0.8rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .theme-toggle:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .scale-container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+    #scale {
+      flex: 1;
+    }
+    #scaleValue {
+      min-width: 50px;
+      text-align: center;
+      font-weight: 600;
+      color: var(--primary);
+    }
+    @media (max-width: 640px) {
+      header {
+        flex-direction: column;
+        gap: 0.8rem;
+        text-align: center;
+      }
+      nav {
+        justify-content: center;
+      }
+      .uploader {
+        padding: 1.5rem;
+      }
+      .actions {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body data-theme="light">
+  <header>
+    <h1>Edu SmartSpark - Image Resize Tool</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="javascript:history.back()">Back</a>
+      <a href="about.html">About Us</a>
+      <button class="theme-toggle" onclick="toggleTheme()">🌙 Mode</button>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="uploader" id="dropArea">
+      <div class="uploader-icon">📁</div>
+      <p>Drag & Drop an image here or click to select</p>
+      <input type="file" id="fileInput" accept="image/*" hidden>
+    </div>
+
+    <div id="previewSection" style="display:none;">
+      <img id="preview" alt="Preview">
+      <div class="preview-info" id="info">
+        <span class="label">Original Info:</span>
+        <span class="size" id="sizeInfo"></span>
+      </div>
+
+      <div class="controls">
+        <div class="control-group">
+          <label for="preset">Preset Size</label>
+          <select id="preset">
+            <option value="">Select a preset</option>
+            <option value="0.2">Small (≈200KB)</option>
+            <option value="0.5">Medium (≈500KB)</option>
+            <option value="1">Large (≈1MB)</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="targetSize">Custom Target Size (KB)</label>
+          <input type="number" id="targetSize" placeholder="Enter size in KB">
+        </div>
+
+        <div class="control-group">
+          <label for="scale">Scale by Percentage</label>
+          <div class="scale-container">
+            <input type="range" id="scale" min="10" max="100" value="100">
+            <span id="scaleValue">100%</span>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label for="format">Output Format</label>
+          <select id="format">
+            <option value="image/jpeg">JPG</option>
+            <option value="image/png">PNG</option>
+            <option value="image/webp">WebP</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+
+      <div class="actions">
+        <button class="primary" onclick="downloadImage()">Download Resized Image</button>
+        <button class="secondary" onclick="resetTool()">Reset Tool</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // All original JavaScript code remains exactly the same
+    const dropArea = document.getElementById("dropArea");
+    const fileInput = document.getElementById("fileInput");
+    const preview = document.getElementById("preview");
+    const info = document.getElementById("info");
+    const previewSection = document.getElementById("previewSection");
+    const preset = document.getElementById("preset");
+    const targetSize = document.getElementById("targetSize");
+    const scale = document.getElementById("scale");
+    const scaleValue = document.getElementById("scaleValue");
+    const format = document.getElementById("format");
+    const progressBar = document.getElementById("progressBar");
+
+    let originalFile, canvas, resizedBlob;
+
+    dropArea.addEventListener("click", () => fileInput.click());
+    fileInput.addEventListener("change", e => handleFile(e.target.files[0]));
+
+    dropArea.addEventListener("dragover", e => {
+      e.preventDefault();
+      dropArea.classList.add("dragover");
+    });
+    dropArea.addEventListener("dragleave", () => dropArea.classList.remove("dragover"));
+    dropArea.addEventListener("drop", e => {
+      e.preventDefault();
+      dropArea.classList.remove("dragover");
+      handleFile(e.dataTransfer.files[0]);
+    });
+
+    function handleFile(file) {
+      if (!file.type.startsWith("image/")) return alert("Please upload an image.");
+      originalFile = file;
+      const reader = new FileReader();
+      reader.onload = e => {
+        preview.src = e.target.result;
+        preview.onload = () => {
+          showInfo(file.size, preview.naturalWidth, preview.naturalHeight);
+          previewSection.style.display = "block";
+          resizeImage();
+        };
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function showInfo(size, w, h) {
+      document.getElementById('sizeInfo').textContent = `${(size/1024).toFixed(1)} KB | ${w}x${h}px`;
+    }
+
+    preset.addEventListener("change", resizeImage);
+    targetSize.addEventListener("input", resizeImage);
+    scale.addEventListener("input", () => {
+      scaleValue.textContent = scale.value + "%";
+      resizeImage();
+    });
+    format.addEventListener("change", resizeImage);
+
+    function resizeImage() {
+      if (!preview.src) return;
+      canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+
+      let w = preview.naturalWidth * (scale.value/100);
+      let h = preview.naturalHeight * (scale.value/100);
+      canvas.width = w;
+      canvas.height = h;
+      ctx.drawImage(preview, 0, 0, w, h);
+
+      let quality = 0.92;
+      if (preset.value) quality = parseFloat(preset.value);
+      if (targetSize.value) quality = Math.min(1, (targetSize.value*1024)/originalFile.size);
+
+      canvas.toBlob(blob => {
+        resizedBlob = blob;
+        progressBar.style.width = "100%";
+        setTimeout(() => progressBar.style.width = "0%", 500);
+        showInfo(blob.size, w, h);
+      }, format.value, quality);
+    }
+
+    function downloadImage() {
+      if (!resizedBlob) return;
+      const url = URL.createObjectURL(resizedBlob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "resized-image." + format.value.split("/")[1];
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function resetTool() {
+      previewSection.style.display = "none";
+      fileInput.value = "";
+      preview.src = "";
+      preset.value = "";
+      targetSize.value = "";
+      scale.value = 100;
+      scaleValue.textContent = "100%";
+    }
+
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute("data-theme");
+      body.setAttribute("data-theme", current === "light" ? "dark" : "light");
+    }
+  </script>
+</body>
+</html>

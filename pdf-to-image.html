@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF to Image Converter | Edu SmartSpark</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg);
+      color: var(--text);
+      transition: background 0.3s, color 0.3s;
+    }
+    header {
+      background: var(--header-bg);
+      color: var(--header-text);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    header nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: var(--header-text);
+      font-weight: bold;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 20px;
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .upload-area {
+      border: 2px dashed var(--accent);
+      padding: 30px;
+      text-align: center;
+      border-radius: 12px;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+    .controls {
+      margin: 15px 0;
+      display: none;
+      flex-wrap: wrap;
+      gap: 15px;
+      align-items: center;
+    }
+    label {
+      font-weight: bold;
+    }
+    select, input[type=number], input[type=range], input[type=text] {
+      padding: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: var(--accent);
+      color: white;
+      font-weight: bold;
+    }
+    button:hover {
+      opacity: 0.9;
+    }
+    .preview {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    .preview div {
+      background: var(--preview-bg);
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .preview img {
+      max-width: 100%;
+      border-radius: 6px;
+    }
+    .progress {
+      margin: 10px 0;
+      height: 10px;
+      background: #ddd;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0;
+      background: var(--accent);
+      transition: width 0.3s;
+    }
+    .download-all {
+      margin: 20px 0;
+      display: none;
+      text-align: center;
+    }
+
+    /* Light & Dark mode */
+    :root {
+      --bg: #f9f9f9;
+      --text: #222;
+      --card-bg: #fff;
+      --header-bg: #0066cc;
+      --header-text: #fff;
+      --accent: #0066cc;
+      --preview-bg: #f1f1f1;
+    }
+    .dark-mode {
+      --bg: #121212;
+      --text: #e0e0e0;
+      --card-bg: #1e1e1e;
+      --header-bg: #222;
+      --header-text: #fff;
+      --accent: #4a90e2;
+      --preview-bg: #2a2a2a;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div><a href="#" style="color:white; font-size:1.2em; font-weight:bold;">Edu SmartSpark</a></div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="javascript:history.back()">Back</a>
+      <a href="#">About Us</a>
+      <button id="toggleMode">🌙</button>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="upload-area" id="uploadArea">
+      <p>Drag & Drop PDF here or Click to Upload</p>
+      <input type="file" id="fileInput" accept="application/pdf" hidden>
+    </div>
+
+    <div id="fileDetails"></div>
+
+    <div class="controls" id="controls">
+      <label>Output Format:</label>
+      <select id="format">
+        <option value="jpg">JPG</option>
+        <option value="png">PNG</option>
+        <option value="webp">WebP</option>
+      </select>
+
+      <label>Quality:</label>
+      <input type="range" id="quality" min="1" max="100" value="80">
+      <span id="qualityValue">80</span>
+
+      <label>Pages:</label>
+      <input type="text" id="pages" placeholder="e.g. 1,2,5-7 (leave empty for all)">
+
+      <button id="convertBtn">Convert</button>
+      <button id="clearBtn">Clear</button>
+    </div>
+
+    <div class="progress">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="preview" id="preview"></div>
+
+    <div class="download-all" id="downloadAll">
+      <button id="downloadAllBtn">Download All as ZIP</button>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script>
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('fileInput');
+    const preview = document.getElementById('preview');
+    const qualityInput = document.getElementById('quality');
+    const qualityValue = document.getElementById('qualityValue');
+    const progressBar = document.getElementById('progressBar');
+    const toggleModeBtn = document.getElementById('toggleMode');
+    const fileDetails = document.getElementById('fileDetails');
+    const controls = document.getElementById('controls');
+    const downloadAll = document.getElementById('downloadAll');
+
+    let pdfDoc = null;
+    let generatedImages = [];
+
+    uploadArea.addEventListener('click', () => fileInput.click());
+    uploadArea.addEventListener('dragover', e => {
+      e.preventDefault();
+      uploadArea.style.background = '#e0f0ff';
+    });
+    uploadArea.addEventListener('dragleave', () => uploadArea.style.background = '');
+    uploadArea.addEventListener('drop', e => {
+      e.preventDefault();
+      fileInput.files = e.dataTransfer.files;
+      loadPDF(fileInput.files[0]);
+    });
+
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files.length) {
+        loadPDF(fileInput.files[0]);
+      }
+    });
+
+    qualityInput.addEventListener('input', () => {
+      qualityValue.textContent = qualityInput.value;
+    });
+
+    async function loadPDF(file) {
+      const reader = new FileReader();
+      reader.onload = async function(e) {
+        const pdfData = new Uint8Array(e.target.result);
+        pdfDoc = await pdfjsLib.getDocument({data: pdfData}).promise;
+        fileDetails.innerHTML = `<p><strong>File:</strong> ${file.name} | <strong>Pages:</strong> ${pdfDoc.numPages}</p>`;
+        controls.style.display = 'flex';
+      };
+      reader.readAsArrayBuffer(file);
+    }
+
+    document.getElementById('convertBtn').addEventListener('click', async () => {
+      if (!pdfDoc) return alert('Please upload a PDF first.');
+      preview.innerHTML = '';
+      generatedImages = [];
+      progressBar.style.width = '0%';
+
+      const pagesInput = document.getElementById('pages').value;
+      let pagesToProcess = [];
+      if (pagesInput.trim()) {
+        pagesInput.split(',').forEach(part => {
+          if (part.includes('-')) {
+            let [start, end] = part.split('-').map(Number);
+            for (let i = start; i <= end; i++) pagesToProcess.push(i);
+          } else {
+            pagesToProcess.push(Number(part));
+          }
+        });
+      } else {
+        for (let i = 1; i <= pdfDoc.numPages; i++) pagesToProcess.push(i);
+      }
+
+      const format = document.getElementById('format').value;
+      const quality = parseInt(qualityInput.value);
+
+      for (let i = 0; i < pagesToProcess.length; i++) {
+        let pageNum = pagesToProcess[i];
+        const page = await pdfDoc.getPage(pageNum);
+        const viewport = page.getViewport({scale: 2});
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        await page.render({canvasContext: context, viewport: viewport}).promise;
+
+        const dataUrl = canvas.toDataURL(`image/${format}`, quality / 100);
+        generatedImages.push({dataUrl, pageNum, format});
+
+        const div = document.createElement('div');
+        div.innerHTML = `<p>Page ${pageNum}</p><a download="page_${pageNum}.${format}" href="${dataUrl}"><img src="${dataUrl}"></a>`;
+        preview.appendChild(div);
+
+        progressBar.style.width = `${((i+1)/pagesToProcess.length)*100}%`;
+      }
+      downloadAll.style.display = 'block';
+    });
+
+    document.getElementById('downloadAllBtn').addEventListener('click', () => {
+      if (generatedImages.length === 0) return;
+      const zip = new JSZip();
+      generatedImages.forEach(img => {
+        const base64Data = img.dataUrl.split(',')[1];
+        zip.file(`page_${img.pageNum}.${img.format}`, base64Data, {base64: true});
+      });
+      zip.generateAsync({type: 'blob'}).then(content => {
+        saveAs(content, 'converted_images.zip');
+      });
+    });
+
+    document.getElementById('clearBtn').addEventListener('click', () => {
+      preview.innerHTML = '';
+      progressBar.style.width = '0%';
+      fileInput.value = '';
+      pdfDoc = null;
+      fileDetails.innerHTML = '';
+      controls.style.display = 'none';
+      downloadAll.style.display = 'none';
+    });
+
+    // Dark/Light mode toggle
+    toggleModeBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      toggleModeBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+    });
+  </script>
+</body>
+</html>

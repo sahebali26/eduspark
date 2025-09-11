@@ -563,502 +563,550 @@
     </div>
 
     <script>
-        // Initialize jsPDF
-        const { jsPDF } = window.jspdf;
+      // Initialize jsPDF
+const { jsPDF } = window.jspdf;
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Elements
+    const uploadArea = document.getElementById('upload-area');
+    const fileInput = document.getElementById('file-input');
+    const browseBtn = document.getElementById('browse-btn');
+    const imagesContainer = document.getElementById('images-container');
+    const addMoreBtn = document.getElementById('add-more-btn');
+    const pdfNameInput = document.getElementById('pdf-name');
+    const convertBtn = document.getElementById('convert-btn');
+    const downloadBtn = document.getElementById('download-btn');
+    const progressContainer = document.getElementById('progress-container');
+    const progressBar = document.getElementById('progress-bar');
+    const previewContainer = document.getElementById('preview-container');
+    
+    // Settings elements
+    const pageSizeSelect = document.getElementById('page-size');
+    const orientationSelect = document.getElementById('orientation');
+    const marginSelect = document.getElementById('margin');
+    const qualitySelect = document.getElementById('quality');
+    
+    // State
+    let uploadedImages = [];
+    let pdfBlob = null;
+    let isUploadAreaDisabled = false;
+    let settingsChanged = false;
+    
+    // Set default PDF name with current date
+    const now = new Date();
+    const dateString = now.toISOString().slice(0, 10).replace(/-/g, '');
+    pdfNameInput.value = `images-to-pdf_${dateString}.pdf`;
+    
+    // Event Listeners
+    browseBtn.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', handleFileSelect);
+    uploadArea.addEventListener('dragover', handleDragOver);
+    uploadArea.addEventListener('dragleave', handleDragLeave);
+    uploadArea.addEventListener('drop', handleDrop);
+    addMoreBtn.addEventListener('click', () => {
+        fileInput.click();
+    });
+    convertBtn.addEventListener('click', convertToPdf);
+    downloadBtn.addEventListener('click', downloadPdf);
+    
+    // Settings change listeners - mark settings as changed when any setting is modified
+    pageSizeSelect.addEventListener('change', () => {
+        settingsChanged = true;
+        updatePreview();
+        disableDownloadIfSettingsChanged();
+    });
+    orientationSelect.addEventListener('change', () => {
+        settingsChanged = true;
+        updatePreview();
+        disableDownloadIfSettingsChanged();
+    });
+    marginSelect.addEventListener('change', () => {
+        settingsChanged = true;
+        updatePreview();
+        disableDownloadIfSettingsChanged();
+    });
+    qualitySelect.addEventListener('change', () => {
+        settingsChanged = true;
+        updatePreview();
+        disableDownloadIfSettingsChanged();
+    });
+    
+    // PDF name change listener
+    pdfNameInput.addEventListener('input', () => {
+        settingsChanged = true;
+        disableDownloadIfSettingsChanged();
+    });
+    
+    // Keyboard shortcut
+    document.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'o') {
+            e.preventDefault();
+            fileInput.click();
+        }
+    });
+    
+    // Function to disable download button if settings have changed
+    function disableDownloadIfSettingsChanged() {
+        if (settingsChanged && pdfBlob) {
+            downloadBtn.disabled = true;
+            downloadBtn.title = "Settings have changed. Please convert again before downloading.";
+        }
+    }
+    
+    // Functions
+    function handleDragOver(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!isUploadAreaDisabled) {
+            uploadArea.classList.add('dragover');
+        }
+    }
+    
+    function handleDragLeave(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        uploadArea.classList.remove('dragover');
+    }
+    
+    function handleDrop(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        uploadArea.classList.remove('dragover');
         
-        document.addEventListener('DOMContentLoaded', function() {
-            // Elements
-            const uploadArea = document.getElementById('upload-area');
-            const fileInput = document.getElementById('file-input');
-            const browseBtn = document.getElementById('browse-btn');
-            const imagesContainer = document.getElementById('images-container');
-            const addMoreBtn = document.getElementById('add-more-btn');
-            const pdfNameInput = document.getElementById('pdf-name');
-            const convertBtn = document.getElementById('convert-btn');
-            const downloadBtn = document.getElementById('download-btn');
-            const progressContainer = document.getElementById('progress-container');
-            const progressBar = document.getElementById('progress-bar');
-            const previewContainer = document.getElementById('preview-container');
+        if (isUploadAreaDisabled) return;
+        
+        const files = e.dataTransfer.files;
+        processFiles(files);
+    }
+    
+    function handleFileSelect(e) {
+        const files = e.target.files;
+        processFiles(files);
+        // Reset the file input
+        fileInput.value = '';
+    }
+    
+    function processFiles(files) {
+        if (files.length === 0) return;
+        
+        // Mark settings as changed when new files are added
+        settingsChanged = true;
+        disableDownloadIfSettingsChanged();
+        
+        // Disable upload area after first upload
+        if (uploadedImages.length === 0 && !isUploadAreaDisabled) {
+            isUploadAreaDisabled = true;
+            uploadArea.style.opacity = '0.5';
+            uploadArea.style.cursor = 'default';
+            addMoreBtn.classList.remove('hidden');
+        }
+        
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            if (!file.type.match('image.*')) continue;
             
-            // Settings elements
-            const pageSizeSelect = document.getElementById('page-size');
-            const orientationSelect = document.getElementById('orientation');
-            const marginSelect = document.getElementById('margin');
-            const qualitySelect = document.getElementById('quality');
-            
-            // State
-            let uploadedImages = [];
-            let pdfBlob = null;
-            let isUploadAreaDisabled = false;
-            
-            // Set default PDF name with current date
-            const now = new Date();
-            const dateString = now.toISOString().slice(0, 10).replace(/-/g, '');
-            pdfNameInput.value = `images-to-pdf_${dateString}.pdf`;
-            
-            // Event Listeners
-            browseBtn.addEventListener('click', () => fileInput.click());
-            fileInput.addEventListener('change', handleFileSelect);
-            uploadArea.addEventListener('dragover', handleDragOver);
-            uploadArea.addEventListener('dragleave', handleDragLeave);
-            uploadArea.addEventListener('drop', handleDrop);
-            addMoreBtn.addEventListener('click', () => {
-                fileInput.click();
-            });
-            convertBtn.addEventListener('click', convertToPdf);
-            downloadBtn.addEventListener('click', downloadPdf);
-            
-            // Settings change listeners
-            pageSizeSelect.addEventListener('change', updatePreview);
-            orientationSelect.addEventListener('change', updatePreview);
-            marginSelect.addEventListener('change', updatePreview);
-            qualitySelect.addEventListener('change', updatePreview);
-            
-            // Keyboard shortcut
-            document.addEventListener('keydown', (e) => {
-                if ((e.ctrlKey || e.metaKey) && e.key === 'o') {
-                    e.preventDefault();
-                    fileInput.click();
-                }
-            });
-            
-            // Functions
-            function handleDragOver(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                if (!isUploadAreaDisabled) {
-                    uploadArea.classList.add('dragover');
-                }
-            }
-            
-            function handleDragLeave(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                uploadArea.classList.remove('dragover');
-            }
-            
-            function handleDrop(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                uploadArea.classList.remove('dragover');
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imageData = {
+                    id: Date.now() + i,
+                    src: e.target.result,
+                    file: file,
+                    rotation: 0,
+                    width: 0,
+                    height: 0
+                };
                 
-                if (isUploadAreaDisabled) return;
-                
-                const files = e.dataTransfer.files;
-                processFiles(files);
-            }
-            
-            function handleFileSelect(e) {
-                const files = e.target.files;
-                processFiles(files);
-                // Reset the file input
-                fileInput.value = '';
-            }
-            
-            function processFiles(files) {
-                if (files.length === 0) return;
-                
-                // Disable upload area after first upload
-                if (uploadedImages.length === 0 && !isUploadAreaDisabled) {
-                    isUploadAreaDisabled = true;
-                    uploadArea.style.opacity = '0.5';
-                    uploadArea.style.cursor = 'default';
-                    addMoreBtn.classList.remove('hidden');
-                }
-                
-                for (let i = 0; i < files.length; i++) {
-                    const file = files[i];
-                    if (!file.type.match('image.*')) continue;
-                    
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const imageData = {
-                            id: Date.now() + i,
-                            src: e.target.result,
-                            file: file,
-                            rotation: 0,
-                            width: 0,
-                            height: 0
-                        };
-                        
-                        // Get image dimensions
-                        const img = new Image();
-                        img.onload = function() {
-                            imageData.width = img.width;
-                            imageData.height = img.height;
-                            uploadedImages.push(imageData);
-                            renderImage(imageData, uploadedImages.length - 1);
-                            updateConvertButtonState();
-                        };
-                        img.src = e.target.result;
-                    };
-                    reader.readAsDataURL(file);
-                }
-            }
-            
-            function renderImage(imageData, index) {
-                const imageItem = document.createElement('div');
-                imageItem.className = 'image-item';
-                imageItem.draggable = true;
-                imageItem.dataset.id = imageData.id;
-                
-                const img = document.createElement('img');
-                img.src = imageData.src;
-                img.alt = 'Uploaded image';
-                img.style.transform = `rotate(${imageData.rotation}deg)`;
-                
-                const number = document.createElement('div');
-                number.className = 'image-number';
-                number.textContent = index + 1;
-                
-                const actions = document.createElement('div');
-                actions.className = 'image-actions';
-                
-                const rotateBtn = document.createElement('button');
-                rotateBtn.className = 'image-action-btn';
-                rotateBtn.innerHTML = '<i class="fas fa-redo"></i>';
-                rotateBtn.title = 'Rotate image';
-                rotateBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    rotateImage(imageData.id);
-                });
-                
-                const removeBtn = document.createElement('button');
-                removeBtn.className = 'image-action-btn';
-                removeBtn.innerHTML = '<i class="fas fa-trash"></i>';
-                removeBtn.title = 'Remove image';
-                removeBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    removeImage(imageData.id);
-                });
-                
-                actions.appendChild(rotateBtn);
-                actions.appendChild(removeBtn);
-                
-                imageItem.appendChild(img);
-                imageItem.appendChild(number);
-                imageItem.appendChild(actions);
-                
-                imagesContainer.appendChild(imageItem);
-                
-                // Add drag and drop functionality
-                imageItem.addEventListener('dragstart', handleDragStart);
-                imageItem.addEventListener('dragover', handleImageDragOver);
-                imageItem.addEventListener('drop', handleImageDrop);
-                imageItem.addEventListener('dragend', handleDragEnd);
-            }
-            
-            function rotateImage(id) {
-                const index = uploadedImages.findIndex(img => img.id === id);
-                if (index === -1) return;
-                
-                uploadedImages[index].rotation = (uploadedImages[index].rotation + 90) % 360;
-                
-                // Update the image display
-                const imageItem = imagesContainer.querySelector(`[data-id="${id}"]`);
-                if (imageItem) {
-                    const img = imageItem.querySelector('img');
-                    img.style.transform = `rotate(${uploadedImages[index].rotation}deg)`;
-                }
-                
-                // If we already have a PDF, update the preview
-                if (pdfBlob) {
-                    updatePreview();
-                }
-            }
-            
-            function removeImage(id) {
-                const index = uploadedImages.findIndex(img => img.id === id);
-                if (index === -1) return;
-                
-                uploadedImages.splice(index, 1);
-                
-                // Remove from DOM
-                const imageItem = imagesContainer.querySelector(`[data-id="${id}"]`);
-                if (imageItem) {
-                    imagesContainer.removeChild(imageItem);
-                }
-                
-                // Renumber remaining images
-                renumberImages();
-                updateConvertButtonState();
-                
-                // If we already have a PDF, update the preview
-                if (pdfBlob) {
-                    updatePreview();
-                }
-                
-                // If no images left, re-enable upload area
-                if (uploadedImages.length === 0 && isUploadAreaDisabled) {
-                    isUploadAreaDisabled = false;
-                    uploadArea.style.opacity = '1';
-                    uploadArea.style.cursor = 'pointer';
-                    addMoreBtn.classList.add('hidden');
-                }
-            }
-            
-            function renumberImages() {
-                const imageItems = imagesContainer.querySelectorAll('.image-item');
-                imageItems.forEach((item, index) => {
-                    const number = item.querySelector('.image-number');
-                    number.textContent = index + 1;
-                });
-            }
-            
-            function updateConvertButtonState() {
-                convertBtn.disabled = uploadedImages.length === 0;
-            }
-            
-            // Drag and drop for reordering
-            let draggedItem = null;
-            
-            function handleDragStart(e) {
-                draggedItem = this;
-                e.dataTransfer.effectAllowed = 'move';
-                e.dataTransfer.setData('text/plain', this.dataset.id);
-                setTimeout(() => this.style.opacity = '0.4', 0);
-            }
-            
-            function handleImageDragOver(e) {
-                e.preventDefault();
-                e.dataTransfer.dropEffect = 'move';
-                return false;
-            }
-            
-            function handleImageDrop(e) {
-                e.preventDefault();
-                if (draggedItem !== this) {
-                    const fromId = draggedItem.dataset.id;
-                    const toId = this.dataset.id;
-                    
-                    const fromIndex = uploadedImages.findIndex(img => img.id == fromId);
-                    const toIndex = uploadedImages.findIndex(img => img.id == toId);
-                    
-                    // Reorder the array
-                    const [movedItem] = uploadedImages.splice(fromIndex, 1);
-                    uploadedImages.splice(toIndex, 0, movedItem);
-                    
-                    // Reorder the DOM
-                    if (fromIndex < toIndex) {
-                        imagesContainer.insertBefore(draggedItem, this.nextSibling);
-                    } else {
-                        imagesContainer.insertBefore(draggedItem, this);
-                    }
-                    
-                    // Renumber the images
-                    renumberImages();
-                    
-                    // Update preview if we have a PDF
-                    if (pdfBlob) {
-                        updatePreview();
-                    }
-                }
-                return false;
-            }
-            
-            function handleDragEnd() {
-                this.style.opacity = '1';
-                draggedItem = null;
-            }
-            
-            async function convertToPdf() {
-                if (uploadedImages.length === 0) return;
-                
-                convertBtn.disabled = true;
-                progressContainer.classList.remove('hidden');
-                progressBar.style.width = '0%';
-                
-                try {
-                    // Create PDF
-                    const pdf = new jsPDF();
-                    const pageSize = pageSizeSelect.value;
-                    const orientation = orientationSelect.value;
-                    const hasMargin = marginSelect.value === 'yes';
-                    const quality = qualitySelect.value;
-                    
-                    let progress = 0;
-                    const progressIncrement = 100 / uploadedImages.length;
-                    
-                    for (let i = 0; i < uploadedImages.length; i++) {
-                        const imageData = uploadedImages[i];
-                        
-                        // Add a new page for each image (except the first one)
-                        if (i > 0) {
-                            pdf.addPage();
-                        }
-                        
-                        // Calculate dimensions based on settings
-                        let imgWidth = imageData.width;
-                        let imgHeight = imageData.height;
-                        
-                        // Apply rotation
-                        let rotation = imageData.rotation;
-                        if (rotation === 90 || rotation === 270) {
-                            // Swap dimensions if rotated by 90 or 270 degrees
-                            [imgWidth, imgHeight] = [imgHeight, imgWidth];
-                        }
-                        
-                        // Get page dimensions
-                        let pageWidth, pageHeight;
-                        
-                        if (pageSize === 'auto') {
-                            // Use image dimensions
-                            pageWidth = imgWidth;
-                            pageHeight = imgHeight;
-                        } else {
-                            // Standard page sizes in mm (approximate)
-                            const pageSizes = {
-                                'a0': [841, 1189],
-                                'a1': [594, 841],
-                                'a2': [420, 594],
-                                'a3': [297, 420],
-                                'a4': [210, 297],
-                                'a5': [148, 210],
-                                'letter': [216, 279],
-                                'legal': [216, 356]
-                            };
-                            
-                            [pageWidth, pageHeight] = pageSizes[pageSize] || pageSizes['a4'];
-                            
-                            // Apply orientation
-                            if (orientation === 'landscape' && pageWidth < pageHeight) {
-                                [pageWidth, pageHeight] = [pageHeight, pageWidth];
-                            }
-                        }
-                        
-                        // Set page size
-                        pdf.setPage(i+1);
-                        pdf.internal.pageSize.width = pageWidth;
-                        pdf.internal.pageSize.height = pageHeight;
-                        
-                        // Calculate scaling to fit image to page
-                        const margin = hasMargin ? 10 : 0;
-                        const contentWidth = pageWidth - (margin * 2);
-                        const contentHeight = pageHeight - (margin * 2);
-                        
-                        const ratio = Math.min(contentWidth / imgWidth, contentHeight / imgHeight);
-                        const scaledWidth = imgWidth * ratio;
-                        const scaledHeight = imgHeight * ratio;
-                        
-                        // Calculate position to center the image
-                        const x = margin + (contentWidth - scaledWidth) / 2;
-                        const y = margin + (contentHeight - scaledHeight) / 2;
-                        
-                        // Add image to PDF
-                        pdf.addImage(
-                            imageData.src,
-                            'JPEG',
-                            x,
-                            y,
-                            scaledWidth,
-                            scaledHeight,
-                            null,
-                            'FAST'
-                        );
-                        
-                        // Update progress
-                        progress += progressIncrement;
-                        progressBar.style.width = `${progress}%`;
-                    }
-                    
-                    // Generate PDF blob
-                    pdfBlob = pdf.output('blob');
-                    
-                    // Enable download button
-                    downloadBtn.disabled = false;
-                    
-                    // Update preview
-                    updatePreview();
-                    
-                    // Show success message
-                    setTimeout(() => {
-                        progressBar.style.width = '100%';
-                        alert('PDF created successfully! Click the download button to save it.');
-                    }, 500);
-                    
-                } catch (error) {
-                    console.error('Error creating PDF:', error);
-                    alert('Error creating PDF: ' + error.message);
-                    convertBtn.disabled = false;
-                }
-            }
-            
-            function updatePreview() {
-                if (!pdfBlob) return;
-                
-                // Clear previous preview
-                previewContainer.innerHTML = '';
-                
-                // Create a simple representation of PDF pages based on settings
-                const pageSize = pageSizeSelect.value;
-                const orientation = orientationSelect.value;
-                const hasMargin = marginSelect.value === 'yes';
-                
-                // Create preview pages
-                for (let i = 0; i < uploadedImages.length; i++) {
-                    const imageData = uploadedImages[i];
-                    
-                    const page = document.createElement('div');
-                    page.className = 'preview-page';
-                    
-                    // Set size based on selection
-                    let width, height;
-                    
-                    if (pageSize === 'auto') {
-                        // Use image aspect ratio
-                        const aspectRatio = imageData.width / imageData.height;
-                        width = 120;
-                        height = width / aspectRatio;
-                    } else {
-                        // Use standard page sizes (simplified for demo)
-                        width = orientation === 'portrait' ? 120 : 150;
-                        height = orientation === 'portrait' ? 150 : 120;
-                    }
-                    
-                    page.style.width = `${width}px`;
-                    page.style.height = `${height}px`;
-                    
-                    if (hasMargin) {
-                        page.style.margin = '5px';
-                    }
-                    
-                    const img = document.createElement('img');
-                    img.src = imageData.src;
-                    img.style.transform = `rotate(${imageData.rotation}deg)`;
-                    img.style.maxWidth = '90%';
-                    img.style.maxHeight = '90%';
-                    img.style.objectFit = 'contain';
-                    
-                    const pageNumber = document.createElement('div');
-                    pageNumber.className = 'preview-page-number';
-                    pageNumber.textContent = i + 1;
-                    
-                    page.appendChild(img);
-                    page.appendChild(pageNumber);
-                    previewContainer.appendChild(page);
-                }
-                
-                // If no pages, show placeholder
-                if (uploadedImages.length === 0) {
-                    previewContainer.innerHTML = '<p class="preview-placeholder">PDF preview will appear here after conversion</p>';
-                }
-
-
-
-                
-            }
-            
-            function downloadPdf() {
-                if (!pdfBlob) return;
-                
-                const a = document.createElement('a');
-                a.href = URL.createObjectURL(pdfBlob);
-                a.download = pdfNameInput.value || 'document.pdf';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-            }
+                // Get image dimensions
+                const img = new Image();
+                img.onload = function() {
+                    imageData.width = img.width;
+                    imageData.height = img.height;
+                    uploadedImages.push(imageData);
+                    renderImage(imageData, uploadedImages.length - 1);
+                    updateConvertButtonState();
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+    
+    function renderImage(imageData, index) {
+        const imageItem = document.createElement('div');
+        imageItem.className = 'image-item';
+        imageItem.draggable = true;
+        imageItem.dataset.id = imageData.id;
+        
+        const img = document.createElement('img');
+        img.src = imageData.src;
+        img.alt = 'Uploaded image';
+        img.style.transform = `rotate(${imageData.rotation}deg)`;
+        
+        const number = document.createElement('div');
+        number.className = 'image-number';
+        number.textContent = index + 1;
+        
+        const actions = document.createElement('div');
+        actions.className = 'image-actions';
+        
+        const rotateBtn = document.createElement('button');
+        rotateBtn.className = 'image-action-btn';
+        rotateBtn.innerHTML = '<i class="fas fa-redo"></i>';
+        rotateBtn.title = 'Rotate image';
+        rotateBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            rotateImage(imageData.id);
         });
+        
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'image-action-btn';
+        removeBtn.innerHTML = '<i class="fas fa-trash"></i>';
+        removeBtn.title = 'Remove image';
+        removeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            removeImage(imageData.id);
+        });
+        
+        actions.appendChild(rotateBtn);
+        actions.appendChild(removeBtn);
+        
+        imageItem.appendChild(img);
+        imageItem.appendChild(number);
+        imageItem.appendChild(actions);
+        
+        imagesContainer.appendChild(imageItem);
+        
+        // Add drag and drop functionality
+        imageItem.addEventListener('dragstart', handleDragStart);
+        imageItem.addEventListener('dragover', handleImageDragOver);
+        imageItem.addEventListener('drop', handleImageDrop);
+        imageItem.addEventListener('dragend', handleDragEnd);
+    }
+    
+    function rotateImage(id) {
+        const index = uploadedImages.findIndex(img => img.id === id);
+        if (index === -1) return;
+        
+        uploadedImages[index].rotation = (uploadedImages[index].rotation + 90) % 360;
+        
+        // Mark settings as changed when image is rotated
+        settingsChanged = true;
+        disableDownloadIfSettingsChanged();
+        
+        // Update the image display
+        const imageItem = imagesContainer.querySelector(`[data-id="${id}"]`);
+        if (imageItem) {
+            const img = imageItem.querySelector('img');
+            img.style.transform = `rotate(${uploadedImages[index].rotation}deg)`;
+        }
+        
+        // If we already have a PDF, update the preview
+        if (pdfBlob) {
+            updatePreview();
+        }
+    }
+    
+    function removeImage(id) {
+        const index = uploadedImages.findIndex(img => img.id === id);
+        if (index === -1) return;
+        
+        uploadedImages.splice(index, 1);
+        
+        // Mark settings as changed when image is removed
+        settingsChanged = true;
+        disableDownloadIfSettingsChanged();
+        
+        // Remove from DOM
+        const imageItem = imagesContainer.querySelector(`[data-id="${id}"]`);
+        if (imageItem) {
+            imagesContainer.removeChild(imageItem);
+        }
+        
+        // Renumber remaining images
+        renumberImages();
+        updateConvertButtonState();
+        
+        // If we already have a PDF, update the preview
+        if (pdfBlob) {
+            updatePreview();
+        }
+        
+        // If no images left, re-enable upload area
+        if (uploadedImages.length === 0 && isUploadAreaDisabled) {
+            isUploadAreaDisabled = false;
+            uploadArea.style.opacity = '1';
+            uploadArea.style.cursor = 'pointer';
+            addMoreBtn.classList.add('hidden');
+        }
+    }
+    
+    function renumberImages() {
+        const imageItems = imagesContainer.querySelectorAll('.image-item');
+        imageItems.forEach((item, index) => {
+            const number = item.querySelector('.image-number');
+            number.textContent = index + 1;
+        });
+    }
+    
+    function updateConvertButtonState() {
+        convertBtn.disabled = uploadedImages.length === 0;
+    }
+    
+    // Drag and drop for reordering
+    let draggedItem = null;
+    
+    function handleDragStart(e) {
+        draggedItem = this;
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/plain', this.dataset.id);
+        setTimeout(() => this.style.opacity = '0.4', 0);
+    }
+    
+    function handleImageDragOver(e) {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        return false;
+    }
+    
+    function handleImageDrop(e) {
+        e.preventDefault();
+        if (draggedItem !== this) {
+            const fromId = draggedItem.dataset.id;
+            const toId = this.dataset.id;
+            
+            const fromIndex = uploadedImages.findIndex(img => img.id == fromId);
+            const toIndex = uploadedImages.findIndex(img => img.id == toId);
+            
+            // Reorder the array
+            const [movedItem] = uploadedImages.splice(fromIndex, 1);
+            uploadedImages.splice(toIndex, 0, movedItem);
+            
+            // Mark settings as changed when images are reordered
+            settingsChanged = true;
+            disableDownloadIfSettingsChanged();
+            
+            // Reorder the DOM
+            if (fromIndex < toIndex) {
+                imagesContainer.insertBefore(draggedItem, this.nextSibling);
+            } else {
+                imagesContainer.insertBefore(draggedItem, this);
+            }
+            
+            // Renumber the images
+            renumberImages();
+            
+            // Update preview if we have a PDF
+            if (pdfBlob) {
+                updatePreview();
+            }
+        }
+        return false;
+    }
+    
+    function handleDragEnd() {
+        this.style.opacity = '1';
+        draggedItem = null;
+    }
+    
+    async function convertToPdf() {
+        if (uploadedImages.length === 0) return;
+        
+        convertBtn.disabled = true;
+        progressContainer.classList.remove('hidden');
+        progressBar.style.width = '0%';
+        
+        try {
+            // Create PDF
+            const pdf = new jsPDF();
+            const pageSize = pageSizeSelect.value;
+            const orientation = orientationSelect.value;
+            const hasMargin = marginSelect.value === 'yes';
+            const quality = qualitySelect.value;
+            
+            let progress = 0;
+            const progressIncrement = 100 / uploadedImages.length;
+            
+            for (let i = 0; i < uploadedImages.length; i++) {
+                const imageData = uploadedImages[i];
+                
+                // Add a new page for each image (except the first one)
+                if (i > 0) {
+                    pdf.addPage();
+                }
+                
+                // Calculate dimensions based on settings
+                let imgWidth = imageData.width;
+                let imgHeight = imageData.height;
+                
+                // Apply rotation
+                let rotation = imageData.rotation;
+                if (rotation === 90 || rotation === 270) {
+                    // Swap dimensions if rotated by 90 or 270 degrees
+                    [imgWidth, imgHeight] = [imgHeight, imgWidth];
+                }
+                
+                // Get page dimensions
+                let pageWidth, pageHeight;
+                
+                if (pageSize === 'auto') {
+                    // Use image dimensions
+                    pageWidth = imgWidth;
+                    pageHeight = imgHeight;
+                } else {
+                    // Standard page sizes in mm (approximate)
+                    const pageSizes = {
+                        'a0': [841, 1189],
+                        'a1': [594, 841],
+                        'a2': [420, 594],
+                        'a3': [297, 420],
+                        'a4': [210, 297],
+                        'a5': [148, 210],
+                        'letter': [216, 279],
+                        'legal': [216, 356]
+                    };
+                    
+                    [pageWidth, pageHeight] = pageSizes[pageSize] || pageSizes['a4'];
+                    
+                    // Apply orientation
+                    if (orientation === 'landscape' && pageWidth < pageHeight) {
+                        [pageWidth, pageHeight] = [pageHeight, pageWidth];
+                    }
+                }
+                
+                // Set page size
+                pdf.setPage(i+1);
+                pdf.internal.pageSize.width = pageWidth;
+                pdf.internal.pageSize.height = pageHeight;
+                
+                // Calculate scaling to fit image to page
+                const margin = hasMargin ? 10 : 0;
+                const contentWidth = pageWidth - (margin * 2);
+                const contentHeight = pageHeight - (margin * 2);
+                
+                const ratio = Math.min(contentWidth / imgWidth, contentHeight / imgHeight);
+                const scaledWidth = imgWidth * ratio;
+                const scaledHeight = imgHeight * ratio;
+                
+                // Calculate position to center the image
+                const x = margin + (contentWidth - scaledWidth) / 2;
+                const y = margin + (contentHeight - scaledHeight) / 2;
+                
+                // Add image to PDF
+                pdf.addImage(
+                    imageData.src,
+                    'JPEG',
+                    x,
+                    y,
+                    scaledWidth,
+                    scaledHeight,
+                    null,
+                    'FAST'
+                );
+                
+                // Update progress
+                progress += progressIncrement;
+                progressBar.style.width = `${progress}%`;
+            }
+            
+            // Generate PDF blob
+            pdfBlob = pdf.output('blob');
+            
+            // Reset settings changed flag and enable download button
+            settingsChanged = false;
+            downloadBtn.disabled = false;
+            downloadBtn.title = "";
+            
+            // Re-enable convert button
+            convertBtn.disabled = false;
+            
+            // Update preview
+            updatePreview();
+            
+            // Show success message
+            setTimeout(() => {
+                progressBar.style.width = '100%';
+                alert('PDF created successfully! Click the download button to save it.');
+            }, 500);
+            
+        } catch (error) {
+            console.error('Error creating PDF:', error);
+            alert('Error creating PDF: ' + error.message);
+            convertBtn.disabled = false;
+        }
+    }
+    
+    function updatePreview() {
+        if (!pdfBlob) return;
+        
+        // Clear previous preview
+        previewContainer.innerHTML = '';
+        
+        // Create a simple representation of PDF pages based on settings
+        const pageSize = pageSizeSelect.value;
+        const orientation = orientationSelect.value;
+        const hasMargin = marginSelect.value === 'yes';
+        
+        // Create preview pages
+        for (let i = 0; i < uploadedImages.length; i++) {
+            const imageData = uploadedImages[i];
+            
+            const page = document.createElement('div');
+            page.className = 'preview-page';
+            
+            // Set size based on selection
+            let width, height;
+            
+            if (pageSize === 'auto') {
+                // Use image aspect ratio
+                const aspectRatio = imageData.width / imageData.height;
+                width = 120;
+                height = width / aspectRatio;
+            } else {
+                // Use standard page sizes (simplified for demo)
+                width = orientation === 'portrait' ? 120 : 150;
+                height = orientation === 'portrait' ? 150 : 120;
+            }
+            
+            page.style.width = `${width}px`;
+            page.style.height = `${height}px`;
+            
+            if (hasMargin) {
+                page.style.margin = '5px';
+            }
+            
+            const img = document.createElement('img');
+            img.src = imageData.src;
+            img.style.transform = `rotate(${imageData.rotation}deg)`;
+            img.style.maxWidth = '90%';
+            img.style.maxHeight = '90%';
+            img.style.objectFit = 'contain';
+            
+            const pageNumber = document.createElement('div');
+            pageNumber.className = 'preview-page-number';
+            pageNumber.textContent = i + 1;
+            
+            page.appendChild(img);
+            page.appendChild(pageNumber);
+            previewContainer.appendChild(page);
+        }
+        
+        // If no pages, show placeholder
+        if (uploadedImages.length === 0) {
+            previewContainer.innerHTML = '<p class="preview-placeholder">PDF preview will appear here after conversion</p>';
+        }
+    }
+    
+    function downloadPdf() {
+        if (!pdfBlob || settingsChanged) return;
+        
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(pdfBlob);
+        a.download = pdfNameInput.value || 'document.pdf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+});
     </script>
 </body>
 </html>

@@ -1,4 +1,10 @@
 User-agent: *
-Allow: /
+Disallow:/search
+Disallow:?update-max=
+Disallow:/*&max-results=
+Disallow:/search/label/
 
+Allow: /
 Sitemap: https://eduspark.site/sitemap.xml
+Sitemap: https://eduspark.site/sitemap-pages.xml
+

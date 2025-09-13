@@ -44,4 +44,28 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- About & Contact -->
+  <url>
+    <loc>https://eduspark.site/about.html</loc>
+    <lastmod>2025-09-13</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://eduspark.site/contact.html</loc>
+    <lastmod>2025-09-13</lastmod>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Policy Pages -->
+  <url>
+    <loc>https://eduspark.site/terms.html</loc>
+    <lastmod>2025-09-13</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://eduspark.site/policy.html</loc>
+    <lastmod>2025-09-13</lastmod>
+    <priority>0.5</priority>
+  </url>
+
 </urlset>

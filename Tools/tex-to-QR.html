@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="title" content="Multitool – Text to QR Code Generator | Edu SmartSpark" />
+  <meta name="description" content="Generate QR codes instantly from any text using Edu SmartSpark's free Text to QR Code Generator. Customize, download, and share with ease." />
+  <meta name="keywords" content="QR Code Generator, Text to QR Code, Edu SmartSpark, QR Code Download, Free QR Tool, Educational Tools" />
+  <meta name="author" content="Edu SmartSpark" />
+  <meta property="og:title" content="Multitool – Text to QR Code Generator | Edu SmartSpark" />
+  <meta property="og:description" content="Generate QR codes instantly from any text using Edu SmartSpark's free Text to QR Code Generator." />
+  <meta property="og:type" content="website" />
+  <title>Multitool – Text to QR Code Generator | Edu SmartSpark</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    * {
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      min-height: 100vh;
+    }
+    
+    .page-load {
+      animation: pageLoad 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+    }
+    
+    @keyframes pageLoad {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-in { 
+      animation: fadeIn 0.4s ease-in-out forwards; 
+      opacity: 0;
+    }
+    
+    @keyframes fadeIn { 
+      from { opacity: 0; transform: scale(0.9); } 
+      to { opacity: 1; transform: scale(1); } 
+    }
+    
+    .blur-bg { 
+      backdrop-filter: blur(12px); 
+      background: rgba(0, 0, 0, 0.7); 
+    }
+    
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+    }
+    
+    .btn-hover {
+      transition: all 0.2s ease;
+    }
+    
+    .btn-hover:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+    }
+    
+    .gradient-text {
+      background: linear-gradient(90deg, #4F46E5 0%, #EC4899 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  </style>
+</head>
+<body class="text-gray-100">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-gray-900/80 backdrop-blur-md shadow-md p-4 flex justify-between items-center">
+    <div class="flex items-center">
+      <h1 class="text-xl font-bold gradient-text">Edu SmartSpark</h1>
+      <span class="ml-2 text-sm bg-blue-600 px-2 py-1 rounded-md">Multitool</span>
+    </div>
+    <button id="themeToggle" class="p-2 rounded-full bg-gray-800 hover:bg-gray-700">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+      </svg>
+    </button>
+  </header>
+  
+  <!-- Main Section -->
+  <main class="max-w-4xl mx-auto py-12 px-4 page-load">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl font-bold mb-4">Text to QR Code Generator</h2>
+      <p class="text-gray-400 max-w-2xl mx-auto">Instantly convert any text or URL into a customizable QR code. Perfect for educational materials, sharing resources, or classroom activities.</p>
+    </div>
+    
+    <div class="grid md:grid-cols-3 gap-8 mb-16">
+      <div class="bg-gray-800/50 p-6 rounded-2xl border border-gray-700 card-hover">
+        <div class="w-12 h-12 bg-blue-900/30 rounded-lg flex items-center justify-center mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+        </div>
+        <h3 class="font-semibold text-lg mb-2">Enter Text</h3>
+        <p class="text-gray-400 text-sm">Type or paste any text, URL, or information you want to encode.</p>
+      </div>
+      
+      <div class="bg-gray-800/50 p-6 rounded-2xl border border-gray-700 card-hover">
+        <div class="w-12 h-12 bg-purple-900/30 rounded-lg flex items-center justify-center mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z" />
+          </svg>
+        </div>
+        <h3 class="font-semibold text-lg mb-2">Customize Design</h3>
+        <p class="text-gray-400 text-sm">Adjust size and colors to match your preferences or branding.</p>
+      </div>
+      
+      <div class="bg-gray-800/50 p-6 rounded-2xl border border-gray-700 card-hover">
+        <div class="w-12 h-12 bg-green-900/30 rounded-lg flex items-center justify-center mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+          </svg>
+        </div>
+        <h3 class="font-semibold text-lg mb-2">Download & Share</h3>
+        <p class="text-gray-400 text-sm">Download your QR code as JPG or share it directly with others.</p>
+      </div>
+    </div>
+    
+    <div class="text-center">
+      <button id="startBtn" class="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl shadow-lg btn-hover font-semibold text-lg flex items-center justify-center mx-auto">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M5 4a1 1 0 00-1 1v10a1 1 0 001 1h10a1 1 0 001-1V5a1 1 0 00-1-1H5zm0-2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V5a3 3 0 00-3-3H5zm5 4a1 1 0 00-1 1v4a1 1 0 102 0V7a1 1 0 00-1-1zm5 6a1 1 0 10-2 0v2a1 1 0 102 0v-2zm-4-1a1 1 0 011 1v2a1 1 0 11-2 0v-2a1 1 0 011-1zm-4 2a1 1 0 10-2 0v2a1 1 0 102 0v-2zm5-5a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-6 0a1 1 0 10-2 0v1a1 1 0 102 0v-1z" clip-rule="evenodd" />
+        </svg>
+        Generate QR Code Now
+      </button>
+    </div>
+  </main>
+  
+  <!-- Step 1: Enter Text Popup -->
+  <div id="textPopup" class="hidden fixed inset-0 flex items-center justify-center blur-bg z-50 fade-in">
+    <div class="bg-gray-900 border border-gray-700 text-white p-6 rounded-2xl shadow-2xl max-w-md w-full mx-4">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-xl font-semibold">Enter Your Text</h3>
+        <button onclick="closePopup('textPopup')" class="text-gray-400 hover:text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <textarea id="qrText" rows="4" class="w-full p-4 rounded-md bg-gray-800 border border-gray-700 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Enter text or URL here..."></textarea>
+      <div class="flex justify-end mt-6 gap-3">
+        <button onclick="closePopup('textPopup')" class="px-5 py-2.5 bg-gray-700 rounded-md hover:bg-gray-600 btn-hover">Cancel</button>
+        <button id="toCustomize" class="px-5 py-2.5 bg-blue-600 rounded-md hover:bg-blue-500 btn-hover flex items-center">
+          Generate QR Code
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Step 2: Customization Popup -->
+  <div id="customPopup" class="hidden fixed inset-0 flex items-center justify-center blur-bg z-50 fade-in">
+    <div class="bg-gray-900 border border-gray-700 text-white p-6 rounded-2xl shadow-2xl max-w-md w-full mx-4">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-xl font-semibold">Customize QR Code</h3>
+        <button onclick="closePopup('customPopup')" class="text-gray-400 hover:text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      
+      <div class="space-y-5">
+        <div>
+          <label class="block mb-2 font-medium">QR Code Size (px):</label>
+          <input id="qrSize" type="range" min="100" max="500" value="250" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer" />
+          <div class="flex justify-between text-sm text-gray-400 mt-1">
+            <span>100px</span>
+            <span id="sizeValue">250px</span>
+            <span>500px</span>
+          </div>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block mb-2 font-medium">Background Color:</label>
+            <input id="qrBgColor" type="color" value="#ffffff" class="w-full h-10 p-1 rounded-md bg-gray-800 border border-gray-700 cursor-pointer" />
+          </div>
+          <div>
+            <label class="block mb-2 font-medium">Foreground Color:</label>
+            <input id="qrColor" type="color" value="#000000" class="w-full h-10 p-1 rounded-md bg-gray-800 border border-gray-700 cursor-pointer" />
+          </div>
+        </div>
+      </div>
+      
+      <div class="flex justify-between mt-8 gap-3">
+        <button onclick="goBackToText()" class="px-5 py-2.5 bg-gray-700 rounded-md hover:bg-gray-600 btn-hover flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+          </svg>
+          Back
+        </button>
+        <button id="generateQrBtn" class="px-5 py-2.5 bg-blue-600 rounded-md hover:bg-blue-500 btn-hover flex items-center">
+          Generate QR Code
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Step 3: QR Code Result Popup -->
+  <div id="resultPopup" class="hidden fixed inset-0 flex items-center justify-center blur-bg z-50 fade-in">
+    <div class="bg-gray-900 border border-gray-700 text-white p-6 rounded-2xl shadow-2xl max-w-md w-full mx-4">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-xl font-semibold">Your QR Code is Ready!</h3>
+        <button onclick="closePopup('resultPopup')" class="text-gray-400 hover:text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      
+      <div class="flex justify-center my-6">
+        <canvas id="qrCanvas" class="border border-gray-700 rounded-lg"></canvas>
+      </div>
+      
+      <p class="text-center text-gray-300 mb-6">Download QR Code in JPG format or take a screenshot</p>
+      
+      <div class="flex justify-center">
+        <button id="downloadBtn" class="px-5 py-2.5 bg-green-600 rounded-md hover:bg-green-500 btn-hover flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+          Download QR Code
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // DOM Elements
+    const startBtn = document.getElementById('startBtn');
+    const toCustomizeBtn = document.getElementById('toCustomize');
+    const generateQrBtn = document.getElementById('generateQrBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const qrSize = document.getElementById('qrSize');
+    const sizeValue = document.getElementById('sizeValue');
+    const qrText = document.getElementById('qrText');
+    const qrCanvas = document.getElementById('qrCanvas');
+    
+    // Event Listeners
+    startBtn.addEventListener('click', () => openPopup('textPopup'));
+    toCustomizeBtn.addEventListener('click', () => {
+      if (qrText.value.trim() !== '') {
+        closePopup('textPopup');
+        setTimeout(() => openPopup('customPopup'), 300);
+      } else {
+        alert('Please enter some text first!');
+      }
+    });
+    
+    generateQrBtn.addEventListener('click', generateQRCode);
+    downloadBtn.addEventListener('click', downloadQRCode);
+    
+    // Update size value display
+    qrSize.addEventListener('input', () => {
+      sizeValue.textContent = `${qrSize.value}px`;
+    });
+    
+    // Popup Functions
+    function openPopup(id) {
+      document.getElementById(id).classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closePopup(id) {
+      document.getElementById(id).classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+    
+    function goBackToText() {
+      closePopup('customPopup');
+      setTimeout(() => openPopup('textPopup'), 300);
+    }
+    
+    // QR Code Generation
+    function generateQRCode() {
+      const text = qrText.value.trim();
+      const size = parseInt(qrSize.value);
+      const bgColor = document.getElementById('qrBgColor').value;
+      const color = document.getElementById('qrColor').value;
+      
+      if (text === '') {
+        alert('Please enter some text first!');
+        return;
+      }
+      
+      // Generate QR code
+      QRCode.toCanvas(qrCanvas, text, {
+        width: size,
+        color: {
+          dark: color,
+          light: bgColor
+        }
+      }, function(error) {
+        if (error) {
+          console.error(error);
+          alert('Error generating QR code. Please try again.');
+        } else {
+          closePopup('customPopup');
+          setTimeout(() => openPopup('resultPopup'), 300);
+        }
+      });
+    }
+    
+    // Download QR Code
+    function downloadQRCode() {
+      const link = document.createElement('a');
+      link.download = 'Edu-SmartSpark-QR-Code.jpg';
+      link.href = qrCanvas.toDataURL('image/jpeg');
+      link.click();
+    }
+    
+    // Theme Toggle (for future implementation)
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      alert('Theme toggle functionality will be implemented in the future!');
+    });
+  </script>
+</body>
+</html>

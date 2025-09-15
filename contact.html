@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - Edu Smartspark</title>
 
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#007bff">
-<link rel="icon" href="logo1.png" type="image/png">
-
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#007bff">
+    <link rel="icon" href="logo1.png" type="image/png">
 
     <style>
         :root {
@@ -74,6 +73,25 @@
         
         .logo-text span {
             color: var(--primary);
+        }
+        
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        nav a:hover, nav a.active {
+            background: var(--primary);
+            color: white;
         }
         
         /* Hero */
@@ -326,6 +344,15 @@
             .contact-grid {
                 grid-template-columns: 1fr;
             }
+            
+            nav {
+                gap: 10px;
+            }
+            
+            nav a {
+                padding: 6px 10px;
+                font-size: 0.9rem;
+            }
         }
         
         @media (max-width: 576px) {
@@ -344,20 +371,25 @@
             .info-icon {
                 margin-bottom: 15px;
             }
+            
+            nav {
+                flex-direction: column;
+                gap: 5px;
+            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3123651917845530"
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3123651917845530"
      crossorigin="anonymous"></script>
-
-
-
 </head>
 <body>
     <header>
-      
+        <div class="container header-container">
+            <div class="logo">
+                <img src="logo1.png" alt="Edu Smartspark Logo">
+                <div class="logo-text">Edu <span>Smartspark</span></div>
+            </div>
             <nav>
                 <a href="index.html">Home</a>
                 <a href="about.html">About</a>
@@ -390,13 +422,18 @@
                             <input name="email" type="email" id="email" class="form-control" required>
                         </div>
                         
-                       <div class="form-group">
-                            <label for="name">Your Message</label>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
                             <input name="subject" type="text" id="subject" class="form-control" required>
                         </div>
-
                         
-                        <button type="submit" name="submit-btn" id="submit-btn" class="submit-btn">Send Message</button>
+                        <div class="form-group">
+                            <label for="message">Your Message</label>
+                            <textarea name="message" id="message" class="form-control" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">Send Message</button>
+                        <p id="form-message" style="margin-top: 15px; display: none;"></p>
                     </form>
                 </div>
                 
@@ -442,69 +479,76 @@
             </div>
             
             <div class="map-container">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.566060828026!2d77.2098653150824!3d28.62873998242492!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd5b347eb62d%3A0x52c2b7494e204dce!2sNew%20Delhi%2C%20Delhi!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
+                <!-- Updated map for Abhayapuri, India -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d57030.24134866982!2d90.419886!3d26.32213405!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x375a5ac8868b5529%3A0xcb1c5537d5b5e5b0!2sAbhayapuri%2C%20Assam%20783384!5e0!3m2!1sen!2sin!4v1719390000000!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
     </main>
 
     <footer>
+        <div class="container">
             <div class="footer-bottom">
                 <p>&copy; 2024 Edu Smartspark. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
 
-<script>
-let url = 'https://script.google.com/macros/s/AKfycbxWXHr5G6UhL15wAH2RmPokPVPTiKv5kFhPmYV8nTETEOVoh15aom2uoAr6wMsyOOu2/exec';
-let form = document.querySelector('#contactForm');
-let button = document.querySelector('.submit-btn');
-
-form.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    // ✅ show spinner
-    const originalText = button.textContent;
-    button.disabled = true;
-    button.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Sending...`;
-
-   let d = new URLSearchParams(new FormData(form));
-
-    fetch(url, {
-        method: "POST",
-        body: d
-    })
-    .then((res) => res.json())
-    .then((finalRes) => {
-        console.log(finalRes);
-
-        form.reset();
-
-        // ✅ restore button
-        button.disabled = false;
-        button.textContent = originalText;
-
-        // ✅ success message
-        let msg = document.createElement("p");
-        msg.innerText = "✅ Feedback submitted successfully!";
-        msg.style.color = "green";
-        msg.style.marginTop = "10px";
-
-        let oldMsg = document.querySelector(".success-msg");
-        if (oldMsg) oldMsg.remove();
-
-        msg.classList.add("success-msg");
-        form.appendChild(msg);
-
-        setTimeout(() => msg.remove(), 3000);
-    })
-    .catch(err => {
-        console.error("Error:", err);
-        button.disabled = false;
-        button.textContent = originalText;
-        alert("❌ Something went wrong. Try again.");
-    });
-});
-</script>
-
+    <script>
+        // Updated Google Apps Script URL - replace with your own after deploying
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwGi4lelyZ2RmVkWo-OZtxG5zOn_mOv6UA-REX5fC4lQa0XS1JR8NAxSZYN9TdmoIKd/exec';
+        const form = document.getElementById('contactForm');
+        const messageElement = document.getElementById('form-message');
+        
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            
+            const submitButton = form.querySelector('.submit-btn');
+            const originalText = submitButton.innerHTML;
+            
+            // Show loading state
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            
+            // Create form data with all required fields
+            const formData = new FormData(form);
+            
+            fetch(scriptURL, { 
+                method: 'POST', 
+                body: formData 
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Network response was not ok.');
+            })
+            .then(data => {
+                // Show success message
+                messageElement.textContent = 'Message sent successfully! We will get back to you soon.';
+                messageElement.style.color = 'green';
+                messageElement.style.display = 'block';
+                
+                // Reset form
+                form.reset();
+                
+                // Hide message after 5 seconds
+                setTimeout(() => {
+                    messageElement.style.display = 'none';
+                }, 5000);
+            })
+            .catch(error => {
+                // Show error message
+                console.error('Error!', error.message);
+                messageElement.textContent = 'There was an error sending your message. Please try again.';
+                messageElement.style.color = 'red';
+                messageElement.style.display = 'block';
+            })
+            .finally(() => {
+                // Restore button state
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalText;
+            });
+        });
+    </script>
 </body>
 </html>

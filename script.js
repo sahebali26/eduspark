@@ -28,27 +28,36 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Close menu when clicking on a link
-    document.querySelectorAll('.nav-right a').forEach(link => {
-        link.addEventListener('click', function() {
+    // Dropdown menu functionality for mobile - FIXED VERSION
+    const dropdowns = document.querySelectorAll('.dropdown > a');
+
+    dropdowns.forEach(dropdownToggle => {
+        dropdownToggle.addEventListener('click', function(e) {
             if (window.innerWidth <= 992) {
-                navRight.classList.remove('active');
-                mobileMenuBtn.querySelector('i').classList.add('fa-bars');
-                mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                e.preventDefault();
+                const dropdown = this.parentElement;
+                dropdown.classList.toggle('active');
+                
+                // Close other dropdowns when opening a new one
+                document.querySelectorAll('.dropdown').forEach(otherDropdown => {
+                    if (otherDropdown !== dropdown && otherDropdown.classList.contains('active')) {
+                        otherDropdown.classList.remove('active');
+                    }
+                });
             }
         });
     });
-            // Dropdown menu functionality for mobile
-            const dropdowns = document.querySelectorAll('.dropdown');
-            
-            dropdowns.forEach(dropdown => {
-                dropdown.addEventListener('click', function(e) {
-                    if (window.innerWidth <= 992) {
-                        e.preventDefault();
-                        this.classList.toggle('active');
-                    }
+
+    // Close dropdowns when clicking elsewhere on mobile
+    document.addEventListener('click', function(e) {
+        if (window.innerWidth <= 992) {
+            if (!e.target.closest('.dropdown')) {
+                document.querySelectorAll('.dropdown').forEach(dropdown => {
+                    dropdown.classList.remove('active');
                 });
-            });
+            }
+        }
+    });
 
             // Theme toggle functionality
             const themeToggle = document.querySelector('.theme-toggle');

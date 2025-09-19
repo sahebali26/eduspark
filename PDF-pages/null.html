@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Not Available - Edu Smart Spark</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin: 20px;
+        }
+        
+        .header {
+            background: linear-gradient(90deg, #3498db, #2c3e50);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 32px;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            font-weight: 500;
+            margin-top: 15px;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .message {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .message i {
+            font-size: 64px;
+            color: #e74c3c;
+            margin-bottom: 20px;
+        }
+        
+        .message h2 {
+            font-size: 28px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .message p {
+            font-size: 18px;
+            color: #7f8c8d;
+            line-height: 1.6;
+        }
+        
+        .social-media {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .social-media h3 {
+            font-size: 22px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .social-media h3 i {
+            margin-right: 10px;
+            color: #3498db;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .social-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #2c3e50;
+            min-width: 100px;
+            padding: 15px;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .social-icon i {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .social-icon span {
+            font-size: 14px;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .social-icon small {
+            font-size: 12px;
+            margin-top: 5px;
+            color: #7f8c8d;
+            text-align: center;
+        }
+        
+        .social-icon.facebook {
+            color: #3b5998;
+        }
+        
+        .social-icon.instagram {
+            color: #E1306C;
+        }
+        
+        .social-icon.youtube {
+            color: #ff0000;
+        }
+        
+        .social-icon.whatsapp {
+            color: #25D366;
+        }
+        
+        .contact-info {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .contact-info h3 {
+            font-size: 22px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-info h3 i {
+            margin-right: 10px;
+            color: #3498db;
+        }
+        
+        .contact-methods {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        
+        .contact-method {
+            flex: 1;
+            min-width: 250px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+        
+        .contact-method i {
+            font-size: 36px;
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        
+        .contact-method h4 {
+            font-size: 18px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .contact-method p {
+            color: #7f8c8d;
+            margin-bottom: 15px;
+        }
+        
+        .contact-btn {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .contact-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .whatsapp-btn {
+            background: #25D366;
+        }
+        
+        .whatsapp-btn:hover {
+            background: #128C7E;
+        }
+        
+        .instructions {
+            background: #e8f4fc;
+            border-left: 5px solid #3498db;
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 30px 0;
+        }
+        
+        .instructions h3 {
+            font-size: 22px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .instructions h3 i {
+            margin-right: 10px;
+            color: #3498db;
+        }
+        
+        .steps {
+            list-style-type: none;
+        }
+        
+        .steps li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        
+        .steps li i {
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: #3498db;
+            font-size: 18px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #2c3e50;
+            color: white;
+        }
+        
+        .footer p {
+            margin: 5px 0;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .contact-methods {
+                flex-direction: column;
+            }
+            
+            .content {
+                padding: 25px;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .social-icons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .social-icon {
+                width: 100%;
+                max-width: 250px;
+                flex-direction: row;
+                justify-content: flex-start;
+                text-align: left;
+            }
+            
+            .social-icon i {
+                margin-right: 15px;
+                margin-bottom: 0;
+                font-size: 32px;
+            }
+            
+            .social-icon-content {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                Edu Smart Spark
+            </div>
+            <h1>Document Not Available Yet</h1>
+        </div>
+        
+        <div class="content">
+            <div class="message">
+                <i class="fas fa-file-excel"></i>
+                <h2>We're Working On It!</h2>
+                <p>The document you're looking for is not uploaded yet. Our team is working hard to make it available soon.</p>
+                <p>Please check back later or contact us for more information.</p>
+            </div>
+            
+            <div class="social-media">
+                <h3><i class="fas fa-share-alt"></i> Connect With Us</h3>
+                <div class="social-icons">
+                    <a href="https://www.youtube.com/@EduSmartspark" target="_blank" class="social-icon youtube">
+                        <i class="fab fa-youtube"></i>
+                        <div class="social-icon-content">
+                            <span>YouTube</span>
+                            <small>Subscribe for updates</small>
+                        </div>
+                    </a>
+                    
+                    <a href="https://whatsapp.com/channel/0029VbB1Q3e84Om9R1kVRA44" target="_blank" class="social-icon whatsapp">
+                        <i class="fab fa-whatsapp"></i>
+                        <div class="social-icon-content">
+                            <span>WhatsApp</span>
+                            <small>Follow our WP Channel</small>
+                        </div>
+                    </a>
+                    
+                    <a href="https://www.facebook.com/people/Edu-Smartspark/61579037955248/" target="_blank" class="social-icon facebook">
+                        <i class="fab fa-facebook"></i>
+                        <div class="social-icon-content">
+                            <span>Facebook</span>
+                            <small>Follow our page</small>
+                        </div>
+                    </a>
+                    
+                    <a href="https://www.instagram.com/gk_n_currentaffair2025" target="_blank" class="social-icon instagram">
+                        <i class="fab fa-instagram"></i>
+                        <div class="social-icon-content">
+                            <span>Instagram</span>
+                            <small>See our updates</small>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="contact-info">
+                <h3><i class="fas fa-info-circle"></i> How to Contact Us</h3>
+                <p>We're here to help you. You can reach us through any of the following methods:</p>
+                
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <i class="fab fa-whatsapp"></i>
+                        <h4>Message Us on WhatsApp</h4>
+                        <p>+91 60038 16583</p>
+                        <a href="https://wa.me/916003816583?text=Hello%20Sir%20(eduspark),%20I%20have%20a%20quiry%20about___" class="contact-btn whatsapp-btn" target="_blank">
+                            Send Message
+                        </a>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <i class="fas fa-envelope"></i>
+                        <h4>Email Us</h4>
+                        <p>support@edusmartspark.com</p>
+                        <a href="mailto:sahebali8474@gmail.com" class="contact-btn">
+                            Send Email
+                        </a>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <i class="fas fa-phone"></i>
+                        <h4>Call Us</h4>
+                        <p>+91 60038 16583</p>
+                        <a href="tel:+916003816583" class="contact-btn">
+                            Call Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="instructions">
+                <h3><i class="fas fa-compass"></i> Navigation Instructions</h3>
+                <p>To contact us through our website:</p>
+                <ol class="steps">
+                    <li><i class="fas fa-home"></i> Go to our Home Page</li>
+                    <li><i class="fas fa-bars"></i> Click on the three-line menu icon in the header (navigation bar)</li>
+                    <li><i class="fas fa-address-card"></i> Select "Contact Us" from the menu options</li>
+                    <li><i class="fas fa-paper-plane"></i> Fill out the contact form with your inquiry</li>
+                </ol>
+                <a href="https://www.eduspark.site/index.html" class="btn">Go to Home Page</a>
+            </div>
+            
+            <div class="message">
+                <i class="fas fa-sync-alt"></i>
+                <h2>Frequently Visit Our Site</h2>
+                <p>We regularly update our content with new resources and documents.</p>
+                <p>Bookmark our website and visit frequently to stay updated with the latest educational materials.</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; 2023 Edu Smart Spark. All rights reserved.</p>
+            <p>Empowering Education Through Technology</p>
+        </div>
+    </div>
+</body>
+</html>

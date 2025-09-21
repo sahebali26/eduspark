@@ -80,7 +80,7 @@
 
     
     <style>
-   /* Modern Dark Theme Styles */
+  /* Modern Dark Theme Styles */
 :root {
     --primary: #6d28d9;
     --primary-light: #8b5cf6;
@@ -91,6 +91,30 @@
     --accent: #06b6d4;
     --transition: all 0.3s ease;
     --blur: blur(10px);
+}
+
+/* Light Theme Variables */
+[data-theme="light"] {
+    --primary: #6d28d9;
+    --primary-light: #8b5cf6;
+    --secondary: #7c3aed;
+    --dark: #f8fafc;
+    --dark-light: #e2e8f0;
+    --light: #0f172a;
+    --accent: #0891b2;
+}
+
+/* System preference detection */
+@media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+        --primary: #6d28d9;
+        --primary-light: #8b5cf6;
+        --secondary: #7c3aed;
+        --dark: #f8fafc;
+        --dark-light: #e2e8f0;
+        --light: #0f172a;
+        --accent: #0891b2;
+    }
 }
 
 * {
@@ -112,6 +136,7 @@ body {
     line-height: 1.6;
     min-height: 100vh;
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Smooth page load animation */
@@ -142,6 +167,11 @@ header {
     top: 0;
     z-index: 1000;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="light"] header {
+    background: rgba(248, 250, 252, 0.8);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .header-container {
@@ -292,6 +322,12 @@ nav a:hover::after {
     transition: var(--transition);
 }
 
+[data-theme="light"] .filter-section {
+    background: rgba(226, 232, 240, 0.7);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
 .filter-section:hover {
     box-shadow: 0 10px 40px rgba(109, 40, 217, 0.2);
     transform: translateY(-5px);
@@ -339,11 +375,23 @@ nav a:hover::after {
     color: var(--light);
 }
 
+[data-theme="light"] .filter-select,
+[data-theme="light"] .search-input {
+    background: rgba(248, 250, 252, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: var(--light);
+}
+
 .filter-select:focus, .search-input:focus {
     border-color: var(--primary-light);
     outline: none;
     box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.3);
     background: rgba(15, 23, 42, 0.8);
+}
+
+[data-theme="light"] .filter-select:focus,
+[data-theme="light"] .search-input:focus {
+    background: rgba(248, 250, 252, 0.95);
 }
 
 .search-container {
@@ -387,6 +435,11 @@ nav a:hover::after {
     color: var(--light);
 }
 
+[data-theme="light"] .filter-btn.clear {
+    background: rgba(0, 0, 0, 0.1);
+    color: var(--light);
+}
+
 .filter-btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(109, 40, 217, 0.4);
@@ -395,6 +448,10 @@ nav a:hover::after {
 .filter-btn.clear:hover {
     background: rgba(255, 255, 255, 0.15);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="light"] .filter-btn.clear:hover {
+    background: rgba(0, 0, 0, 0.15);
 }
 
 .course-tabs {
@@ -416,6 +473,11 @@ nav a:hover::after {
     font-weight: 600;
     cursor: pointer;
     transition: var(--transition);
+}
+
+[data-theme="light"] .tab-btn {
+    background: rgba(226, 232, 240, 0.7);
+    border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .tab-btn.active, .tab-btn:hover {
@@ -441,6 +503,12 @@ nav a:hover::after {
     border: 1px solid rgba(255, 255, 255, 0.1);
     opacity: 1;
     transform: translateY(0);
+}
+
+[data-theme="light"] .semester-card {
+    background: rgba(226, 232, 240, 0.7);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .semester-card.hidden {
@@ -489,6 +557,10 @@ nav a:hover::after {
     transition: var(--transition);
 }
 
+[data-theme="light"] .paper-item {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
 .paper-item:last-child {
     border-bottom: none;
 }
@@ -498,6 +570,10 @@ nav a:hover::after {
     border-radius: 8px;
     padding-left: 10px;
     padding-right: 10px;
+}
+
+[data-theme="light"] .paper-item:hover {
+    background: rgba(0, 0, 0, 0.05);
 }
 
 .paper-name {
@@ -513,6 +589,10 @@ nav a:hover::after {
     background: rgba(109, 40, 217, 0.2);
     padding: 5px 10px;
     border-radius: 6px;
+}
+
+[data-theme="light"] .paper-year {
+    background: rgba(109, 40, 217, 0.1);
 }
 
 .download-btn {
@@ -544,6 +624,10 @@ nav a:hover::after {
     -webkit-backdrop-filter: var(--blur);
 }
 
+[data-theme="light"] .no-results {
+    background: rgba(226, 232, 240, 0.7);
+}
+
 .no-results i {
     font-size: 3.5rem;
     margin-bottom: 20px;
@@ -556,6 +640,11 @@ footer {
     color: white;
     padding: 70px 0 0;
     position: relative;
+}
+
+[data-theme="light"] footer {
+    background: var(--dark-light);
+    color: var(--light);
 }
 
 footer::before {
@@ -590,6 +679,10 @@ footer::before {
     line-height: 1.8;
 }
 
+[data-theme="light"] .footer-about p {
+    color: #475569;
+}
+
 .footer-links h3 {
     font-size: 1.2rem;
     margin-bottom: 20px;
@@ -611,6 +704,10 @@ footer::before {
     display: inline-block;
 }
 
+[data-theme="light"] .footer-links a {
+    color: #475569;
+}
+
 .footer-links a:hover {
     color: var(--primary-light);
     transform: translateX(5px);
@@ -622,6 +719,11 @@ footer::before {
     text-align: center;
     color: #94a3b8;
     font-size: 0.9rem;
+}
+
+[data-theme="light"] .footer-bottom {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: #64748b;
 }
 
 /* Theme Toggle Button */
@@ -725,7 +827,7 @@ footer::before {
     }
 }
 
-/* Mobile menu */
+/* Mobile menu button */
 .mobile-menu-btn {
     display: none;
     background: none;
@@ -733,11 +835,21 @@ footer::before {
     color: var(--light);
     font-size: 1.5rem;
     cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    transition: var(--transition);
+}
+
+.mobile-menu-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
 }
 
 @media (max-width: 768px) {
     .mobile-menu-btn {
-        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
     nav {
@@ -755,6 +867,10 @@ footer::before {
         z-index: 999;
     }
     
+    [data-theme="light"] nav {
+        background: rgba(248, 250, 252, 0.95);
+    }
+    
     nav.active {
         right: 0;
     }
@@ -762,6 +878,21 @@ footer::before {
     nav a {
         margin: 15px 0;
         font-size: 1.2rem;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        width: 100%;
+    }
+    
+    [data-theme="light"] nav a {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    
+    nav a:last-child {
+        border-bottom: none;
+    }
+    
+    nav a::after {
+        display: none;
     }
 }
 
@@ -795,6 +926,10 @@ footer::before {
     background: var(--dark);
 }
 
+[data-theme="light"] ::-webkit-scrollbar-track {
+    background: var(--dark-light);
+}
+
 ::-webkit-scrollbar-thumb {
     background: linear-gradient(to bottom, var(--primary), var(--primary-light));
     border-radius: 10px;
@@ -811,18 +946,19 @@ footer::before {
 </head>
 <body>
     <header>
-        <div class="container header-container">
-            <div class="logo">
-                <img src="logo1.png" alt="Edu Smartspark Logo">
-                <div class="logo-text">Edu <span>Smartspark</span></div>
-            </div>
-            <nav>
-                <a href="index.html">Home</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
-            </nav>
+    <div class="container header-container">
+        <div class="logo">
+            <img src="logo1.png" alt="Edu Smartspark Logo">
+            <div class="logo-text">Edu <span>Smartspark</span></div>
         </div>
-    </header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        
+    </div>
+</header>
 
     <section class="papers-hero">
         <div class="container">
@@ -980,7 +1116,7 @@ footer::before {
                                 <span class="paper-name">EVS (VAC) </span>
                                 <div class="paper-actions">
                                     <span class="paper-year">2023</span>
-                                    <a href="Open Deets" class="download-btn">null</a>
+                                    <a href="PDF-pages/null.html" class="download-btn">Open Deets</a>
                                 </div>
                             </div>
                             <div class="paper-item">
@@ -990,7 +1126,7 @@ footer::before {
                                     <a href="PDF-pages/null.html" class="download-btn">Open Deets</a>
                                 </div>
                             </div>
-                            <p style="color:red;">-Check Frequntly our Site, Null Question papers Coming shortly</p>
+                            <p style="color:red;">-Check Frequntly our Site, Null Question papers Coming shortly. For any queries, feel free to contact us</p>
                         </div>
                     </div>
                     
@@ -1410,136 +1546,228 @@ footer::before {
     </div>
 
     <script>
-        // Populate year dropdown
-        const yearFilter = document.getElementById('year-filter');
-        const currentYear = new Date().getFullYear();
+      // Theme functionality
+const themeToggle = document.querySelector('.theme-toggle');
+const themeIcon = themeToggle.querySelector('i');
+
+// Function to set theme
+function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    
+    // Update icon
+    if (theme === 'dark') {
+        themeIcon.className = 'fas fa-moon';
+    } else {
+        themeIcon.className = 'fas fa-sun';
+    }
+}
+
+// Function to get system preference
+function getSystemPreference() {
+    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+}
+
+// Initialize theme
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const systemPreference = getSystemPreference();
+    
+    // Use saved theme if available, otherwise use system preference
+    if (savedTheme) {
+        setTheme(savedTheme);
+    } else {
+        setTheme(systemPreference);
+    }
+}
+
+// Toggle theme
+themeToggle.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+});
+
+// Listen for system theme changes
+window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', e => {
+    // Only change if user hasn't set a preference
+    if (!localStorage.getItem('theme')) {
+        setTheme(e.matches ? 'light' : 'dark');
+    }
+});
+
+// Populate year dropdown
+const yearFilter = document.getElementById('year-filter');
+const currentYear = new Date().getFullYear();
+
+for (let year = 2020; year <= currentYear; year++) {
+    const option = document.createElement('option');
+    option.value = year;
+    option.textContent = year;
+    yearFilter.appendChild(option);
+}
+
+// Tab switching
+const tabButtons = document.querySelectorAll('.tab-btn');
+const courseContents = document.querySelectorAll('.course-content');
+
+tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        // Update active tab
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
         
-        for (let year = 2020; year <= currentYear; year++) {
-            const option = document.createElement('option');
-            option.value = year;
-            option.textContent = year;
-            yearFilter.appendChild(option);
-        }
+        // Show selected course content
+        const course = button.getAttribute('data-course');
+        courseContents.forEach(content => content.style.display = 'none');
+        document.getElementById(`${course}-papers`).style.display = 'block';
         
-        // Tab switching
-        const tabButtons = document.querySelectorAll('.tab-btn');
-        const courseContents = document.querySelectorAll('.course-content');
+        // Update course filter to match
+        document.getElementById('course-filter').value = course;
         
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Update active tab
-                tabButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-                
-                // Show selected course content
-                const course = button.getAttribute('data-course');
-                courseContents.forEach(content => content.style.display = 'none');
-                document.getElementById(`${course}-papers`).style.display = 'block';
-                
-                // Update course filter to match
-                document.getElementById('course-filter').value = course;
-                
-                // Trigger filter to update display
-                filterPapers();
-            });
-        });
+        // Trigger filter to update display
+        filterPapers();
+    });
+});
+
+// Filter functionality
+const courseFilter = document.getElementById('course-filter');
+const semesterFilter = document.getElementById('semester-filter');
+const searchInput = document.getElementById('search-input');
+const clearFiltersBtn = document.getElementById('clear-filters');
+const paperCards = document.querySelectorAll('.semester-card');
+
+function filterPapers() {
+    const courseValue = courseFilter.value;
+    const semesterValue = semesterFilter.value;
+    const yearValue = yearFilter.value;
+    const searchValue = searchInput.value.toLowerCase();
+    
+    paperCards.forEach(card => {
+        const cardCourse = card.getAttribute('data-course');
+        const cardSemester = card.getAttribute('data-semester');
+        const paperNames = card.querySelectorAll('.paper-name');
+        const paperYears = card.querySelectorAll('.paper-year');
         
-        // Filter functionality
-        const courseFilter = document.getElementById('course-filter');
-        const semesterFilter = document.getElementById('semester-filter');
-        const searchInput = document.getElementById('search-input');
-        const clearFiltersBtn = document.getElementById('clear-filters');
-        const paperCards = document.querySelectorAll('.semester-card');
+        let courseMatch = courseValue === 'all' || cardCourse === courseValue;
+        let semesterMatch = semesterValue === 'all' || cardSemester === semesterValue;
         
-        function filterPapers() {
-            const courseValue = courseFilter.value;
-            const semesterValue = semesterFilter.value;
-            const yearValue = yearFilter.value;
-            const searchValue = searchInput.value.toLowerCase();
-            
-            paperCards.forEach(card => {
-                const cardCourse = card.getAttribute('data-course');
-                const cardSemester = card.getAttribute('data-semester');
-                const paperNames = card.querySelectorAll('.paper-name');
-                const paperYears = card.querySelectorAll('.paper-year');
-                
-                let courseMatch = courseValue === 'all' || cardCourse === courseValue;
-                let semesterMatch = semesterValue === 'all' || cardSemester === semesterValue;
-                
-                // Check if any paper name matches search term
-                let searchMatch = false;
-                if (searchValue === '') {
+        // Check if any paper name matches search term
+        let searchMatch = false;
+        if (searchValue === '') {
+            searchMatch = true;
+        } else {
+            paperNames.forEach(paper => {
+                if (paper.textContent.toLowerCase().includes(searchValue)) {
                     searchMatch = true;
-                } else {
-                    paperNames.forEach(paper => {
-                        if (paper.textContent.toLowerCase().includes(searchValue)) {
-                            searchMatch = true;
-                        }
-                    });
-                }
-                
-                // Check if any paper year matches year filter
-                let yearMatch = false;
-                if (yearValue === 'all') {
-                    yearMatch = true;
-                } else {
-                    paperYears.forEach(yearElement => {
-                        if (yearElement.textContent === yearValue) {
-                            yearMatch = true;
-                        }
-                    });
-                }
-                
-                // Apply fade-out animation before hiding
-                if (courseMatch && semesterMatch && searchMatch && yearMatch) {
-                    card.classList.remove('hidden');
-                    card.classList.remove('fade-out');
-                } else {
-                    card.classList.add('fade-out');
-                    // Wait for animation to complete before hiding
-                    setTimeout(() => {
-                        card.classList.add('hidden');
-                    }, 300);
                 }
             });
-            
-            // Show no results message if needed
-            const visibleCards = document.querySelectorAll('.semester-card:not(.hidden)');
-            let noResults = document.querySelector('.no-results');
-            
-            if (visibleCards.length === 0) {
-                if (!noResults) {
-                    noResults = document.createElement('div');
-                    noResults.className = 'no-results';
-                    noResults.innerHTML = `
-                        <i class="fas fa-search"></i>
-                        <h3>No question papers found</h3>
-                        <p>Try adjusting your filters or search term</p>
-                    `;
-                    document.querySelector('.semester-grid').appendChild(noResults);
-                }
-            } else if (noResults) {
-                noResults.remove();
-            }
         }
         
-        // Event listeners for filters
-        courseFilter.addEventListener('change', filterPapers);
-        semesterFilter.addEventListener('change', filterPapers);
-        yearFilter.addEventListener('change', filterPapers);
-        searchInput.addEventListener('input', filterPapers);
+        // Check if any paper year matches year filter
+        let yearMatch = false;
+        if (yearValue === 'all') {
+            yearMatch = true;
+        } else {
+            paperYears.forEach(yearElement => {
+                if (yearElement.textContent === yearValue) {
+                    yearMatch = true;
+                }
+            });
+        }
         
-        // Clear filters
-        clearFiltersBtn.addEventListener('click', () => {
-            courseFilter.value = 'all';
-            semesterFilter.value = 'all';
-            yearFilter.value = 'all';
-            searchInput.value = '';
-            filterPapers();
-        });
-        
-        // Initialize filter on page load
-        document.addEventListener('DOMContentLoaded', filterPapers);
+        // Apply fade-out animation before hiding
+        if (courseMatch && semesterMatch && searchMatch && yearMatch) {
+            card.classList.remove('hidden');
+            card.classList.remove('fade-out');
+        } else {
+            card.classList.add('fade-out');
+            // Wait for animation to complete before hiding
+            setTimeout(() => {
+                card.classList.add('hidden');
+            }, 300);
+        }
+    });
+    
+    // Show no results message if needed
+    const visibleCards = document.querySelectorAll('.semester-card:not(.hidden)');
+    let noResults = document.querySelector('.no-results');
+    
+    if (visibleCards.length === 0) {
+        if (!noResults) {
+            noResults = document.createElement('div');
+            noResults.className = 'no-results';
+            noResults.innerHTML = `
+                <i class="fas fa-search"></i>
+                <h3>No question papers found</h3>
+                <p>Try adjusting your filters or search term</p>
+            `;
+            document.querySelector('.semester-grid').appendChild(noResults);
+        }
+    } else if (noResults) {
+        noResults.remove();
+    }
+}
+
+// Event listeners for filters
+courseFilter.addEventListener('change', filterPapers);
+semesterFilter.addEventListener('change', filterPapers);
+yearFilter.addEventListener('change', filterPapers);
+searchInput.addEventListener('input', filterPapers);
+
+// Clear filters
+clearFiltersBtn.addEventListener('click', () => {
+    courseFilter.value = 'all';
+    semesterFilter.value = 'all';
+    yearFilter.value = 'all';
+    searchInput.value = '';
+    filterPapers();
+});
+
+// Initialize theme and filter on page load
+document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
+    filterPapers();
+});
+
+
+
+// Mobile menu functionality
+const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+const nav = document.querySelector('nav');
+
+mobileMenuBtn.addEventListener('click', () => {
+    nav.classList.toggle('active');
+    
+    // Change icon based on menu state
+    const icon = mobileMenuBtn.querySelector('i');
+    if (nav.classList.contains('active')) {
+        icon.className = 'fas fa-times';
+    } else {
+        icon.className = 'fas fa-bars';
+    }
+});
+
+// Close menu when clicking on a link
+document.querySelectorAll('nav a').forEach(link => {
+    link.addEventListener('click', () => {
+        nav.classList.remove('active');
+        const icon = mobileMenuBtn.querySelector('i');
+        icon.className = 'fas fa-bars';
+    });
+});
+
+// Close menu when clicking outside
+document.addEventListener('click', (e) => {
+    if (!nav.contains(e.target) && !mobileMenuBtn.contains(e.target) && nav.classList.contains('active')) {
+        nav.classList.remove('active');
+        const icon = mobileMenuBtn.querySelector('i');
+        icon.className = 'fas fa-bars';
+    }
+});
+
+
+
     </script>
 </body>
 </html>

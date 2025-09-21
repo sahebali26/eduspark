@@ -96,13 +96,4 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
 
-    if (event.keyCode === 44) {
-        alert("⚠️ Screenshots are not allowed to protect content.");
-      }
-
-
-       // Optional: Disable right-click (basic content protection)
-    document.addEventListener("contextmenu", function (event) {
-      event.preventDefault();
-      alert("⚠️ Right-click is disabled to protect content.");
-    });
+    

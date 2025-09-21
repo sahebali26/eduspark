@@ -88,3 +88,9 @@ document.addEventListener('DOMContentLoaded', function() {
         lastImage.scrollIntoView({ behavior: 'smooth' });
     });
 });
+
+
+    // Run before the page fully loads
+    window.onload = function () {
+      alert("Screenshots are not allowed to protect content.⚠️");
+    };

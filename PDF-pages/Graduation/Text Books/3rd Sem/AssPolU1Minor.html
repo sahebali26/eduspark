@@ -1,717 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartSpark - Digital Textbook Reader</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edu Smartspark | Textbook Preview</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      color: #222;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
 
-        body {
-            background-color: #f5f7fa;
-            color: #333;
-            line-height: 1.6;
-        }
+    header {
+      background: #004080;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+    .warning {
+      background: #ffcc00;
+      color: #333;
+      padding: 0.8rem;
+      text-align: center;
+      font-size: 0.95rem;
+    }
 
-        /* Header Styles */
-        header {
-            background: linear-gradient(135deg, #1a73e8, #6c8ef5);
-            color: white;
-            padding: 15px 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+    .pdf-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+    }
 
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    iframe {
+      width: 100%;
+      height: 90vh;
+      border: none;
+      background: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.15);
+    }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+    footer {
+      background: #004080;
+      color: #fff;
+      text-align: center;
+      padding: 0.6rem;
+      font-size: 0.85rem;
+    }
 
-        .logo i {
-            font-size: 28px;
-        }
-
-        .logo h1 {
-            font-size: 24px;
-            font-weight: 600;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 20px;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 5px 10px;
-            border-radius: 4px;
-            transition: background 0.3s;
-        }
-
-        nav a:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        /* Main Content */
-        .main-content {
-            display: flex;
-            margin: 30px 0;
-            gap: 30px;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            flex: 0 0 250px;
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            height: fit-content;
-        }
-
-        .sidebar h2 {
-            margin-bottom: 15px;
-            color: #1a73e8;
-            font-size: 18px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .instructions {
-            background: #f0f7ff;
-            border-left: 4px solid #1a73e8;
-            padding: 15px;
-            border-radius: 0 8px 8px 0;
-            margin-bottom: 20px;
-        }
-
-        .instructions h3 {
-            color: #1a73e8;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .instructions ol {
-            padding-left: 20px;
-        }
-
-        .instructions li {
-            margin-bottom: 10px;
-        }
-
-        .status-check {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .status-check h3 {
-            margin-bottom: 15px;
-            color: #5f6368;
-        }
-
-        .status-indicator {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-
-        .status-success {
-            background: #e6f4ea;
-            color: #137333;
-        }
-
-        .status-warning {
-            background: #fef7e0;
-            color: #f9ab00;
-        }
-
-        .btn {
-            background: #1a73e8;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn:hover {
-            background: #0d62d9;
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 1px solid #1a73e8;
-            color: #1a73e8;
-        }
-
-        .btn-outline:hover {
-            background: #f0f7ff;
-        }
-
-        /* PDF Viewer */
-        .pdf-viewer {
-            flex: 1;
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            min-height: 600px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .viewer-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .book-title {
-            font-size: 22px;
-            font-weight: 600;
-            color: #1a73e8;
-        }
-
-        .viewer-controls {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .control-btn {
-            background: #f1f3f4;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: background 0.3s;
-            color: #5f6368;
-        }
-
-        .control-btn:hover {
-            background: #e8f0fe;
-            color: #1a73e8;
-        }
-
-        .page-info {
-            font-size: 14px;
-            color: #5f6368;
-            margin: 0 10px;
-        }
-
-        .pdf-container {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #f9f9f9;
-            border-radius: 5px;
-            overflow: auto;
-            position: relative;
-        }
-
-        #pdf-canvas {
-            max-width: 100%;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .loading {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            color: #5f6368;
-        }
-
-        .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid #e8f0fe;
-            border-left: 4px solid #1a73e8;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .access-message {
-            text-align: center;
-            padding: 30px;
-            color: #5f6368;
-        }
-
-        .access-message i {
-            font-size: 48px;
-            margin-bottom: 15px;
-            color: #1a73e8;
-        }
-
-        /* Footer */
-        footer {
-            background: #202124;
-            color: #e8eaed;
-            padding: 30px 0;
-            margin-top: 40px;
-        }
-
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 30px;
-        }
-
-        .footer-section {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .footer-section h3 {
-            margin-bottom: 15px;
-            color: #fff;
-            font-size: 18px;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section ul li {
-            margin-bottom: 10px;
-        }
-
-        .footer-section a {
-            color: #e8eaed;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-section a:hover {
-            color: #8ab4f8;
-        }
-
-        .copyright {
-            text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #3c4043;
-            color: #9aa0a6;
-            font-size: 14px;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .main-content {
-                flex-direction: column;
-            }
-            
-            .sidebar {
-                flex: 1;
-                margin-bottom: 20px;
-            }
-            
-            .header-content {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .viewer-header {
-                flex-direction: column;
-                gap: 15px;
-                align-items: flex-start;
-            }
-            
-            .viewer-controls {
-                align-self: stretch;
-                justify-content: space-between;
-            }
-        }
-
-        /* Download Protection */
-        .pdf-container {
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            -khtml-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-
-        #pdf-canvas {
-            pointer-events: none;
-        }
-
-        .no-download-message {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 14px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-        }
-
-        .pdf-container:hover .no-download-message {
-            opacity: 1;
-        }
-    </style>
+    /* Mobile adjustments */
+    @media (max-width: 768px) {
+      iframe {
+        height: 80vh;
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <i class="fas fa-graduation-cap"></i>
-                    <h1>Edu SmartSpark</h1>
-                </div>
-                <nav>
-                    <ul>
-                        <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
-                        <li><a href="#"><i class="fas fa-book"></i> Notes</a></li>
-                        
-                        <li><a href="#"><i class="fas fa-question-circle"></i> Help</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </header>
 
-    <!-- Main Content -->
-    <div class="container">
-        <div class="main-content">
-            <!-- Sidebar with Instructions -->
-            <aside class="sidebar">
-                <h2>Textbook Access Instructions</h2>
-                
-                <div class="instructions">
-                    <h3><i class="fas fa-info-circle"></i> Important Notice</h3>
-                    <p>Textbooks are hosted on Google Drive for secure access. Please follow these steps to ensure you can view your textbooks:</p>
-                </div>
-           
-                <div class="status-check">
-                    <h3>Textbook Access Status</h3>
-                    <div id="status-indicator" class="status-indicator status-warning">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <span>Access Pending</span>
-                    </div>
-                    <p id="status-message">Please complete previous steps and request access from the Edu SmartSpark team.</p>
-                    <button class="btn" id="request-access">
-                        <i class="fas fa-envelope"></i> Request Access
-                    </button>
-                </div>
-                
-              
-            <!-- PDF Viewer -->
-            <section class="pdf-viewer">
-                <div class="viewer-header">
-                    <h2 class="book-title" id="book-title">Textbook Viewer</h2>
-                    <div class="viewer-controls">
-                        <button class="control-btn" id="zoom-out"><i class="fas fa-search-minus"></i></button>
-                        <span class="page-info">Page <span id="page-num">1</span> of <span id="page-count">0</span></span>
-                        <button class="control-btn" id="zoom-in"><i class="fas fa-search-plus"></i></button>
-                        <button class="control-btn" id="prev-page"><i class="fas fa-chevron-left"></i></button>
-                        <button class="control-btn" id="next-page"><i class="fas fa-chevron-right"></i></button>
-                    </div>
-                </div>
-                <div class="pdf-container">
-                    <div class="access-message" id="access-message">
-                        <i class="fas fa-lock"></i>
-                        <h3>Textbook Access Required</h3>
-                        <p>Please follow the instructions in the sidebar to gain access to your textbooks.</p>
-                        <p>Once approved by the Edu SmartSpark team, your textbook will appear here.</p>
-                    </div>
-                    <div class="loading" id="loading" style="display: none;">
-                        <div class="loading-spinner"></div>
-                        <p>Loading textbook...</p>
-                    </div>
-                    <canvas id="pdf-canvas" style="display: none;"></canvas>
-                    <div class="no-download-message">Downloading is disabled to protect copyright</div>
-                </div>
-            </section>
-        </div>
-    </div>
+  <header>Edu Smartspark – Textbook Preview</header>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>About SmartSpark</h3>
-                    <p>SmartSpark Edu provides digital learning resources to students worldwide, making education accessible and engaging.</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Textbooks</a></li>
-                        <li><a href="#">Study Guides</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Support</h3>
-                    <ul>
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Technical Support</a></li>
-                        <li><a href="#">Feedback</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="copyright">
-                <p>&copy; 2023 SmartSpark Edu. All rights reserved. Textbooks are provided for educational purposes only.</p>
-            </div>
-        </div>
-    </footer>
+  <!-- Warning section -->
+  <div class="warning" id="warning">
+    ⚠️ Access restricted! Please complete the steps and take permission from the Edu Smartspark team before viewing this PDF.
+  </div>
 
-    <!-- PDF.js Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
-    <script>
-        // Set up PDF.js worker
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+  <!-- PDF preview section -->
+  <div class="pdf-container">
+    <iframe 
+      id="pdfFrame"
+      src=""
+      allow="fullscreen">
+    </iframe>
+  </div>
 
-        // PDF viewer state
-        let currentPdf = null;
-        let currentPage = 1;
-        let pageRendering = false;
-        let pageNumPending = null;
-        let scale = 1.5;
-        let accessGranted = false; // Change this to true when access is granted
+  <footer>
+    © 2025 Edu Smartspark | Educational Resources
+  </footer>
 
-        // DOM elements
-        const canvas = document.getElementById('pdf-canvas');
-        const ctx = canvas.getContext('2d');
-        const pageNumElement = document.getElementById('page-num');
-        const pageCountElement = document.getElementById('page-count');
-        const loadingElement = document.getElementById('loading');
-        const accessMessageElement = document.getElementById('access-message');
-        const bookTitleElement = document.getElementById('book-title');
-        const statusIndicator = document.getElementById('status-indicator');
-        const statusMessage = document.getElementById('status-message');
-        const requestAccessBtn = document.getElementById('request-access');
+  <script>
+    // Simulating access check: you can set this flag after user follows correct steps.
+    let hasPermission = false; // Default: no permission
 
-        // PDF file paths (these would be replaced with your actual Google Drive PDF URLs)
-        const pdfFiles = {
-            math: 'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/web/compressed.tracemonkey-pldi-09.pdf',
-            science: 'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/web/compressed.tracemonkey-pldi-09.pdf',
-            history: 'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/web/compressed.tracemonkey-pldi-09.pdf'
-        };
+    const pdfFrame = document.getElementById('pdfFrame');
+    const warning = document.getElementById('warning');
 
-        // Book titles
-        const bookTitles = {
-            math: 'Mathematics Grade 10',
-            science: 'Science Grade 10',
-            history: 'History Grade 10'
-        };
+    if (hasPermission) {
+      // Embed Google Drive PDF preview without download buttons
+      // Replace FILE_ID with your Drive file ID
+      pdfFrame.src = "https://drive.google.com/file/d/1tAlDGOFvuuH8tk9Rp3piHEFHPdTQnGte/view?usp=drivesdk";
+      warning.style.display = "none";
+    } else {
+      pdfFrame.style.display = "none"; // Hide PDF if no permission
+    }
+  </script>
 
-        // Check access status (simulated - in real implementation, this would check with your backend)
-        function checkAccessStatus() {
-            // Simulate checking access status
-            // In a real implementation, this would make an API call to your server
-            setTimeout(() => {
-                // For demo purposes, let's assume access is granted after 3 seconds
-                // In reality, this would depend on actual user permissions
-                if (Math.random() > 0.5) { // 50% chance for demo
-                    grantAccess();
-                } else {
-                    // Keep access pending for demo
-                    statusIndicator.innerHTML = '<i class="fas fa-exclamation-triangle"></i><span>Access Pending</span>';
-                    statusIndicator.className = 'status-indicator status-warning';
-                    statusMessage.textContent = 'Please complete previous steps and request access from the Edu SmartSpark team.';
-                }
-            }, 1000);
-        }
-
-        // Grant access to textbooks
-        function grantAccess() {
-            accessGranted = true;
-            statusIndicator.innerHTML = '<i class="fas fa-check-circle"></i><span>Access Granted</span>';
-            statusIndicator.className = 'status-indicator status-success';
-            statusMessage.textContent = 'Congratulations! You now have access to your textbooks.';
-            requestAccessBtn.style.display = 'none';
-            
-            // Show the first textbook
-            loadPdf('math');
-        }
-
-        // Render a page
-        function renderPage(num) {
-            pageRendering = true;
-            loadingElement.style.display = 'flex';
-            accessMessageElement.style.display = 'none';
-            canvas.style.display = 'block';
-            
-            currentPdf.getPage(num).then(function(page) {
-                const viewport = page.getViewport({ scale: scale });
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
-                
-                const renderContext = {
-                    canvasContext: ctx,
-                    viewport: viewport
-                };
-                
-                const renderTask = page.render(renderContext);
-                
-                renderTask.promise.then(function() {
-                    pageRendering = false;
-                    loadingElement.style.display = 'none';
-                    pageNumElement.textContent = num;
-                    
-                    if (pageNumPending !== null) {
-                        renderPage(pageNumPending);
-                        pageNumPending = null;
-                    }
-                });
-            });
-        }
-
-        // Queue rendering of a page
-        function queueRenderPage(num) {
-            if (pageRendering) {
-                pageNumPending = num;
-            } else {
-                renderPage(num);
-            }
-        }
-
-        // Previous page
-        document.getElementById('prev-page').addEventListener('click', function() {
-            if (!accessGranted || currentPage <= 1) return;
-            currentPage--;
-            queueRenderPage(currentPage);
-        });
-
-        // Next page
-        document.getElementById('next-page').addEventListener('click', function() {
-            if (!accessGranted || currentPage >= currentPdf.numPages) return;
-            currentPage++;
-            queueRenderPage(currentPage);
-        });
-
-        // Zoom in
-        document.getElementById('zoom-in').addEventListener('click', function() {
-            if (!accessGranted) return;
-            scale += 0.2;
-            queueRenderPage(currentPage);
-        });
-
-        // Zoom out
-        document.getElementById('zoom-out').addEventListener('click', function() {
-            if (!accessGranted || scale <= 0.5) return;
-            scale -= 0.2;
-            queueRenderPage(currentPage);
-        });
-
-        // Load a PDF
-        function loadPdf(pdfId) {
-            if (!accessGranted) return;
-            
-            const pdfUrl = pdfFiles[pdfId];
-            loadingElement.style.display = 'flex';
-            accessMessageElement.style.display = 'none';
-            canvas.style.display = 'block';
-            bookTitleElement.textContent = bookTitles[pdfId];
-            
-            pdfjsLib.getDocument(pdfUrl).promise.then(function(pdf) {
-                currentPdf = pdf;
-                currentPage = 1;
-                renderPage(currentPage);
-            }).catch(function(error) {
-                console.error('Error loading PDF:', error);
-                loadingElement.innerHTML = '<p>Error loading textbook. Please try again later.</p>';
-                
-                // Show error message
-                accessMessageElement.innerHTML = `
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <h3>Textbook Loading Error</h3>
-                    <p>There was an error loading the textbook. This might be due to:</p>
-                    <ul style="text-align: left; margin: 15px 0;">
-                        <li>Google Drive access restrictions</li>
-                        <li>Network connectivity issues</li>
-                        <li>Browser compatibility problems</li>
-                    </ul>
-                    <p>Please contact technical support if the problem persists.</p>
-                `;
-                accessMessageElement.style.display = 'block';
-                canvas.style.display = 'none';
-            });
-        }
-
-        // Request access button
-        requestAccessBtn.addEventListener('click', function() {
-            alert('Access request sent to the Edu SmartSpark team. You will be notified when your access is approved.');
-            // In a real implementation, this would send a request to your backend
-            checkAccessStatus();
-        });
-
-        // Disable right-click and text selection
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-            return false;
-        });
-
-        // Initial setup
-        checkAccessStatus();
-    </script>
 </body>
 </html>

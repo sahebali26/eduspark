@@ -78,7 +78,7 @@ const driveLinks = {
     'Sociology – Social Stratification': 'https://drive.google.com/file/d/YOUR_FILE_ID_4/view',
     
     // Textbooks Section
-    'Public Administration uni1 (Political 3rdsem)': 'https://drive.google.com/file/d/YOUR_FILE_ID_5/view',
+    'Public Administration uni1 (Political 3rdsem)': 'https://drive.google.com/file/d/1tAlDGOFvuuH8tk9Rp3piHEFHPdTQnGte/view?usp=drivesdk',
     'Indian Polity for Civil Services': 'https://drive.google.com/file/d/YOUR_FILE_ID_6/view',
     'India\'s Struggle for Independence': 'https://drive.google.com/file/d/YOUR_FILE_ID_7/view',
     'Sociology: Themes and Perspectives': 'https://drive.google.com/file/d/YOUR_FILE_ID_8/view'

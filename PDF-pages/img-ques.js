@@ -51,36 +51,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Function to show overlay temporarily
-    function showOverlay() {
-        overlay.style.display = 'flex';
-        setTimeout(() => {
-            overlay.style.display = 'none';
-        }, 2000); // Hide after 2 seconds
-        alert('Screenshots are not allowed to protect content.');
-    }
 
-    // Detect visibility change (e.g., when app is minimized for screenshot)
-    document.addEventListener('visibilitychange', () => {
-        if (document.visibilityState === 'hidden') {
-            // Suspect screenshot when page is hidden (e.g., user switches to screenshot tool)
-            setTimeout(() => {
-                showOverlay();
-            }, 100); // Slight delay to catch screenshot timing
-        }
-    });
-
-    // Detect rapid touch events that might indicate screenshot preparation
-    let touchCount = 0;
-    document.addEventListener('touchstart', () => {
-        touchCount++;
-        setTimeout(() => {
-            touchCount = 0;
-        }, 1000); // Reset count after 1 second
-        if (touchCount > 2) { // Multiple rapid touches might indicate screenshot gesture
-            showOverlay();
-        }
-    });
+   
+    
 
     // Scroll to last page functionality
     document.getElementById('scrollToLastBtn').addEventListener('click', function() {

@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Resources - Edu Smartspark</title>
+    
+    <!-- Meta Description -->
+    <meta name="description" content="Access comprehensive educational resources including notes, textbooks, reference books, and useful links for university students. Free downloads for academic success.">
+
+    <!-- Open Graph for Social Media -->
+    <meta property="og:title" content="Educational Resources - Notes, Textbooks & More">
+    <meta property="og:description" content="Free educational resources for university students: notes, textbooks, reference books, and useful links.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourwebsite.com/resources">
+    <meta property="og:image" content="https://yourwebsite.com/images/resources-cover.jpg">
+
+    <!-- App and Logo -->
+    <link rel="icon" href="logo1.png" type="image/png">
+    
+    <style>
+        :root {
+            --primary: #3a86ff;
+            --secondary: #2667cc;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --accent: #8338ec;
+            --text-dark: #333;
+            --text-light: #666;
+            --border: #e0e0e0;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --shadow-hover: 0 5px 15px rgba(0,0,0,0.15);
+            --card-bg: #ffffff;
+            --header-bg: #ffffff;
+        }
+        
+        .dark-theme {
+            --light: #121212;
+            --text-dark: #e0e0e0;
+            --text-light: #b0b0b0;
+            --border: #333;
+            --shadow: 0 2px 10px rgba(0,0,0,0.3);
+            --shadow-hover: 0 5px 15px rgba(0,0,0,0.4);
+            --card-bg: #1e1e1e;
+            --header-bg: #1e1e1e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+            padding-top: 70px;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header */
+        header {
+            background: var(--header-bg);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo img {
+            height: 40px;
+        }
+        
+        .logo-text {
+            font-weight: 700;
+            color: var(--dark);
+            font-size: 1.2rem;
+        }
+        
+        .dark-theme .logo-text {
+            color: #e0e0e0;
+        }
+        
+        .logo-text span {
+            color: var(--primary);
+        }
+        
+        nav {
+            display: flex;
+            gap: 15px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        
+        .dark-theme nav a {
+            color: #e0e0e0;
+        }
+        
+        nav a:hover, nav a.active {
+            background: rgba(58, 134, 255, 0.1);
+            color: var(--primary);
+        }
+        
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .search-compact {
+            position: relative;
+            width: 200px;
+        }
+        
+        .search-compact input {
+            width: 100%;
+            padding: 8px 15px 8px 35px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background: var(--light);
+            color: var(--text-dark);
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        
+        .search-compact input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(58, 134, 255, 0.2);
+        }
+        
+        .search-compact i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+        }
+        
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-dark);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 5px;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+        
+        .theme-toggle:hover {
+            background: rgba(58, 134, 255, 0.1);
+            color: var(--primary);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-dark);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .dark-theme .mobile-menu-btn {
+            color: #e0e0e0;
+        }
+        
+        /* Hero */
+        .resources-hero {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 80px 0 40px;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 40px;
+        }
+        
+        .resources-hero h1 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+        
+        .resources-hero p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        /* Main Content */
+        .resources-main {
+            padding: 20px 0 60px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--dark);
+            font-size: 1.8rem;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .dark-theme .section-title {
+            color: #e0e0e0;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        /* Notes Section - List Style */
+        .notes-list {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-bottom: 50px;
+            transition: all 0.3s;
+        }
+        
+        .note-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.3s;
+        }
+        
+        .note-item:last-child {
+            border-bottom: none;
+        }
+        
+        .note-item:hover {
+            background: rgba(58, 134, 255, 0.05);
+        }
+        
+        .dark-theme .note-item:hover {
+            background: rgba(58, 134, 255, 0.1);
+        }
+        
+        .note-icon {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            color: var(--primary);
+            min-width: 30px;
+        }
+        
+        .note-content {
+            flex: 1;
+        }
+        
+        .note-content h3 {
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+        
+        .note-meta {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .note-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-youtube {
+            background: #ff0000;
+        }
+        
+        .btn-youtube:hover {
+            background: #cc0000;
+        }
+        
+        /* Books Section - Grid Style */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .resource-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .resource-img {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            background-color: #f0f0f0;
+        }
+        
+        .dark-theme .resource-img {
+            background-color: #2a2a2a;
+        }
+        
+        .resource-content {
+            padding: 20px;
+        }
+        
+        .resource-content h3 {
+            color: var(--dark);
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+            line-height: 1.3;
+        }
+        
+        .dark-theme .resource-content h3 {
+            color: #e0e0e0;
+        }
+        
+        .resource-meta {
+            color: var(--text-light);
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+        
+        .resource-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+        
+        .tag {
+            background: rgba(58, 134, 255, 0.1);
+            color: var(--primary);
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        /* Links Section */
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .link-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .link-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .link-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            min-width: 40px;
+        }
+        
+        .link-content {
+            flex: 1;
+        }
+        
+        .link-content h3 {
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+        
+        .link-content p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            animation: modalFade 0.3s;
+        }
+        
+        @keyframes modalFade {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .close-modal:hover {
+            color: var(--primary);
+        }
+        
+        .modal-body {
+            margin-bottom: 25px;
+        }
+        
+        .modal-body p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .modal-steps {
+            background: rgba(58, 134, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .modal-steps ol {
+            padding-left: 20px;
+        }
+        
+        .modal-steps li {
+            margin-bottom: 10px;
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 40px 0 0;
+            margin-top: 40px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-about h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .footer-about p {
+            color: #bbb;
+            margin-bottom: 15px;
+        }
+        
+        .footer-links h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 20px 0;
+            text-align: center;
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .resources-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .links-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding-top: 60px;
+            }
+            
+            .header-container {
+                flex-wrap: wrap;
+            }
+            
+            nav {
+                display: none;
+                width: 100%;
+                order: 3;
+                margin-top: 15px;
+                flex-direction: column;
+                background: var(--card-bg);
+                border-radius: 10px;
+                padding: 10px;
+                box-shadow: var(--shadow);
+            }
+            
+            nav.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .header-controls {
+                order: 2;
+            }
+            
+            .search-compact {
+                width: 150px;
+            }
+            
+            .resources-hero {
+                padding: 60px 0 30px;
+            }
+            
+            .resources-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .note-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .note-actions {
+                align-self: stretch;
+                justify-content: flex-end;
+            }
+            
+            /* Mobile-optimized grid for textbooks and additional books */
+            .resources-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 15px;
+            }
+            
+            .resource-img {
+                height: 140px;
+            }
+            
+            .resource-content {
+                padding: 15px;
+            }
+            
+            .resource-content h3 {
+                font-size: 1rem;
+            }
+            
+            .links-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                padding: 20px;
+            }
+            
+            .modal-actions {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .resources-hero h1 {
+                font-size: 1.6rem;
+            }
+            
+            .resources-main {
+                padding: 10px 0 40px;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+                margin-bottom: 20px;
+            }
+            
+            .note-item {
+                padding: 15px;
+            }
+            
+            /* Ensure at least 2 cards are visible horizontally on phones */
+            .resources-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            
+            .resource-img {
+                height: 120px;
+            }
+            
+            .resource-content {
+                padding: 12px;
+            }
+            
+            .resource-content h3 {
+                font-size: 0.9rem;
+            }
+            
+            .resource-meta {
+                font-size: 0.8rem;
+            }
+            
+            .search-compact {
+                width: 120px;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .resources-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .resource-img {
+                height: 100px;
+            }
+            
+            .resource-content {
+                padding: 10px;
+            }
+            
+            .resource-content h3 {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- Google Adsense Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3123651917845530" crossorigin="anonymous"></script>
+    <meta name="google-site-verification" content="NO-Xx_mGYDOQyc-rOVSCnJCxMX57FpnBoe1TQEAJ_9Y" />
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-container">
+                <div class="logo">
+                    <img src="logo1.png" alt="Edu Smartspark Logo">
+                    <div class="logo-text">Edu <span>Smartspark</span></div>
+                </div>
+                
+               
+                
+                <nav id="mainNav">
+                    <a href="#notes" class="nav-link">Notes</a>
+                    <a href="#textbooks" class="nav-link">Textbooks</a>
+                    <a href="#additional-books" class="nav-link">Wise Books</a>
+                    <a href="index.html">Home</a>
+                </nav>
+                
+                <div class="header-controls">
+                    <div class="search-compact">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search..." id="searchInput">
+                    </div>
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                     <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="resources-hero">
+        <div class="container">
+            <h1>Comprehensive Educational Resources</h1>
+            <p>Access notes, textbooks, reference books, and useful links to enhance your learning journey</p>
+        </div>
+    </section>
+
+    <main class="resources-main">
+        <div class="container">
+            <!-- Notes Section -->
+            <h2 class="section-title" id="notes">📝 Notes</h2>
+            <div class="notes-list">
+                <div class="note-item">
+                    <div class="note-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="note-content">
+                        <h3>Audiotion - Alt English</h3>
+                        <div class="note-meta">
+                            <span>PDF 2.1 MB</span>
+                            <span>Covers All types of questions with answers</span>
+                        </div>
+                    </div>
+                    <div class="note-actions">
+                        <button class="btn view-btn" data-title="Audiotion - Alt English">View</button>
+                    </div>
+                </div>                        
+                
+                <div class="note-item">
+                    <div class="note-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="note-content">
+                        <h3>The Ring - Alt English</h3>
+                        <div class="note-meta">
+                            <span>DOC 3.2 MB</span>
+                            <span>Covers All types of questions with answers</span>
+                        </div>
+                    </div>
+                    <div class="note-actions">
+                        <button class="btn view-btn" data-title="The Ring - Alt English">View</button>
+                    </div>
+                </div>
+                
+
+            <!-- Textbooks Section -->
+            <h2 class="section-title" id="textbooks">📚 Textbooks</h2>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <div class="resource-img" style="background-image: url('Thumbnails/resource/3rdU1TextBookPol.jpg')"></div>
+                    <div class="resource-content">
+                        <h3>Public Administration uni1 (Political 3rdsem)</h3>
+                        <div class="resource-meta">Dr kripal Chandra Pal | </div>
+                        <div class="resource-tags">
+                            <span class="tag">Administration</span>
+                            <span class="tag">Core</span>
+                        </div>
+                        <button class="btn view-btn" data-title="Public Administration uni1 (Political 3rdsem)">View</button>
+                    </div>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-img" style="background-image: url('https://via.placeholder.com/300x200/8338ec/ffffff?text=Indian+Polity')"></div>
+                    <div class="resource-content">
+                        <h3>Economy - Not availabel</h3>
+                        <div class="resource-meta">M. Laxmikanth | 5th Edition</div>
+                        <div class="resource-tags">
+                            <span class="tag">Political Eco</span>
+                            <span class="tag">Reference</span>
+                        </div>
+                        <button class="btn view-btn" data-title="Indian Polity for Civil Services">View</button>
+                    </div>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-img" style="background-image: url('https://via.placeholder.com/300x200/ff006e/ffffff?text=Modern+History')"></div>
+                    <div class="resource-content">
+                        <h3>India's Struggle for Independence</h3>
+                        <div class="resource-meta">Bipan Chandra | 1st Edition</div>
+                        <div class="resource-tags">
+                            <span class="tag">History</span>
+                            <span class="tag">Modern</span>
+                        </div>
+                        <button class="btn view-btn" data-title="India's Struggle for Independence">View</button>
+                    </div>
+                </div>
+                
+                
+            </div>
+
+            <!-- Additional Knowledge Books Section -->
+            <h2 class="section-title" id="additional-books">📖 Additional Knowledge Books</h2>
+            <div class="resources-grid">
+                
+                <div class="resource-card">
+                    <div class="resource-img" style="background-image: url('Thumbnails/book/thinkstraigh-book.png')"></div>
+                    <div class="resource-content">
+                        <h3>Think Straight by Darius Foroux</h3>
+                        <div class="resource-meta">Published 2017</div>
+                        <div class="resource-tags">
+                            <span class="tag">Psychology</span>
+                            <span class="tag">Behavioral</span>
+                        </div>
+                        
+                        <a href="https://drive.google.com/file/d/15lDPnfvnVl8hXc9nYwKNCSPNTqqDZtCs/view" class="btn">Download</a>
+                    </div>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-img" style="background-image: url('Thumbnails/book/movedcheese.png');"></div>
+                    <div class="resource-content">
+                        <h3>Who Moved My Cheese? by Spencer Johnson, MD</h3>
+                        <div class="resource-meta">Published 1998 </div>
+                        <div class="resource-tags">
+                            <span class="tag">Motivation</span>
+                            <span class="tag">Move on</span>
+                        </div>
+                        <a href="https://drive.google.com/file/d/1uEnchwbIxvfJxnwuIJujlziAG9zr5N67/view" class="btn">Download</a>
+                    </div>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-img" style="background-image: url('Thumbnails/book/lowhumanbook.png');"></div>
+                    <div class="resource-content">
+                        <h3>The Laws of Human Nature by Robert Greene</h3>
+                        <div class="resource-meta">Published 2018</div>
+                        <div class="resource-tags">
+                            <span class="tag">master emotions</span>
+                            <span class="tag">Critical Thinking</span>
+                        </div>
+                        <a href="https://drive.google.com/file/d/1pCJ062Sljkdy9-b7YIElyufA6h_fk00u/view" class="btn">Download</a>
+                    </div>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-img" style="background-image: url('Thumbnails/book/productivemslm.png');"></div>
+                    <div class="resource-content">
+                        <h3>The Productive Muslim</h3>
+                        <div class="resource-meta">Published 2016</div>
+                        <div class="resource-tags">
+                            <span class="tag">productivity</span>
+                            <span class="tag">Development</span>
+                        </div>
+                        <a href="https://drive.google.com/file/d/1OfY4VfI7eGhat8Y53c_fDTP6pS4-ijae/view" class="btn">Download</a>
+                    </div>
+                </div>
+           
+
+            <div class="resource-card">
+                    <div class="resource-img" style="background-image: url('Thumbnails/book/purplecow.png');"></div>
+                    <div class="resource-content">
+                        <h3>Purple Cow by Seth Godin</h3>
+                        <div class="resource-meta">Published 2003</div>
+                        <div class="resource-tags">
+                            <span class="tag">business</span>
+                            <span class="tag">Marketing</span>
+                        </div>
+                        <a href="https://drive.google.com/file/d/1ynODnAvtiWED9jA8_37D84OCajUu4VZC/view" class="btn">Download</a>
+                    </div>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-img" style="background-image: url('Thumbnails/book/Deeperbysaheb.png');"></div>
+                    <div class="resource-content">
+                        <h3>Deep Realization by Saheb Ali</h3>
+                        <div class="resource-meta">Not Pulished</div>
+                        <div class="resource-tags">
+                            <span class="tag">Personal reflections</span>
+                            <span class="tag">exploring truth</span>
+                        </div>
+                        <a href="https://docs.google.com/document/d/1a0HyofnN1GB9AKOT78V8q7C_mPzRhMyNI9Q7AG0t7_8/edit?tab=t.0" class="btn">Contribute</a>
+                    </div>
+                </div>
+                 <div class="resource-card">
+                    <div class="resource-img" style="background-image: url('Thumbnails/book/reviveheart.png');"></div>
+                    <div class="resource-content">
+                        <h3>Revive Your Heart</h3>
+                        <div class="resource-meta">Published 2017</div>
+                        <div class="resource-tags">
+                            <span class="tag">Spiritual guide</span>
+                            <span class="tag">renew faith</span>
+                        </div>
+                        <a href="https://drive.google.com/file/d/1s_9H3gO6rF4G9RvMKnJhuXzyGhmyt929/view" class="btn">Download</a>
+                    </div>
+                </div>
+
+                 </div>
+                   <!-- Additional Knowledge Courrces -->
+            <h2 class="section-title" id="additional-books">📖 Free Cources</h2>
+            <div class="resources-grid">
+                
+                <div class="resource-card">
+                    <div class="resource-img" style="background-image: url('Thumbnails/book/kisuiparina.png');"></div>
+                    <div class="resource-content">
+                        <h3>Spoken English Course (Basic to Advance)</h3>
+                        <div class="resource-meta">Re-Published 2023</div>
+                        <div class="resource-tags">
+                            <span class="tag">Spoken English</span>
+                            <span class="tag">Learning</span>
+                        </div>
+                        
+                        <a href="https://drive.google.com/file/d/15lDPnfvnVl8hXc9nYwKNCSPNTqqDZtCs/view" class="btn">Download</a>
+                    </div>
+                </div>
+                </div>
+
+            <!-- Useful Links Section -->
+            <h2 class="section-title" id="links">🔗 Useful Links</h2>
+            <div class="links-grid">
+                <div class="link-card">
+                    <div class="link-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="link-content">
+                        <h3>Scholarship -Digree Student<h3>
+                        <p>Browse Scholarship Categories</p>
+                    </div>
+                    <a href="scholarship.html" target="_blank" class="btn btn-outline">Visit</a>
+                </div>
+                
+                <div class="link-card">
+                    <div class="link-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div class="link-content">
+                        <h3>National Digital Library</h3>
+                        <p>Millions of books and educational resources</p>
+                    </div>
+                    <a href="https://ndl.iitkgp.ac.in" target="_blank" class="btn btn-outline">Visit</a>
+                </div>
+                
+                <div class="link-card">
+                    <div class="link-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <div class="link-content">
+                        <h3>GU - Samarth</h3>
+                        <p>Sammarth Student Login portal.</p>
+                    </div>
+                    <a href="https://gauhati.samarth.edu.in/index.php/site/login" target="_blank" class="btn btn-outline">Visit</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Permission Modal -->
+<div class="modal" id="permissionModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">Access Required</h3>
+            <button class="close-modal" id="closeModal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p>To access <strong id="resourceName"></strong>, you need to follow these steps:</p>
+            
+            <div class="modal-steps">
+                <ol>
+                    <li>Click Youtube Button (Open a 20s short)</li>
+                    <li>Watch the full short, subscribe and like </li>
+                    <li>Take a screenshot of your subscribed</li>
+                    <li>Email the screenshot to <strong>sahebali8474@gmail.com</strong></li>
+                    <li>Include the resource name and your details in the email</li>
+                </ol>
+            </div>
+            
+            <p>Our team will grant you access to the Google Drive file within minutes after receiving your email.</p>
+        </div>
+        <div class="modal-actions">
+            <a href="https://www.youtube.com/shorts/Z2rcD-hlUok" class="btn btn-youtube" target="_blank">
+                <i class="fab fa-youtube"></i> Subscribe to YouTube
+            </a>
+            <button class="btn" id="openResource">
+                <i class="fas fa-external-link-alt"></i> Open
+            </button>
+        </div>
+    </div>
+</div>
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <h3>Edu Smartspark</h3>
+                    <p>Providing quality educational resources to help students excel in their academic journey.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                       <li><a href="../index.html">Home</a></li>
+                        <li><a href="../about.html">About Us</a></li>
+                        <li><a href="../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                
+                <div class="footer-links">
+                       <h3>Resources</h3>
+                    <ul>
+                        <li><a href="question-papers.html">Question Papers</a></li>
+                        <li><a href="solutions.html">Solved Papers</a></li>
+                        <li><a href="gk-current-affairs.html">Multi Tech Tools</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Edu Smartspark. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+<script src="notes-book.js"></script>
+</body>
+</html>

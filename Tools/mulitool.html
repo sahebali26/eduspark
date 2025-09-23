@@ -242,7 +242,18 @@ header {
     opacity: 0.9;
 }
 
-/* Tools Grid */
+/* Featured Tools Grid */
+.featured-tools {
+    margin-bottom: 40px;
+}
+
+.featured-tools h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--primary);
+    font-size: 1.8rem;
+}
+
 .tools-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -315,6 +326,92 @@ header {
 .btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(109, 40, 217, 0.4);
+}
+
+/* Additional Tools Section */
+.additional-tools {
+    margin-bottom: 40px;
+}
+
+.additional-tools h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--primary);
+    font-size: 1.8rem;
+}
+
+.tools-scroll-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.tools-scroll-wrapper {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 20px;
+    padding: 10px 0;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+.tools-scroll-wrapper::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+}
+
+.scroll-card {
+    flex: 0 0 280px;
+    background: var(--card-bg);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px var(--shadow);
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: var(--blur);
+    -webkit-backdrop-filter: var(--blur);
+}
+
+.scroll-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(109, 40, 217, 0.2);
+}
+
+.scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--card-bg);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 10px var(--shadow);
+    z-index: 10;
+    transition: all 0.3s;
+}
+
+.scroll-btn:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.scroll-btn-left {
+    left: 10px;
+}
+
+.scroll-btn-right {
+    right: 10px;
+}
+
+.scroll-btn.hidden {
+    display: none;
 }
 
 /* Footer */
@@ -420,7 +517,7 @@ footer {
     }
 }
 
-.tool-card {
+.tool-card, .scroll-card {
     animation: fadeInUp 0.6s ease-out;
 }
 
@@ -461,6 +558,10 @@ footer {
     .search-container input {
         width: 150px;
     }
+    
+    .scroll-btn {
+        display: none;
+    }
 }
 
 @media (max-width: 768px) {
@@ -487,6 +588,10 @@ footer {
     .tools-grid {
         grid-template-columns: 1fr;
     }
+    
+    .scroll-card {
+        flex: 0 0 250px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -511,6 +616,10 @@ footer {
         right: 20px;
         width: 45px;
         height: 45px;
+    }
+    
+    .scroll-card {
+        flex: 0 0 220px;
     }
 }
     </style>
@@ -555,97 +664,124 @@ footer {
             <p>Edu Smartspark provides a suite of free, easy-to-use tools to help you work with images and PDFs efficiently.</p>
         </section>
 
-        <!-- Tools Grid -->
-        <div class="tools-grid" id="toolsGrid">
-            <!-- Tool 1: Image to PDF Converter -->
-            <div class="tool-card" data-name="Image to PDF Converter">
-                <div class="tool-icon">
-                    <i class="fas fa-file-pdf"></i>
+        <!-- Featured Tools Grid -->
+        <section class="featured-tools">
+            <h2>Featured Tools</h2>
+            <div class="tools-grid" id="toolsGrid">
+                <!-- Tool 1: Diagram Generator -->
+                <div class="tool-card" data-name="Diagram Generator">
+                    <div class="tool-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3>Diagram Generator</h3>
+                        <p>Create professional diagrams and flowcharts with our easy-to-use diagram generator tool.</p>
+                        <a href="Diagram.html" class="btn">Open Tool</a>
+                    </div>
                 </div>
-                <div class="tool-content">
-                    <h3>Image to PDF Converter</h3>
-                    <p>Convert your images to PDF format with high quality. Supports JPG, PNG, and other image formats.</p>
-                    <a href="image-to-pdf.html" class="btn">Open Tool</a>
+
+                <!-- Tool 2: Text to QR Code Generator -->
+                <div class="tool-card" data-name="Text to QR Code Generator">
+                    <div class="tool-icon">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3>Text to QR Code Generator</h3>
+                        <p>Instantly convert your text into a scannable QR code with one click.</p>
+                        <a href="tex-to-QR.html" class="btn">Open Tool</a>
+                    </div>
                 </div>
+                 <div class="scroll-card" data-name="PDF to Image Converter">
+                        <div class="tool-icon">
+                            <i class="fas fa-file-image"></i>
+                        </div>
+                        <div class="tool-content">
+                            <h3>PDF to Image Converter</h3>
+                            <p>Extract images from your PDF files or convert entire PDF pages to image format.</p>
+                            <a href="pdf-to-image.html" class="btn">Open Tool</a>
+                        </div>
+                    </div>
             </div>
+        </section>
 
+        <!-- Additional Tools Section -->
+        <section class="additional-tools">
+            <h2>More Tools</h2>
+            <div class="tools-scroll-container">
+                <button class="scroll-btn scroll-btn-left" id="scrollLeft">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                
+                <div class="tools-scroll-wrapper" id="toolsScroll">
+                    <!-- Tool 3: Image to PDF Converter -->
+                    <div class="scroll-card" data-name="Image to PDF Converter">
+                        <div class="tool-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="tool-content">
+                            <h3>Image to PDF Tool</h3>
+                            <p>Images to PDF format with high quality. Supports JPG, PNG, and other image formats.</p>
+                            <a href="image-to-pdf.html" class="btn">Open Tool</a>
+                        </div>
+                    </div>
 
+                    <!-- Tool 4: PDF to Image Converter -->
+                   
 
-            <!-- Tool 2: PDF to Image Converter -->
-            <div class="tool-card" data-name="PDF to Image Converter">
-                <div class="tool-icon">
-                    <i class="fas fa-file-image"></i>
+                    <!-- Tool 5: Image Size Tool -->
+                    <div class="scroll-card" data-name="Image Size Tool">
+                        <div class="tool-icon">
+                            <i class="fas fa-expand-alt"></i>
+                        </div>
+                        <div class="tool-content">
+                            <h3>Image Size Tool</h3>
+                            <p>Increase or decrease the dimensions and file size of your images without losing quality.</p>
+                            <a href="image-resize.html" class="btn">Open Tool</a>
+                        </div>
+                    </div>
+
+                    <!-- Tool 6: Image Format Changer -->
+                    <div class="scroll-card" data-name="Image Format Changer">
+                        <div class="tool-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div class="tool-content">
+                            <h3>Image Format Changer</h3>
+                            <p>Convert between different image formats like JPG, PNG, WebP, and more with ease.</p>
+                            <a href="https://www.eduspark.site/PDF-pages/null.html" class="btn">NUL</a>
+                        </div>
+                    </div>
+
+                    <!-- Tool 7: PDF Merger -->
+                    <div class="scroll-card" data-name="PDF Merger">
+                        <div class="tool-icon">
+                            <i class="fas fa-object-group"></i>
+                        </div>
+                        <div class="tool-content">
+                            <h3>PDF Merger</h3>
+                            <p>Combine multiple PDF files into a single document. Arrange pages as you need.</p>
+                            <a href="https://www.eduspark.site/PDF-pages/null.html" class="btn">NUL</a>
+                        </div>
+                    </div>
+
+                    <!-- Tool 8: Watermark Tool -->
+                    <div class="scroll-card" data-name="Watermark Tool">
+                        <div class="tool-icon">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <div class="tool-content">
+                            <h3>Watermark Tool</h3>
+                            <p>Add text or image watermarks to your PDFs and images to protect your content.</p>
+                            <a href="https://www.eduspark.site/PDF-pages/null.html" class="btn">NUL</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="tool-content">
-                    <h3>PDF to Image Converter</h3>
-                    <p>Extract images from your PDF files or convert entire PDF pages to image format.</p>
-                    <a href="pdf-to-image.html" class="btn">Open Tool</a>
-                </div>
+                
+                <button class="scroll-btn scroll-btn-right" id="scrollRight">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
-
-           <!-- Tool 3: Image Size Tool -->
-            <div class="tool-card" data-name="Image Size Tool">
-                <div class="tool-icon">
-                    <i class="fas fa-expand-alt"></i>
-                </div>
-                <div class="tool-content">
-                    <h3>Image Size Tool</h3>
-                    <p>Increase or decrease the dimensions and file size of your images without losing quality.</p>
-                    <a href="image-resize.html" class="btn">Open Tool</a>
-                </div>
-            </div>
-
-
-            <!-- Tool: Text to QR Code Generator -->
-<div class="tool-card" data-name="Text to QR Code Generator">
-    <div class="tool-icon">
-        <i class="fas fa-qrcode"></i>
-    </div>
-    <div class="tool-content">
-        <h3>Text to QR Code Generator</h3>
-        <p>Instantly convert your text into a scannable QR code with one click.</p>
-        <a href="tex-to-QR.html" class="btn">Open Tool</a>
-    </div>
-</div>
-            
-            <!-- Tool 4: Image Format Changer -->
-            <div class="tool-card" data-name="Image Format Changer">
-                <div class="tool-icon">
-                    <i class="fas fa-exchange-alt"></i>
-                </div>
-                <div class="tool-content">
-                    <h3>Image Format Changer</h3>
-                    <p>Convert between different image formats like JPG, PNG, WebP, and more with ease.</p>
-                    <a href="image-format-changer.html" class="btn">NUL</a>
-                </div>
-            </div>
-
-            <!-- Tool 6: PDF Merger -->
-            <div class="tool-card" data-name="PDF Merger">
-                <div class="tool-icon">
-                    <i class="fas fa-object-group"></i>
-                </div>
-                <div class="tool-content">
-                    <h3>PDF Merger</h3>
-                    <p>Combine multiple PDF files into a single document. Arrange pages as you need.</p>
-                    <a href="pdf-merger.html" class="btn">NUL</a>
-                </div>
-            </div>
-
-            <!-- Tool 5: Watermark Tool -->
-            <div class="tool-card" data-name="Watermark Tool">
-                <div class="tool-icon">
-                    <i class="fas fa-tint"></i>
-                </div>
-                <div class="tool-content">
-                    <h3>Watermark Tool</h3>
-                    <p>Add text or image watermarks to your PDFs and images to protect your content.</p>
-                    <a href="watermark-tool.html" class="btn">NUL</a>
-                </div>
-            </div>
-
-            
-        </div>
+        </section>
     </div>
 
     <!-- Footer -->
@@ -660,8 +796,8 @@ footer {
                 <div class="footer-bottom">
                 <p>&copy; 2024 Edu Smartspark. All Rights Reserved (Saheb Ali).</p>
                 <div class="legal-links">
-                    <a href="https://www.eduspark.site/terms.html">Terms of Service</a>
-                    <a href="https://www.eduspark.site/policy.html">Privacy Policy</a>
+                    <a href="https://www.eduspark.site/terms.html">Terms </a>
+                    <a href="https://www.eduspark.site/policy.html">  Privacy</a>
                 </div>
             </div>
         </div>
@@ -670,62 +806,62 @@ footer {
     <script>
         // Dark/Light Mode Toggle
         // Function to set theme based on device preference
-function setThemeBasedOnDevicePreference() {
-    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    
-    if (prefersDarkScheme.matches) {
-        document.body.classList.add('dark-mode');
-        themeIcon.classList.remove('fa-moon');
-        themeIcon.classList.add('fa-sun');
-    } else {
-        document.body.classList.remove('dark-mode');
-        themeIcon.classList.remove('fa-sun');
-        themeIcon.classList.add('fa-moon');
-    }
-}
+        function setThemeBasedOnDevicePreference() {
+            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+            
+            if (prefersDarkScheme.matches) {
+                document.body.classList.add('dark-mode');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                document.body.classList.remove('dark-mode');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        }
 
-// Dark/Light Mode Toggle
-const themeToggle = document.getElementById('themeToggle');
-const themeIcon = themeToggle.querySelector('i');
+        // Dark/Light Mode Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
 
-// Set initial theme based on device preference
-setThemeBasedOnDevicePreference();
+        // Set initial theme based on device preference
+        setThemeBasedOnDevicePreference();
 
-// Listen for system theme changes
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-    setThemeBasedOnDevicePreference();
-});
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            setThemeBasedOnDevicePreference();
+        });
 
-themeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    if (document.body.classList.contains('dark-mode')) {
-        themeIcon.classList.remove('fa-moon');
-        themeIcon.classList.add('fa-sun');
-        localStorage.setItem('theme', 'dark');
-    } else {
-        themeIcon.classList.remove('fa-sun');
-        themeIcon.classList.add('fa-moon');
-        localStorage.setItem('theme', 'light');
-    }
-});
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        });
 
-// Check for saved theme preference
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme) {
-    if (savedTheme === 'dark') {
-        document.body.classList.add('dark-mode');
-        themeIcon.classList.remove('fa-moon');
-        themeIcon.classList.add('fa-sun');
-    } else {
-        document.body.classList.remove('dark-mode');
-        themeIcon.classList.remove('fa-sun');
-        themeIcon.classList.add('fa-moon');
-    }
-}
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                document.body.classList.remove('dark-mode');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        }
 
         // Search Functionality
         const searchInput = document.getElementById('searchInput');
-        const toolCards = document.querySelectorAll('.tool-card');
+        const toolCards = document.querySelectorAll('.tool-card, .scroll-card');
         
         searchInput.addEventListener('input', () => {
             const searchTerm = searchInput.value.toLowerCase();
@@ -757,6 +893,47 @@ if (savedTheme) {
                 icon.classList.add('fa-bars');
             }
         });
+
+        // Horizontal scrolling functionality
+        const scrollContainer = document.getElementById('toolsScroll');
+        const scrollLeftBtn = document.getElementById('scrollLeft');
+        const scrollRightBtn = document.getElementById('scrollRight');
+        
+        scrollLeftBtn.addEventListener('click', () => {
+            scrollContainer.scrollBy({
+                left: -300,
+                behavior: 'smooth'
+            });
+        });
+        
+        scrollRightBtn.addEventListener('click', () => {
+            scrollContainer.scrollBy({
+                left: 300,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Hide/show scroll buttons based on scroll position
+        function updateScrollButtons() {
+            const scrollLeft = scrollContainer.scrollLeft;
+            const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+            
+            if (scrollLeft <= 0) {
+                scrollLeftBtn.classList.add('hidden');
+            } else {
+                scrollLeftBtn.classList.remove('hidden');
+            }
+            
+            if (scrollLeft >= maxScrollLeft) {
+                scrollRightBtn.classList.add('hidden');
+            } else {
+                scrollRightBtn.classList.remove('hidden');
+            }
+        }
+        
+        scrollContainer.addEventListener('scroll', updateScrollButtons);
+        window.addEventListener('resize', updateScrollButtons);
+        updateScrollButtons(); // Initial check
     </script>
 </body>
 </html>

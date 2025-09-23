@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edu Smartspark Diagram Generator</title>
+
+<!-- Handsontable CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/handsontable@11.1.0/dist/handsontable.min.css">
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root {
+  --primary: #2e86de;
+  --primary-dark: #1b4f72;
+  --secondary: #ff6384;
+  --success: #4bc0c0;
+  --warning: #ffce56;
+  --light: #f8f9fa;
+  --dark: #121212;
+  --text: #222;
+  --text-light: #f4f4f4;
+  --card-bg: #fff;
+  --shadow: rgba(0,0,0,0.1);
+  --border: #e0e0e0;
+}
+
+.dark-mode {
+  --primary: #3498db;
+  --primary-dark: #1c5d99;
+  --light: #1e1e1e;
+  --dark: #121212;
+  --text: #eee;
+  --text-light: #f4f4f4;
+  --card-bg: #1e1e1e;
+  --shadow: rgba(255,255,255,0.05);
+  --border: #444;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--light);
+  color: var(--text);
+  transition: all 0.3s ease;
+  line-height: 1.6;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: var(--primary);
+  color: white;
+  box-shadow: 0 2px 10px var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo i {
+  font-size: 1.5rem;
+}
+
+header h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 10px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  transition: background 0.3s;
+  font-size: 0.9rem;
+}
+
+.nav-links a:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+header button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #fff;
+  color: var(--primary);
+  font-weight: 600;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+}
+
+header button:hover {
+  background: #d6e6ff;
+  transform: translateY(-2px);
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+  gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.sidebar, .table-panel {
+  flex: 1 1 300px;
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px var(--shadow);
+  border: 1px solid var(--border);
+}
+
+.diagram-area {
+  flex: 2 1 600px;
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px var(--shadow);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-container {
+  flex-grow: 1;
+  position: relative;
+  width: 100%;
+  height: 450px;
+}
+
+#chartCanvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-title i {
+  color: var(--primary);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+input[type="text"], input[type="number"], select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  font-size: 14px;
+  background: var(--card-bg);
+  color: var(--text);
+  transition: border 0.3s;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(46, 134, 222, 0.2);
+}
+
+.buttons-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+button.action-btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: var(--primary);
+  color: white;
+  font-weight: 600;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  min-width: 120px;
+  justify-content: center;
+}
+
+button.action-btn:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+button.action-btn.secondary {
+  background: #6c757d;
+}
+
+button.action-btn.secondary:hover {
+  background: #545b62;
+}
+
+button.action-btn.success {
+  background: var(--success);
+}
+
+button.action-btn.success:hover {
+  background: #3aa3a3;
+}
+
+.small-btn {
+  padding: 6px 12px !important;
+  font-size: 0.85rem !important;
+  min-width: auto !important;
+  flex: 0 1 auto !important;
+}
+
+.progress-bar {
+  width: 100%;
+  background: #eee;
+  border-radius: 5px;
+  margin-top: 10px;
+  overflow: hidden;
+  height: 10px;
+  display: none;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--primary);
+  transition: width 0.3s;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  padding: 10px;
+  background: rgba(46, 134, 222, 0.1);
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-value {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: var(--primary);
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 200px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -100px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 0.8rem;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  margin-top: 20px;
+  color: #6c757d;
+  font-size: 0.9rem;
+  border-top: 1px solid var(--border);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  main {
+    flex-direction: column;
+  }
+  
+  .sidebar, .table-panel, .diagram-area {
+    flex: 1 1 100%;
+  }
+  
+  header {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+  
+  .header-controls {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .nav-links {
+    justify-content: center;
+  }
+  
+  .buttons-group {
+    flex-direction: column;
+  }
+  
+  button.action-btn {
+    width: 100%;
+  }
+}
+
+/* Animation for chart loading */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.chart-container {
+  animation: fadeIn 0.5s ease;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.dark-mode ::-webkit-scrollbar-track {
+  background: #2a2a2a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 10px;
+}
+
+.dark-mode ::-webkit-scrollbar-thumb {
+  background: #555;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+.export-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.help-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.help-content {
+  background: var(--card-bg);
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.help-content h2 {
+  margin-bottom: 15px;
+  color: var(--primary);
+}
+
+.help-content h3 {
+  margin: 20px 0 10px;
+  color: var(--primary);
+}
+
+.help-content p {
+  margin-bottom: 15px;
+}
+
+.help-content ul {
+  margin-left: 20px;
+  margin-bottom: 15px;
+}
+
+.close-help {
+  float: right;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text);
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <i class="fas fa-chart-bar"></i>
+    <h1>Edu Smartspark Diagram Generator</h1>
+  </div>
+  
+  <div class="header-controls">
+    <div class="nav-links">
+      <a href="https://edupark.site" target="_blank"><i class="fas fa-home"></i> Home</a>
+      <a href="#" id="helpLink"><i class="fas fa-question-circle"></i> Help</a>
+    </div>
+    
+    <button id="themeToggle">
+      <i class="fas fa-moon"></i> Dark Mode
+    </button>
+  </div>
+</header>
+
+<main>
+  <section class="sidebar">
+    <div class="section-title">
+      <i class="fas fa-sliders-h"></i>
+      <h2>Diagram Settings</h2>
+    </div>
+    
+    <div class="form-group">
+      <label for="diagramTitle">Diagram Title:</label>
+      <input type="text" id="diagramTitle" placeholder="Enter diagram title" value="Edu Smartspark Chart">
+    </div>
+    
+    <div class="form-group">
+      <label for="diagramType">Diagram Type:</label>
+      <select id="diagramType">
+        <option value="bar">Bar Chart</option>
+        <option value="pie">Pie Chart</option>
+        <option value="line">Line Chart</option>
+        <option value="doughnut">Doughnut Chart</option>
+        <option value="polarArea">Polar Area Chart</option>
+      </select>
+    </div>
+    
+    <div class="stats">
+      <div class="stat-item">
+        <div class="stat-value" id="levelCount">4</div>
+        <div>Levels</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value" id="dataSum">100</div>
+        <div>Total Value</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="diagram-area">
+    <div class="section-title">
+      <i class="fas fa-chart-pie"></i>
+      <h2>Diagram Preview</h2>
+      <div class="tooltip">
+        <i class="fas fa-info-circle" style="color: var(--primary);"></i>
+        <span class="tooltiptext">Hover over chart elements to see detailed values</span>
+      </div>
+    </div>
+    <div class="chart-container">
+      <canvas id="chartCanvas"></canvas>
+    </div>
+    
+    <div class="export-container">
+      <button class="action-btn success" id="exportBtn">
+        <i class="fas fa-download"></i> Export PNG
+      </button>
+      <div class="progress-bar" id="exportProgress">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="table-panel">
+    <div class="section-title">
+      <i class="fas fa-edit"></i>
+      <h2>Edit Data</h2>
+      <div class="tooltip">
+        <i class="fas fa-info-circle" style="color: var(--primary);"></i>
+        <span class="tooltiptext">Double-click cells to edit values directly</span>
+      </div>
+    </div>
+    
+    <div class="buttons-group">
+      <button class="action-btn small-btn" id="addLevel">
+        <i class="fas fa-plus"></i> Add Level
+      </button>
+      <button class="action-btn secondary small-btn" id="removeLevel">
+        <i class="fas fa-minus"></i> Remove Level
+      </button>
+    </div>
+    
+    <div id="dataTable"></div>
+  </section>
+</main>
+
+<div class="help-modal" id="helpModal">
+  <div class="help-content">
+    <span class="close-help" id="closeHelp">&times;</span>
+    <h2>Edu Smartspark Diagram Generator Help</h2>
+    
+    <h3>Getting Started</h3>
+    <p>Create professional diagrams quickly with our easy-to-use tool. Follow these steps:</p>
+    <ul>
+      <li>Enter a title for your diagram</li>
+      <li>Select the type of chart you want to create</li>
+      <li>Edit the data in the table on the right</li>
+      <li>Add or remove levels as needed</li>
+      <li>Export your diagram when you're satisfied</li>
+    </ul>
+    
+    <h3>Chart Types</h3>
+    <p>We support several chart types:</p>
+    <ul>
+      <li><strong>Bar Chart:</strong> Compare values across categories</li>
+      <li><strong>Pie Chart:</strong> Show proportions of a whole</li>
+      <li><strong>Line Chart:</strong> Display trends over time or categories</li>
+      <li><strong>Doughnut Chart:</strong> Similar to pie chart with a hole in the center</li>
+      <li><strong>Polar Area Chart:</strong> Show values on a circular grid</li>
+    </ul>
+    
+    <h3>Editing Data</h3>
+    <p>To edit your data:</p>
+    <ul>
+      <li>Double-click any cell in the data table to edit it</li>
+      <li>Use the "Add Level" and "Remove Level" buttons to adjust the number of data points</li>
+      <li>Changes are reflected immediately in the diagram preview</li>
+    </ul>
+    
+    <h3>Exporting</h3>
+    <p>When you're ready to save your diagram:</p>
+    <ul>
+      <li>Click the "Export PNG" button below the diagram</li>
+      <li>Your diagram will be downloaded as a high-quality PNG image</li>
+      <li>The file will be named after your diagram title</li>
+    </ul>
+    
+    <h3>Need More Help?</h3>
+    <p>Visit our website at <a href="https://edupark.site" target="_blank">edupark.site</a> for more resources and tutorials.</p>
+  </div>
+</div>
+
+<footer>
+  <p>Edu Smartspark Diagram Generator &copy; 2023 | Part of <a href="https://edupark.site" target="_blank">Edu Smartspark</a></p>
+</footer>
+
+<!-- Libraries -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/handsontable@11.1.0/dist/handsontable.min.js"></script>
+
+<script>
+let currentChart = null;
+let hotTable = null;
+
+// Sample initial data
+const sampleData = {
+  labels: ['Level 1','Level 2','Level 3','Level 4'],
+  datasets:[{
+    label:'Sample Data', 
+    data:[10,20,30,40], 
+    backgroundColor:['#ff6384','#36a2eb','#ffce56','#4bc0c0'],
+    borderColor: '#fff',
+    borderWidth: 2,
+    // Line chart specific properties
+    pointBackgroundColor: '#36a2eb',
+    pointBorderColor: '#fff',
+    pointBorderWidth: 2,
+    pointRadius: 5,
+    pointHoverRadius: 7,
+    // For line charts
+    fill: false,
+    tension: 0.1,
+    borderColor: '#36a2eb',
+    borderWidth: 3
+  }]
+};
+
+const chartCanvas = document.getElementById('chartCanvas');
+const diagramTypeSelect = document.getElementById('diagramType');
+const diagramTitleInput = document.getElementById('diagramTitle');
+const exportBtn = document.getElementById('exportBtn');
+const exportProgress = document.getElementById('exportProgress');
+const progressFill = document.getElementById('progressFill');
+const themeToggle = document.getElementById('themeToggle');
+const addLevelBtn = document.getElementById('addLevel');
+const removeLevelBtn = document.getElementById('removeLevel');
+const levelCount = document.getElementById('levelCount');
+const dataSum = document.getElementById('dataSum');
+const helpLink = document.getElementById('helpLink');
+const helpModal = document.getElementById('helpModal');
+const closeHelp = document.getElementById('closeHelp');
+
+// Update stats
+function updateStats() {
+  levelCount.textContent = sampleData.labels.length;
+  dataSum.textContent = sampleData.datasets[0].data.reduce((a, b) => a + b, 0);
+}
+
+// Render Chart
+function renderChart(type='bar'){
+  if(currentChart) currentChart.destroy();
+
+  // Set high-resolution canvas for better export quality
+  const scale = 2; // increase scale for higher quality
+  chartCanvas.width = chartCanvas.offsetWidth * scale;
+  chartCanvas.height = chartCanvas.offsetHeight * scale;
+
+  // Prepare dataset based on chart type
+  let datasetConfig = {
+    label: 'Sample Data',
+    data: sampleData.datasets[0].data,
+    backgroundColor: sampleData.datasets[0].backgroundColor,
+    borderColor: '#fff',
+    borderWidth: 2
+  };
+
+  // Customize dataset for line chart
+  if (type === 'line') {
+    datasetConfig = {
+      ...datasetConfig,
+      fill: false,
+      tension: 0.1,
+      borderColor: '#36a2eb',
+      borderWidth: 3,
+      pointBackgroundColor: '#36a2eb',
+      pointBorderColor: '#fff',
+      pointBorderWidth: 2,
+      pointRadius: 5,
+      pointHoverRadius: 7
+    };
+  }
+
+  currentChart = new Chart(chartCanvas,{
+    type: type,
+    data: {
+      labels: sampleData.labels,
+      datasets: [datasetConfig]
+    },
+    options:{
+      responsive:true,
+      maintainAspectRatio: false,
+      plugins:{
+        legend:{position:'top'},
+        title:{display:true,text:diagramTitleInput.value,font:{size:20}},
+        tooltip: {
+          backgroundColor: 'rgba(0,0,0,0.7)',
+          titleFont: { size: 14 },
+          bodyFont: { size: 13 },
+          padding: 10,
+          cornerRadius: 6
+        }
+      },
+      animation: {
+        duration: 800,
+        easing: 'easeOutQuart'
+      }
+    }
+  });
+  
+  updateStats();
+}
+
+// Render Handsontable
+function renderTable(){
+  if(hotTable) hotTable.destroy();
+  const container = document.getElementById('dataTable');
+  hotTable = new Handsontable(container,{
+    data: sampleData.datasets[0].data.map((v,i)=>[sampleData.labels[i],v]),
+    colHeaders:['Label','Value'],
+    rowHeaders:true,
+    contextMenu:true,
+    manualColumnResize:true,
+    maxRows:10,
+    height: 300,
+    colWidths: [150, 100],
+    licenseKey: 'non-commercial-and-evaluation',
+    afterChange:(changes)=>{
+      if(!changes) return;
+      changes.forEach(([row,prop,oldVal,newVal])=>{
+        sampleData.labels[row] = hotTable.getDataAtCell(row,0);
+        sampleData.datasets[0].data[row] = parseFloat(hotTable.getDataAtCell(row,1)) || 0;
+      });
+      renderChart(diagramTypeSelect.value);
+    }
+  });
+}
+
+// Add Level
+addLevelBtn.addEventListener('click',()=>{
+  if(sampleData.labels.length >= 10){ 
+    alert('Maximum 10 levels allowed'); 
+    return; 
+  }
+  const newLevel = `Level ${sampleData.labels.length+1}`;
+  sampleData.labels.push(newLevel);
+  sampleData.datasets[0].data.push(0);
+  sampleData.datasets[0].backgroundColor.push('#'+Math.floor(Math.random()*16777215).toString(16));
+  renderTable();
+  renderChart(diagramTypeSelect.value);
+});
+
+// Remove Level
+removeLevelBtn.addEventListener('click',()=>{
+  if(sampleData.labels.length <= 1){ 
+    alert('At least 1 level required'); 
+    return; 
+  }
+  sampleData.labels.pop();
+  sampleData.datasets[0].data.pop();
+  sampleData.datasets[0].backgroundColor.pop();
+  renderTable();
+  renderChart(diagramTypeSelect.value);
+});
+
+// Chart Type Change
+diagramTypeSelect.addEventListener('change',(e)=>renderChart(e.target.value));
+
+// Title Live Update
+diagramTitleInput.addEventListener('input',(e)=>{
+  if(currentChart){
+    currentChart.options.plugins.title.text = e.target.value;
+    currentChart.update();
+  }
+});
+
+// Export PNG
+exportBtn.addEventListener('click',()=>{
+  exportProgress.style.display='block';
+  progressFill.style.width='0%';
+
+  setTimeout(()=>{
+    progressFill.style.width='50%';
+    setTimeout(()=>{
+      // High-quality PNG
+      const link = document.createElement('a');
+      link.href = chartCanvas.toDataURL('image/png',1.0);
+      link.download = `${diagramTitleInput.value || 'diagram'}.png`;
+      link.click();
+      progressFill.style.width='100%';
+      setTimeout(()=>{exportProgress.style.display='none';},500);
+    },300);
+  },300);
+});
+
+// Dark Mode Toggle
+themeToggle.addEventListener('click',()=>{ 
+  document.body.classList.toggle('dark-mode');
+  themeToggle.innerHTML = document.body.classList.contains('dark-mode') 
+    ? '<i class="fas fa-sun"></i> Light Mode' 
+    : '<i class="fas fa-moon"></i> Dark Mode';
+});
+
+// Help Modal
+helpLink.addEventListener('click', (e) => {
+  e.preventDefault();
+  helpModal.style.display = 'flex';
+});
+
+closeHelp.addEventListener('click', () => {
+  helpModal.style.display = 'none';
+});
+
+// Close modal when clicking outside
+window.addEventListener('click', (e) => {
+  if (e.target === helpModal) {
+    helpModal.style.display = 'none';
+  }
+});
+
+// Initial Render
+renderChart();
+renderTable();
+</script>
+
+</body>
+</html>

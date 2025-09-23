@@ -3,7 +3,43 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Edu Smartspark Diagram Generator</title>
+<!--Meta Tags-->
+<title>Diagram | Pie Diagram Generator, Bar Diagram Generator, Line Diagram Generator Online</title>
+<meta name="description" content="Free online diagram generator. Create pie diagrams, bar diagrams, line diagrams, flowcharts, Venn diagrams and more instantly with Edu Smartspark.">
+<meta name="keywords" content="Pie diagram generator, Bar diagram generator, Line diagram generator, Chart maker online, Flowchart generator, Venn diagram tool">
+
+<!-- Open Graph for social sharing -->
+<meta property="og:title" content="Free Online Diagram Generator | Edu Smartspark">
+<meta property="og:description" content="Create professional diagrams like bar charts, pie charts, and line graphs instantly. Free and user-friendly.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yourdomain.com/diagram-generator">
+<meta property="og:image" content="https://yourdomain.com/preview-image.jpg">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Free Online Diagram Generator">
+<meta name="twitter:description" content="Generate bar, pie, line charts and more online. Easy to use and free.">
+<meta name="twitter:image" content="https://yourdomain.com/preview-image.jpg">
+
+<!-- Mobile friendly -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Canonical URL -->
+<link rel="canonical" href="https://yourdomain.com/diagram-generator">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Diagram Generator Tools",
+  "itemListElement": [
+    { "@type": "WebPage", "name": "Pie Diagram Generator", "url": "https://yourdomain.com/pie-diagram" },
+    { "@type": "WebPage", "name": "Bar Diagram Generator", "url": "https://yourdomain.com/bar-diagram" },
+    { "@type": "WebPage", "name": "Line Diagram Generator", "url": "https://yourdomain.com/line-diagram" }
+  ]
+}
+</script>
+
 
 <!-- Handsontable CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/handsontable@11.1.0/dist/handsontable.min.css">
@@ -122,6 +158,25 @@ header button {
 header button:hover {
   background: #d6e6ff;
   transform: translateY(-2px);
+}
+/* Mobile adjustments */
+@media (max-width: 600px) {
+  header {
+    position: relative;
+  }
+
+  header button {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    padding: 4px 8px;
+    font-size: 0.8rem;
+  }
+
+  /* Optional: reduce other controls so button is clear */
+  .header-controls {
+    margin-right: 40px; /* leave space so items don’t clash with button */
+  }
 }
 
 main {
@@ -488,6 +543,8 @@ footer {
     </button>
   </div>
 </header>
+
+
 
 <main>
   <section class="sidebar">

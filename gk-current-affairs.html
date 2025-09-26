@@ -4,333 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GK & Current Affairs - Edu Smartspark</title>
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#007bff">
-<link rel="icon" href="logo1.png" type="image/png">
+    <meta name="description" content="Stay updated with the latest general knowledge and current affairs. Daily updates for competitive exams and interviews.">
+    <meta name="keywords" content="General Knowledge, Current Affairs, Daily Quiz, Competitive Exams, Interviews, GK Updates, News, Education">
+    <meta name="author" content="Edu Smartspark">
 
+    <!--App logo-->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#007bff">
+    <link rel="icon" href="logo1.png" type="image/png">
 
-    <style>
-        :root {
-            --primary: #d00000;
-            --secondary: #9d0208;
-            --dark: #370617;
-            --light: #f8f9fa;
-            --accent: #f48c06;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: var(--light);
-            color: #333;
-            line-height: 1.6;
-        }
-        
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        
-        /* Header */
-        header {
-            background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
-        
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .logo img {
-            height: 40px;
-        }
-        
-        .logo-text {
-            font-weight: 700;
-            color: var(--dark);
-            font-size: 1.2rem;
-        }
-        
-        .logo-text span {
-            color: var(--primary);
-        }
-        
-        /* Hero */
-        .gk-hero {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 120px 0 60px;
-            text-align: center;
-            margin-top: 70px;
-        }
-        
-        .gk-hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-        }
-        
-        .gk-hero p {
-            font-size: 1.1rem;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        
-        /* GK Section */
-        .gk-main {
-            padding: 80px 0;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-            color: var(--dark);
-            font-size: 2rem;
-            position: relative;
-        }
-        
-        .section-title:after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: var(--accent);
-        }
-        
-        .gk-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .gk-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-        }
-        
-        .gk-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-        }
-        
-        .gk-image {
-            height: 180px;
-            background-size: cover;
-            background-position: center;
-        }
-        
-        .gk-content {
-            padding: 20px;
-        }
-        
-        .gk-date {
-            color: var(--primary);
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-        
-        .gk-content h3 {
-            color: var(--dark);
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-        }
-        
-        .gk-content p {
-            color: #666;
-            margin-bottom: 20px;
-            font-size: 0.95rem;
-        }
-        
-        .read-more {
-            display: inline-block;
-            padding: 8px 20px;
-            background: var(--primary);
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: background 0.3s;
-        }
-        
-        .read-more:hover {
-            background: var(--secondary);
-        }
-        
-        /* Categories */
-        .category-tabs {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        
-        .category-btn {
-            padding: 8px 20px;
-            background: white;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .category-btn.active, .category-btn:hover {
-            background: var(--primary);
-            color: white;
-        }
-        
-        /* Daily Quiz */
-        .daily-quiz {
-            background: white;
-            border-radius: 10px;
-            padding: 30px;
-            margin: 60px 0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        
-        .daily-quiz h3 {
-            color: var(--dark);
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-        }
-        
-        .quiz-btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background: var(--accent);
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: background 0.3s;
-        }
-        
-        .quiz-btn:hover {
-            background: #e85d04;
-        }
-        
-        /* Footer */
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 60px 0 0;
-        }
-        
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-        
-        .footer-about h3 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-        }
-        
-        .footer-about p {
-            color: #bbb;
-            margin-bottom: 20px;
-        }
-        
-        .footer-links h3 {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-        }
-        
-        .footer-links ul {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-links a {
-            color: #bbb;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-links a:hover {
-            color: white;
-        }
-        
-        .footer-bottom {
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding: 20px 0;
-            text-align: center;
-            color: #bbb;
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .gk-hero {
-                padding: 100px 0 40px;
-            }
-            
-            .gk-hero h1 {
-                font-size: 2rem;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .gk-hero h1 {
-                font-size: 1.8rem;
-            }
-            
-            .gk-main {
-                padding: 60px 0;
-            }
-            
-            .category-btn {
-                padding: 6px 15px;
-                font-size: 0.9rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="otherCSS/gk.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-// google addsence code
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3123651917845530"
+<!--google addsence code-->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3123651917845530"
      crossorigin="anonymous"></script>
-
-
-
 </head>
-<body>
-    <header>
+    <body>
+        <header>
                 <a href="index.html">Home</a>
                 <a href="about.html">About</a>
                 <a href="contact.html">Contact</a>
@@ -365,65 +56,55 @@
             
             <div class="gk-grid">
                 <div class="gk-card" data-category="national">
-                    <div class="gk-image" style="background-image: url('../images/gk1.jpg');"></div>
+                    <div class="gk-image" style="background-image: url('https://nirmawebsite.s3.ap-south-1.amazonaws.com/wp-content/uploads/sites/22/2023/09/NEP2020.jpg');"></div>
                     <div class="gk-content">
-                        <div class="gk-date">July 15, 2023</div>
-                        <h3>New Education Policy 2023 Updates</h3>
-                        <p>Key changes and implementation updates for the New Education Policy affecting university students across India.</p>
-                        <a href="#" class="read-more">Read More</a>
+                        <div class="gk-date">2020</div>
+                        <h3>New Education Policy NEP2020 Updates</h3>
+                        <p>Key changes and implementation updates for the New Education Policy affecting university students across Guwahati University.</p>
+                        <a href="https://www.education.gov.in/sites/upload_files/mhrd/files/NEP_Final_English_0.pdf" class="read-more">Read More</a>
                     </div>
                 </div>
-                
-                <div class="gk-card" data-category="international">
-                    <div class="gk-image" style="background-image: url('../images/gk2.jpg');"></div>
+                <div class="gk-card" data-category="technology">
+                   <div class="gk-image" style="background-image: url('https://media.licdn.com/dms/image/v2/D4E12AQHDBnzNwMAgDA/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1724445004707?e=2147483647&v=beta&t=G-AP0TzFDKRKH-m5gmtiWZ_v4bC-iCt8kEsuMLCgwq0');"></div>
                     <div class="gk-content">
-                        <div class="gk-date">July 14, 2023</div>
-                        <h3>Global Climate Summit Outcomes</h3>
-                        <p>Summary of key agreements and commitments made at the recent international climate conference.</p>
-                        <a href="#" class="read-more">Read More</a>
+                     <div class="gk-date">September 26, 2025</div>
+                     <h3>AI-Powered Drug Discovery</h3>
+                         <p>Researchers unveil an AI system that can design new medicines in weeks, dramatically reducing the cost and time of pharmaceutical research.</p>
+                     <a href="https://www.sciencedirect.com/science/article/pii/S2095177925000656" class="read-more">Read More</a>
                     </div>
                 </div>
-                
-                <div class="gk-card" data-category="science">
-                    <div class="gk-image" style="background-image: url('../images/gk3.jpg');"></div>
+
+                <div class="gk-card" data-category="space">
+                   <div class="gk-image" style="background-image: url('https://timesofindia.indiatimes.com/photo/msid-122972463/122972463.jpg?resizemode=4');"></div>
                     <div class="gk-content">
-                        <div class="gk-date">July 13, 2023</div>
-                        <h3>Breakthrough in Quantum Computing</h3>
-                        <p>Scientists achieve quantum supremacy with new processor that solves problems impossible for classical computers.</p>
-                        <a href="#" class="read-more">Read More</a>
-                    </div>
+                    <div class="gk-date">July 30, 2025</div>
+                    <h3>The earth observation satellite launched </h3>
+                       <p>The NASA-ISRO Synthetic Aperture Radar (NISAR) satellite was launched on July 30, 2025, from the Satish Dhawan Space Centre in Sriharikota, India, by ISRO's GSLV-F16 rocket.</p>
+                    <a href="https://www.isro.gov.in/Mission_GSLVF16_NISAR.html" class="read-more">Read More</a>
+                  </div>
                 </div>
-                
-                <div class="gk-card" data-category="sports">
-                    <div class="gk-image" style="background-image: url('../images/gk4.jpg');"></div>
-                    <div class="gk-content">
-                        <div class="gk-date">July 12, 2023</div>
-                        <h3>India Wins Asia Cup 2023</h3>
-                        <p>Team India clinches the championship title after a thrilling final match against Pakistan.</p>
-                        <a href="#" class="read-more">Read More</a>
-                    </div>
-                </div>
-                
+
                 <div class="gk-card" data-category="national">
-                    <div class="gk-image" style="background-image: url('../images/gk5.jpg');"></div>
-                    <div class="gk-content">
-                        <div class="gk-date">July 11, 2023</div>
-                        <h3>Economic Survey 2022-23 Highlights</h3>
-                        <p>Key findings from the government's annual economic survey report and projections for next fiscal year.</p>
-                        <a href="#" class="read-more">Read More</a>
-                    </div>
+                    <div class="gk-image" style="background-image: url('https://www.nsws.gov.in/s3fs/2023-10/Green%20Hydrogen%20Mission.jpg');"></div>
+                     <div class="gk-content">
+                    <div class="gk-date">September 25, 2025</div>
+                       <h3>National Green Energy Mission Launched</h3>
+                          <p>The Government of India announces a new initiative to boost solar and wind power projects, aiming for 70% renewable energy by 2040.</p>
+                     <a href="https://www.nsws.gov.in/portal/scheme/greenhydrogenpolicy#:~:text=About%20the%20Scheme,to%20bring%20in%20over%20Rs." class="read-more">Read More</a>
+                  </div>
                 </div>
+
                 
                 <div class="gk-card" data-category="international">
-                    <div class="gk-image" style="background-image: url('../images/gk6.jpg');"></div>
-                    <div class="gk-content">
-                        <div class="gk-date">July 10, 2023</div>
-                        <h3>UN Sustainable Development Goals Progress</h3>
-                        <p>Latest report on global progress toward achieving the 2030 Sustainable Development Goals.</p>
-                        <a href="#" class="read-more">Read More</a>
-                    </div>
-                </div>
+                  <div class="gk-image" style="background-image: url('https://www.un.org/sustainabledevelopment/wp-content/uploads/2016/04/Paris-Agreement_Logo_EN_size.png');"></div>
+                  <div class="gk-content">
+                 <div class="gk-date">April 22, 2016</div>
+                    <h3>Global Climate Accord Signed</h3>
+                        <p>It is a legally binding international treaty to combat climate change by limiting global warming to well below 2°C, preferably 1.5°C, above pre-industrial levels.</p>
+                 <a href="https://unfccc.int/process-and-meetings/the-paris-agreement" class="read-more">Read More</a>
+             </div>
             </div>
+
             
            
         </div>
@@ -434,12 +115,12 @@
             <div class="footer-grid">
                 <div class="footer-about">
                     <h3>Edu Smartspark</h3>
-                    <p>Providing quality educational resources for university students since 2020.</p>
+                    <p>Providing quality educational resources for university students since 2024.</p>
                 </div>
                    <div class="footer-links">
                     <h3>Acces Resources</h3>
                     <ul>
-                        <li><a href="books-pdf.html">Wise Books</a></li>
+                        <li><a href="notes-book.html">Notes & PDFs</a></li>
                         <li><a href="NCERT Book.html">NCERT Books PDF VI-X</a></li>
                         <li><a href="question-papers.html">B.A B.Com Question Paper</a></li>
                         <li><a href="Solutions.html">Solved B.A B.Com Question Papers</a></li>

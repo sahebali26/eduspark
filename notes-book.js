@@ -184,7 +184,7 @@ const driveLinks = {
     
     // Textbooks Section
     'Public Administration unit-1 (Political 3rdSem)': 'https://drive.google.com/file/d/1tAlDGOFvuuH8tk9Rp3piHEFHPdTQnGte/view?usp=drivesdk',
-    'Personal Administration unit-3 (Political 3rdSem)': 'https://drive.google.com/file/d/1tAlDGOFvuuH8tk9Rp3piHEFHPdTQnGte/view?usp=drivesdk',
+    'Personal Administration unit-3 (Political 3rdSem)': 'https://drive.google.com/file/d/1HyAl9m38UtjdQ7UxVp7HE9-G0rik_UQg/view?usp=drivesdk',
     'India\'s Struggle for Independence': 'https://drive.google.com/file/d/YOUR_FILE_ID_7/view',
     'Sociology: Themes and Perspectives': 'https://drive.google.com/file/d/YOUR_FILE_ID_8/view'
 };

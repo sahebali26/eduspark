@@ -393,4 +393,33 @@
                 justify-content: center;
             }
         }
+
+
+
+                /* Breadcrumb */
+        .breadcrumb {
+            padding: 15px 0;
+            background-color: var(--bg-color);
+            border-bottom: 1px solid var(--input-border);
+        }
+
+        .breadcrumb .container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .breadcrumb a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--dark-color);
+        }
+
+        .breadcrumb span {
+            color: var(--text-color);
+        }
         

@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-     <meta content='Question Paper | BA BSC BCOM All Semester All Question Paper Guwahati University | All Question Paper Guwahati University ALl Sem | GU ALL Question Papers |' property='og:title'/>
+    <meta content='Question Paper | BA BSC BCOM All Semester All Question Paper Guwahati University | All Question Paper Guwahati University ALl Sem | GU ALL Question Papers |' property='og:title'/>
     <title>GU PYQP Question Papers - BA, B.Com, B.Sc | Edu Smartspark</title>
     
     <!-- Primary Meta Tags -->
@@ -68,862 +67,1839 @@
       ]
     }
     </script>
+    
     <!-- Favicon and Manifest -->
- <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#007bff">
     <link rel="icon" href="logo1.png" type="image/png">
     <link rel="apple-touch-icon" href="logo1.png">
 
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3123651917845530" crossorigin="anonymous"></script>
-    <meta name="google-site-verification" content="NO-Xx_mGYDOQyc-rOVSCnJCxMX57FpnBoe1TQEAJ_9Y" />
-    <!-- Custom CSS for Question Papers Page -->
-    <link rel="stylesheet" href="otherCSS/ques.css">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3123651917845530"
-        crossorigin="anonymous"></script>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-H8H2R1J1CQ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H8H2R1J1CQ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-H8H2R1J1CQ');
+    </script>
 
-  gtag('config', 'G-H8H2R1J1CQ');
-</script>
+    <style>
+ /* Modern Dark Theme Styles */
+:root {
+    --primary: #6d28d9;
+    --primary-light: #8b5cf6;
+    --secondary: #a78bfa;
+    --dark: #0f172a;
+    --dark-light: #1e293b;
+    --light: #f8fafc;
+    --accent: #06b6d4;
+    --transition: all 0.3s ease;
+    --blur: blur(10px);
+}
 
+/* Light Theme Variables */
+[data-theme="light"] {
+    --primary: #6d28d9;
+    --primary-light: #8b5cf6;
+    --secondary: #7c3aed;
+    --dark: #f8fafc;
+    --dark-light: #e2e8f0;
+    --light: #0f172a;
+    --accent: #0891b2;
+}
+
+/* System preference detection */
+@media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+        --primary: #6d28d9;
+        --primary-light: #8b5cf6;
+        --secondary: #7c3aed;
+        --dark: #f8fafc;
+        --dark-light: #e2e8f0;
+        --light: #0f172a;
+        --accent: #0891b2;
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+@supports (font-variation-settings: normal) {
+    * {
+        font-family: 'Inter var', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+}
+
+body {
+    background: linear-gradient(to bottom right, var(--dark), var(--dark-light));
+    color: var(--light);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Smooth page load animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+body {
+    animation: fadeIn 0.8s ease-out;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Header with blur effect */
+header {
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: var(--blur);
+    -webkit-backdrop-filter: var(--blur);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="light"] header {
+    background: rgba(248, 250, 252, 0.8);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo img {
+    height: 35px;
+    filter: drop-shadow(0 0 5px rgba(109, 40, 217, 0.5));
+}
+
+.logo-text {
+    font-weight: 700;
+    color: var(--light);
+    font-size: 1.1rem;
+}
+
+.logo-text span {
+    color: var(--primary-light);
+    background: linear-gradient(to right, var(--primary-light), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+}
+
+nav a {
+    color: var(--light);
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: 500;
+    position: relative;
+    padding: 5px 0;
+    transition: var(--transition);
+    font-size: 0.95rem;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--primary-light), var(--accent));
+    transition: var(--transition);
+}
+
+nav a:hover {
+    color: var(--secondary);
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* Mobile menu button */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--light);
+    font-size: 1.3rem;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    transition: var(--transition);
+}
+
+.mobile-menu-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Compact Hero Section */
+.papers-hero {
+    background: linear-gradient(135deg, var(--primary), var(--dark));
+    color: var(--light);
+    padding: 100px 0 50px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.papers-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+    background-size: cover;
+}
+
+.papers-hero h1 {
+    font-size: 2.2rem;
+    margin-bottom: 12px;
+    font-weight: 700;
+    position: relative;
+    display: inline-block;
+}
+
+.papers-hero h1::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(to right, var(--primary-light), var(--accent));
+    border-radius: 2px;
+}
+
+.papers-hero p {
+    font-size: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    opacity: 0.9;
+    line-height: 1.5;
+}
+
+/* Simple Filter Section - Like Image */
+.filter-section {
+    background: rgba(30, 41, 59, 0.7);
+    backdrop-filter: var(--blur);
+    -webkit-backdrop-filter: var(--blur);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 30px auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: var(--transition);
+    max-width: 1200px;
+}
+
+[data-theme="light"] .filter-section {
+    background: rgba(226, 232, 240, 0.7);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.filter-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr) auto auto;
+    gap: 15px;
+    align-items: end;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-group label {
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--secondary);
+    font-size: 0.9rem;
+}
+
+.filter-select, .search-input {
+    padding: 10px 12px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    transition: var(--transition);
+    color: var(--light);
+    width: 100%;
+}
+
+[data-theme="light"] .filter-select,
+[data-theme="light"] .search-input {
+    background: rgba(248, 250, 252, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: var(--light);
+}
+
+.filter-select:focus, .search-input:focus {
+    border-color: var(--primary-light);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(109, 40, 217, 0.3);
+    background: rgba(15, 23, 42, 0.8);
+}
+
+[data-theme="light"] .filter-select:focus,
+[data-theme="light"] .search-input:focus {
+    background: rgba(248, 250, 252, 0.95);
+}
+
+.filter-actions {
+    display: flex;
+    gap: 10px;
+    align-items: end;
+}
+
+.btn-primary, .btn-secondary {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 0.9rem;
+    white-space: nowrap;
+    height: fit-content;
+}
+
+.btn-primary {
+    background: linear-gradient(to right, var(--primary), var(--primary-light));
+    color: white;
+    box-shadow: 0 2px 10px rgba(109, 40, 217, 0.3);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: var(--blur);
+    -webkit-backdrop-filter: var(--blur);
+    color: var(--light);
+}
+
+[data-theme="light"] .btn-secondary {
+    background: rgba(0, 0, 0, 0.1);
+    color: var(--light);
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(109, 40, 217, 0.4);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+[data-theme="light"] .btn-secondary:hover {
+    background: rgba(0, 0, 0, 0.15);
+}
+
+/* Papers Listing Section */
+.papers-listing {
+    padding: 30px 0;
+}
+
+.listing-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.listing-header h2 {
+    color: var(--light);
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+.sort-options {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sort-options label {
+    color: var(--light);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.sort-options .filter-select {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+}
+
+.papers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.paper-card {
+    background: rgba(30, 41, 59, 0.7);
+    backdrop-filter: var(--blur);
+    -webkit-backdrop-filter: var(--blur);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transition: var(--transition);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="light"] .paper-card {
+    background: rgba(226, 232, 240, 0.7);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.paper-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(109, 40, 217, 0.2);
+}
+
+.paper-content {
+    padding: 20px;
+}
+
+.paper-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.course-badge, .semester-badge, .year-badge {
+    padding: 4px 10px;
+    border-radius: 16px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.course-badge {
+    background: rgba(109, 40, 217, 0.2);
+    color: var(--primary-light);
+}
+
+.semester-badge {
+    background: rgba(6, 182, 212, 0.2);
+    color: var(--accent);
+}
+
+.year-badge {
+    background: rgba(167, 139, 250, 0.2);
+    color: var(--secondary);
+}
+
+.paper-card h3 {
+    color: var(--light);
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+    line-height: 1.4;
+    font-weight: 600;
+}
+
+.paper-info {
+    margin-bottom: 12px;
+}
+
+.paper-info p {
+    margin-bottom: 6px;
+    font-size: 0.85rem;
+    color: var(--light);
+    opacity: 0.8;
+}
+
+.paper-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    font-size: 0.8rem;
+    color: var(--light);
+    opacity: 0.7;
+}
+
+.paper-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-view, .btn-download-sm {
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: var(--transition);
+    font-weight: 500;
+    text-align: center;
+    flex: 1;
+}
+
+.btn-view {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--light);
+}
+
+.btn-download-sm {
+    background: linear-gradient(to right, var(--primary), var(--primary-light));
+    color: white;
+    box-shadow: 0 2px 8px rgba(109, 40, 217, 0.3);
+}
+
+.btn-view:hover, .btn-download-sm:hover {
+    transform: translateY(-2px);
+}
+
+.btn-download-sm:hover {
+    box-shadow: 0 4px 12px rgba(109, 40, 217, 0.4);
+}
+
+/* Loading State */
+.loading-state {
+    text-align: center;
+    padding: 40px;
+    color: var(--light);
+}
+
+.loading-spinner {
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-left: 3px solid var(--primary-light);
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 15px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}
+
+.pagination button {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    background: rgba(30, 41, 59, 0.7);
+    color: var(--light);
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.pagination button:hover:not(:disabled) {
+    background: var(--primary);
+    transform: translateY(-2px);
+}
+
+.pagination button.active {
+    background: var(--primary);
+}
+
+.pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* No Results State */
+.no-results {
+    text-align: center;
+    padding: 40px;
+    color: var(--secondary);
+    background: rgba(30, 41, 59, 0.5);
+    border-radius: 12px;
+    backdrop-filter: var(--blur);
+    -webkit-backdrop-filter: var(--blur);
+    margin: 25px 0;
+}
+
+[data-theme="light"] .no-results {
+    background: rgba(226, 232, 240, 0.7);
+}
+
+.no-results-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.no-results h3 {
+    margin-bottom: 8px;
+    color: var(--light);
+    font-size: 1.3rem;
+}
+
+.no-results p {
+    margin-bottom: 15px;
+    opacity: 0.8;
+    font-size: 0.9rem;
+}
+
+/* CTA Section */
+.cta-section {
+    background: linear-gradient(135deg, var(--primary), var(--dark-light));
+    padding: 50px 0;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.cta-content h2 {
+    color: var(--light);
+    margin-bottom: 12px;
+    font-size: 1.8rem;
+}
+
+.cta-content p {
+    color: var(--light);
+    opacity: 0.9;
+    margin-bottom: 20px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 0.95rem;
+}
+
+.cta-content .btn-primary {
+    padding: 10px 24px;
+    font-size: 0.95rem;
+}
+
+/* Footer */
+footer {
+    background: var(--dark);
+    color: white;
+    padding: 50px 0 0;
+    position: relative;
+}
+
+[data-theme="light"] footer {
+    background: var(--dark-light);
+    color: var(--light);
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--primary-light), transparent);
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.footer-about h3 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    background: linear-gradient(to right, var(--primary-light), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.footer-about p {
+    color: #cbd5e1;
+    margin-bottom: 15px;
+    line-height: 1.6;
+    font-size: 0.9rem;
+}
+
+[data-theme="light"] .footer-about p {
+    color: #475569;
+}
+
+.footer-links h3 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    color: var(--light);
+}
+
+.footer-links ul {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    color: #cbd5e1;
+    text-decoration: none;
+    transition: var(--transition);
+    display: inline-block;
+    font-size: 0.9rem;
+}
+
+[data-theme="light"] .footer-links a {
+    color: #475569;
+}
+
+.footer-links a:hover {
+    color: var(--primary-light);
+    transform: translateX(5px);
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 20px 0;
+    text-align: center;
+    color: #94a3b8;
+    font-size: 0.85rem;
+}
+
+[data-theme="light"] .footer-bottom {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: #64748b;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: linear-gradient(to right, var(--primary), var(--primary-light));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+    transition: var(--transition);
+}
+
+.theme-toggle:hover {
+    transform: translateY(-3px) rotate(15deg);
+    box-shadow: 0 6px 16px rgba(109, 40, 217, 0.4);
+}
+
+/* Animation for filter section */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.filter-section {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+/* Animation for cards */
+.paper-card {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--dark);
+}
+
+[data-theme="light"] ::-webkit-scrollbar-track {
+    background: var(--dark-light);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, var(--primary), var(--primary-light));
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, var(--primary-light), var(--accent));
+}
+
+/* ========== MOBILE RESPONSIVE STYLES ========== */
+
+@media (max-width: 1200px) {
+    .filter-container {
+        grid-template-columns: repeat(3, 1fr) auto auto;
+        gap: 12px;
+    }
+    
+    .filter-group:nth-child(4) {
+        grid-column: 1 / 4;
+    }
+}
+
+@media (max-width: 992px) {
+    .papers-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .papers-hero {
+        padding: 90px 0 40px;
+    }
+    
+    .papers-hero h1 {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+    }
+    
+    .papers-hero p {
+        font-size: 0.95rem;
+        max-width: 500px;
+    }
+    
+    /* Mobile Filter Layout */
+    .filter-section {
+        padding: 15px;
+        margin: 20px auto;
+    }
+    
+    .filter-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+    
+    .filter-group:nth-child(1) { /* Course */
+        grid-column: 1 / 2;
+    }
+    
+    .filter-group:nth-child(2) { /* Semester */
+        grid-column: 2 / 3;
+    }
+    
+    .filter-group:nth-child(3) { /* Year */
+        grid-column: 1 / 2;
+    }
+    
+    .filter-group:nth-child(4) { /* Search */
+        grid-column: 2 / 3;
+    }
+    
+    .filter-actions {
+        grid-column: 1 / 3;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 5px;
+    }
+    
+    .filter-group label {
+        font-size: 0.8rem;
+        margin-bottom: 5px;
+    }
+    
+    .filter-select, .search-input {
+        padding: 8px 10px;
+        font-size: 0.85rem;
+    }
+    
+    .btn-primary, .btn-secondary {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+    }
+    
+    .listing-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .papers-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .paper-actions {
+        flex-direction: column;
+    }
+    
+    .mobile-menu-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    nav {
+        position: fixed;
+        top: 70px;
+        right: -100%;
+        width: 80%;
+        height: calc(100vh - 70px);
+        background: rgba(15, 23, 42, 0.95);
+        backdrop-filter: var(--blur);
+        -webkit-backdrop-filter: var(--blur);
+        flex-direction: column;
+        padding: 30px 20px;
+        transition: right 0.3s ease;
+        z-index: 999;
+    }
+    
+    [data-theme="light"] nav {
+        background: rgba(248, 250, 252, 0.95);
+    }
+    
+    nav.active {
+        right: 0;
+    }
+    
+    nav a {
+        margin: 12px 0;
+        font-size: 1.1rem;
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        width: 100%;
+    }
+    
+    [data-theme="light"] nav a {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    
+    nav a:last-child {
+        border-bottom: none;
+    }
+    
+    nav a::after {
+        display: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .papers-hero {
+        padding: 80px 0 30px;
+    }
+    
+    .papers-hero h1 {
+        font-size: 1.6rem;
+    }
+    
+    .papers-hero p {
+        font-size: 0.9rem;
+    }
+    
+    /* More Compact Mobile Filter */
+    .filter-section {
+        padding: 12px;
+        border-radius: 10px;
+    }
+    
+    .filter-container {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .filter-group:nth-child(1),
+    .filter-group:nth-child(2),
+    .filter-group:nth-child(3),
+    .filter-group:nth-child(4) {
+        grid-column: 1 / 2;
+    }
+    
+    .filter-actions {
+        grid-column: 1 / 2;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+    
+    .filter-group label {
+        font-size: 0.75rem;
+    }
+    
+    .filter-select, .search-input {
+        padding: 6px 8px;
+        font-size: 0.8rem;
+    }
+    
+    .btn-primary, .btn-secondary {
+        padding: 6px 8px;
+        font-size: 0.75rem;
+    }
+    
+    /* Compact Listing Header */
+    .listing-header {
+        margin-bottom: 20px;
+    }
+    
+    .listing-header h2 {
+        font-size: 1.4rem;
+    }
+    
+    .sort-options {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .sort-options label {
+        font-size: 0.85rem;
+    }
+    
+    .sort-options .filter-select {
+        width: 100%;
+    }
+    
+    .paper-content {
+        padding: 16px;
+    }
+    
+    .paper-meta {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .pagination {
+        gap: 5px;
+    }
+    
+    .pagination button {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 400px) {
+    /* Extra Small Devices */
+    .papers-hero {
+        padding: 70px 0 25px;
+    }
+    
+    .papers-hero h1 {
+        font-size: 1.4rem;
+    }
+    
+    .papers-hero p {
+        font-size: 0.85rem;
+    }
+    
+    .filter-section {
+        padding: 10px;
+    }
+    
+    .filter-container {
+        gap: 8px;
+    }
+    
+    .filter-select, .search-input {
+        padding: 5px 6px;
+        font-size: 0.75rem;
+    }
+    
+    .btn-primary, .btn-secondary {
+        padding: 5px 6px;
+        font-size: 0.7rem;
+    }
+    
+    /* Compact Header */
+    .header-container {
+        padding: 8px 0;
+    }
+    
+    .logo img {
+        height: 30px;
+    }
+    
+    .logo-text {
+        font-size: 1rem;
+    }
+}
+    </style>
 </head>
 <body>
     <header>
-    <div class="container header-container">
-        <div class="logo">
-            <img src="logo1.png" alt="Edu Smartspark Logo">
-            <div class="logo-text">Edu <span>Smartspark</span></div>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="logo1.png" alt="Edu Smartspark Logo">
+                <div class="logo-text">Edu <span>Smartspark</span></div>
+            </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </nav>
         </div>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact</a>
-        </nav>
-        
-    </div>
-</header>
+    </header>
 
     <section class="papers-hero">
         <div class="container">
-            <h1>University Question Papers</h1>
-            <p>Access previous year question papers for all semesters of BA, B.Com and B.Sc programs</p>
+            <h1>GU Question Papers</h1>
+            <p>Download previous year question papers for all Guwahati University courses</p>
         </div>
     </section>
 
-    <main class="papers-main">
+    <!-- Filter Section -->
+    <section class="filter-section">
         <div class="container">
-            <h2 class="section-title">Available Papers</h2>
-            
-            <!-- Filter Section -->
-            <div class="filter-section">
-                <h3 class="filter-title"><i class="fas fa-filter"></i> Filter Papers</h3>
-                
-                <div class="filter-grid">
-                    <div class="filter-group">
-                        <label for="course-filter">Course</label>
-                        <select id="course-filter" class="filter-select">
-                            <option value="all">All Courses</option>
-                            <option value="ba">BA</option>
-                            <option value="bcom">B.Com</option>
-                            <option value="bsc">B.Sc</option>
-                        </select>
-                    </div>
-                    
-                    <div class="filter-group">
-                        <label for="semester-filter">Semester</label>
-                        <select id="semester-filter" class="filter-select">
-                            <option value="all">All Semesters</option>
-                            <option value="1">Semester 1</option>
-                            <option value="2">Semester 2</option>
-                            <option value="3">Semester 3</option>
-                            <option value="4">Semester 4</option>
-                            <option value="5">Semester 5</option>
-                            <option value="6">Semester 6</option>
-                            <option value="7">Semester 7</option>
-                            <option value="8">Semester 8</option>
-                        </select>
-                    </div>
-                    
-                    <div class="filter-group">
-                        <label for="year-filter">Year</label>
-                        <select id="year-filter" class="filter-select">
-                            <option value="all">All Years</option>
-                            <!-- JavaScript will populate this -->
-                        </select>
-                    </div>
-                    
-                    <div class="filter-group">
-                        <label for="search-input">Search Subject</label>
-                        <div class="search-container">
-                            <input type="text" id="search-input" class="search-input" placeholder="Enter subject name...">
-                            <i class="fas fa-search"></i>
-                        </div>
-                    </div>
+            <div class="filter-container">
+                <div class="filter-group">
+                    <label for="course-filter">Course</label>
+                    <select id="course-filter" class="filter-select">
+                        <option value="all">All Courses</option>
+                        <option value="ba">BA</option>
+                        <option value="bcom">B.Com</option>
+                        <option value="bsc">B.Sc</option>
+                    </select>
                 </div>
                 
+                <div class="filter-group">
+                    <label for="semester-filter">Semester</label>
+                    <select id="semester-filter" class="filter-select">
+                         <option value="all">All Semesters</option>
+                        <option value="1">Semester 1</option>
+                        <option value="2">Semester 2</option>
+                        <option value="3">Semester 3</option>
+                        <option value="4">Semester 4</option>
+                        <option value="5">Semester 5</option>
+                        <option value="6">Semester 6</option>
+                        <option value="7">Semester 7</option>
+                        <option value="8">Semester 8</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="year-filter">Year</label>
+                    <select id="year-filter" class="filter-select">
+                        <option value="all">All Years</option>
+                        <option value="2025">2025</option>
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="search-input">Search Subject</label>
+                    <input type="text" id="search-input" class="search-input" placeholder="Enter subject name...">
+                </div>
+
                 <div class="filter-actions">
-                    <button id="clear-filters" class="filter-btn clear">
-                        <i class="fas fa-times"></i> Clear Filters
-                    </button>
-                </div>
-            </div>
-            
-            <div class="course-tabs">
-                <button class="tab-btn active" data-course="ba">BA</button>
-                <button class="tab-btn" data-course="bcom">B.Com</button>
-                <button class="tab-btn" data-course="bsc">B.Sc</button>
-            </div>
-            
-            <div id="ba-papers" class="course-content">
-                <div class="semester-grid">
-                    <!-- BA Semester 1 -->
-                    <div class="semester-card" data-course="ba" data-semester="1">
-                        <div class="semester-header">
-                            <span>BA Semester 1</span>
-                            <span class="semester-year">2024-2025</span>
-                        </div>
-                        <div class="papers-list">
-                             <div class="paper-item">
-                                <span class="paper-name">Assamese</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2023</span>
-                                    <a href="Question-Papers/BA-First-Semester-Assamese-2023.html" class="download-btn">Open PDF</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">English Communication (AEC)</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2024</span>
-                                    <a href="Question-Papers/BA-First-Semester-English-Communication-2024.html" class="download-btn">Open PDF</a>
-                                </div>
-                            </div>
-                           <div class="paper-item">
-                                <span class="paper-name">Economics</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2024</span>
-                                    <a href="Question-Papers/BA-First-Semester-Economics-2024.html" class="download-btn">Open PDF</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">Education </span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2024</span>
-                                    <a href="Question-Papers/BA-First-Semester-Education-2024.html" class="download-btn">Open PDF</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">Geography</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2023</span>
-                                    <a href="Question-Papers/BA-First-Semester-Geography-2023.html" class="download-btn">Open PDF</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">History (History of India)</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2023</span>
-                                    <a href="Question-Papers/BA-First-Semester-History-2023.html" class="download-btn">Open PDF</a>
-                                </div>
-                            </div>
-                             <div class="paper-item">
-                                <span class="paper-name">Philosophy</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2023</span>
-                                    <a href="Question-Papers/BA-First-Semester-Philosophy-2024.html" class="download-btn">Open PDF</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">Political Science</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2024</span>
-                                    <a href="Question-Papers/BA-First-Semester-Political-2024.html" class="download-btn">Open PDF</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">Political Science</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2023</span>
-                                    <a href="Question-Papers/working.html" class="download-btn">Open Deets</a>
-                                </div>
-                            </div>
-                        
-                            <div class="paper-item">
-                                <span class="paper-name">ICT (MDC) </span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2024</span>
-                                    <a href="Question-Papers/working.html" class="download-btn">Open Deets</a>
-                                </div>
-                            </div>
-                            
-                            <div class="paper-item">
-                                <span class="paper-name">EVS (VAC) </span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2024</span>
-                                    <a href="Question-Papers/working.html" class="download-btn">Open Deets</a>
-                                </div>
-                            </div>
-                            <p style="color:red;">-Check Frequntly our Site, null Question papers Coming shortly. For any queries, feel free to contact us</p>
-                        </div>
-                    </div>
-                    
-                    <!-- BA Semester 2 -->
-                    <div class="semester-card" data-course="ba" data-semester="2">
-                        <div class="semester-header">
-                            <span>BA Semester 2</span>
-                            <span class="semester-year">2023-2024</span>
-                        </div>
-                        <div class="papers-list">
-                            <div class="paper-item">
-                                <span class="paper-name">English Communication</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2024</span>
-                                    <a href="https://youtu.be/9crusIHADS0" class="download-btn">Open-video.mode</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">Education</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2024</span>
-                                    <a href="https://youtu.be/29wPjAb_kN8" class="download-btn">Open-video.mode</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">Political Science</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2024</span>
-                                    <a href="https://youtu.be/ngCy7NRgbi4" class="download-btn">Open-video.mode</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">Economics</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2024</span>
-                                    <a href="https://youtu.be/80PkA1bRzNc" class="download-btn">Open-video.mode</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">ICT (MDC)</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2024</span>
-                                    <a href="https://youtu.be/DRwCfVbEULs" class="download-btn">Open-video.mode</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">Environment - EVS (VAC)</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2024</span>
-                                    <a href="https://youtu.be/uGbGnts1ykg" class="download-btn">Open-video.mode</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- BA Semester 3 -->
-                    <div class="semester-card" data-course="ba" data-semester="3">
-                        <div class="semester-header">
-                            <span>BA Semester 3</span>
-                            <span class="semester-year">2023-2024</span>
-                        </div>
-                        <div class="papers-list">
-
-                            <div class="paper-item">
-                                <span class="paper-name">Assamese</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2022</span>
-                                    <a href="Question-Papers/BA-Third-Semester-Assamese-2022.html" class="download-btn">Open PDF</a>
-                                </div>
-                            </div>
-                             <div class="paper-item">
-                                <span class="paper-name">English </span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2024</span>
-                                    <a href="Question-Papers/workin.html" class="download-btn">Open deets</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">Education (Educational Society)</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2024</span>
-                                    <a href="Question-Papers/BA-Third-Semester-Education-2024.html" class="download-btn">Open PDF</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">   
-                                <span class="paper-name">Intermediate Economics</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2024</span>
-                                    <a href="Question-Papers/BA-Third-Semester-Economics-2024.html" class="download-btn">Open PDF</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">Political (Public Administration)</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2024</span>
-                                    <a href="Question-Papers/BA-Third-Semester-Political-2024.html" class="download-btn">Open PDF</a>
-                                </div>
-                            </div>
-                            
-                            <div class="paper-item">
-                                <span class="paper-name">ICT(MDC)</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2024</span>
-                                    <a href="Question-Papers/3rdQues-paper2024MDC(ICT).html" class="download-btn">Open PDF</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">Humanities(MDC)</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2024</span>
-                                    <a href="Question-Papers/3rdQues-paper2024huma.html" class="download-btn">Open PDF</a>
-                                </div>
-                            </div>
-                           
-                            <p style="color:red;">-Check Frequntly our Site, Null Question papers Coming shortly. For any queries, feel free to contact us</p>
-                        </div>
-                    </div>
-
-                    <!-- BA Semester 4 -->
-                    <div class="semester-card" data-course="ba" data-semester="4">
-                        <div class="semester-header">
-                            <span>BA Semester 4</span>
-                            <span class="semester-year">2022-2023</span>
-                        </div>
-                        <div class="papers-list">
-                            <div class="paper-item">
-                                <span class="paper-name">English Literature</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2023</span>
-                                    <a href="#" class="download-btn">null</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">History</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2023</span>
-                                    <a href="#" class="download-btn">null</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">Political Science</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2023</span>
-                                    <a href="#" class="download-btn">null</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">Economics</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2023</span>
-                                    <a href="#" class="download-btn">null</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div id="bcom-papers" class="course-content" style="display: none;">
-                <div class="semester-grid">
-                    <!-- B.Com Semester 1 -->
-                    <div class="semester-card" data-course="bcom" data-semester="1">
-                        <div class="semester-header">
-                            <span>B.Com Semester 1</span>
-                            <span class="semester-year">2023-2024</span>
-                        </div>
-                        <div class="papers-list">
-                            <div class="paper-item">
-                                <span class="paper-name">English Communication</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2023</span>
-                                    <a href="https://youtu.be/uYlbVhiJWM0" class="download-btn">Open</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">Finance</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2023</span>
-                                    <a href="#" class="download-btn">null</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">Accounting</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2023</span>
-                                    <a href="#" class="download-btn">null</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">Management</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2023</span>
-                                    <a href="#" class="download-btn">null</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- B.Com Semester 2 -->
-                    <div class="semester-card" data-course="bcom" data-semester="2">
-                        <div class="semester-header">
-                            <span>B.Com Semester 2</span>
-                            <span class="semester-year">2023-2024</span>
-                        </div>
-                        <div class="papers-list">
-                            <div class="paper-item">
-                                <span class="paper-name">English Communication (AEC)</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2024</span>
-                                    <a href="https://youtu.be/9crusIHADS0" class="download-btn">Open-video.mode</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">Principles of Marketing</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2024</span>
-                                    <a href="https://youtu.be/2zjgwnNoMUs" class="download-btn">Open-video.mode</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">Management</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2024</span>
-                                    <a href="https://youtu.be/2zjgwnNoMUs" class="download-btn">Open-video.mode</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">EVS (VAC)</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2024</span>
-                                    <a href="https://youtu.be/uGbGnts1ykg" class="download-btn">Open-video.mode</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- B.Com Semester 3 -->
-                    <div class="semester-card" data-course="bcom" data-semester="3">
-                        <div class="semester-header">
-                            <span>B.Com Semester 3</span>
-                            <span class="semester-year">2022-2023</span>
-                        </div>
-                        <div class="papers-list">
-                            <div class="paper-item">
-                                <span class="paper-name">Business Law</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2022</span>
-                                    <a href="#" class="download-btn">null</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">Corporate Accounting</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2022</span>
-                                    <a href="#" class="download-btn">null</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">Income Tax</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2022</span>
-                                    <a href="#" class="download-btn">null</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">Business Statistics</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2022</span>
-                                    <a href="#" class="download-btn">null</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div id="bsc-papers" class="course-content" style="display: none;">
-                <div class="semester-grid">
-                    <!-- B.Sc Semester 1 -->
-                    <div class="semester-card" data-course="bsc" data-semester="1">
-                        <div class="semester-header">
-                            <span>B.Sc Semester 1</span>
-                            <span class="semester-year">2023-2024</span>
-                        </div>
-                        <div class="papers-list">
-                            <div class="paper-item">
-                                <span class="paper-name">English Communication (AEC)</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2023</span>
-                                    <a href="https://youtu.be/uYlbVhiJWM0" class="download-btn">Open-video.mode</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">ICT (MDC)</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2023</span>
-                                    <a href="#" class="download-btn">null.</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">Mathematics</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2023</span>
-                                    <a href="#" class="download-btn">null</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">Physics</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2023</span>
-                                    <a href="#" class="download-btn">null</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- B.Sc Semester 2 -->
-                    <div class="semester-card" data-course="bsc" data-semester="2">
-                        <div class="semester-header">
-                            <span>B.Sc Semester 2</span>
-                            <span class="semester-year">2023-2024</span>
-                        </div>
-                        <div class="papers-list">
-                            <div class="paper-item">
-                                <span class="paper-name">English Communication (AEC)</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2024</span>
-                                    <a href="https://youtu.be/9crusIHADS0" class="download-btn">Open-video.mode</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">ICT (MDC)</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2024</span>
-                                    <a href="https://youtu.be/DRwCfVbEULs" class="download-btn">Open-video.mode</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">Chemistry</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2024</span>
-                                    <a href="#" class="download-btn">Open-video.mode</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">Biology</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2024</span>
-                                    <a href="#" class="download-btn">null</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- B.Sc Semester 3 -->
-                    <div class="semester-card" data-course="bsc" data-semester="3">
-                        <div class="semester-header">
-                            <span>B.Sc Semester 3</span>
-                            <span class="semester-year">2022-2023</span>
-                        </div>
-                        <div class="papers-list">
-                            <div class="paper-item">
-                                <span class="paper-name">Mathematics</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2022</span>
-                                    <a href="#" class="download-btn">Not Available</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">Physics</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2022</span>
-                                    <a href="#" class="download-btn">Upcoming..</a>
-                                </div>
-                            </div>
-                            <div class="paper-item">
-                                <span class="paper-name">Computer Science</span>
-                                <div class="paper-actions">
-                                    <span class="paper-year">2022</span>
-                                    <a href="#" class="download-btn">Upcoming..</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <button id="apply-filters" class="btn-primary">Apply Filters</button>
+                    <button id="reset-filters" class="btn-secondary">Reset</button>
                 </div>
             </div>
         </div>
-    </main>
+    </section>
 
+    <!-- Question Papers Grid -->
+    <section class="papers-listing">
+        <div class="container">
+            <div class="listing-header">
+                <h2 id="results-title">All Question Papers</h2>
+                <div class="sort-options">
+                    <label for="sort-by">Sort by:</label>
+                    <select id="sort-by" class="filter-select">
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                        <option value="course">Course</option>
+                        <option value="semester">Semester</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="papers-grid" id="papers-container">
+                <!-- Papers will be loaded here dynamically -->
+                <div class="loading-state">
+                    <div class="loading-spinner"></div>
+                    <p>Loading question papers...</p>
+                </div>
+            </div>
+
+            <div class="pagination" id="pagination">
+                <!-- Pagination will be generated here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Can't Find What You're Looking For?</h2>
+                <p>Let us know which question papers you need, and we'll try to add them to our collection.</p>
+                <a href="contact.html" class="btn-primary">Request Papers</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-about">
-                    <h3>Edu SmartSpark</h3>
-                    <p>Your trusted partner in educational resources, providing quality study materials and question papers for university students.</p>
+                    <h3>Edu Smartspark</h3>
+                    <p>Your trusted source for Guwahati University question papers and study materials. We're dedicated to helping students succeed in their academic journey.</p>
                 </div>
-                
                 <div class="footer-links">
                     <h3>Quick Links</h3>
-                    <ul>                        
-                        <li><a href="about.html">About Us</a></li>                      
-                        <li><a href="contact.html">Contact us</a></li>
-                        <li><a href="https://sahebali26.github.io/Graphic-Designer-shb-ali-/">Work with us- Design(Photoshop), Data entry (Excell) etc</a></li>
-                        <li><a href="https://sahebali26.github.io/Verb-Dictionary-with-Pronunciation/">Our App: Verb-Dictionary-with-Pronunciation </a></li>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
                     </ul>
                 </div>
-                
                 <div class="footer-links">
-                    <h3>Acces Resources</h3>
+                    <h3>Question Papers</h3>
                     <ul>
-                        <li><a href="notes-book.html">Notes & PDF</a></li>
-                        <li><a href="NCERT Book.html">NCERT Books PDF VI-X</a></li>
-                        <li><a href="Solutions.html">B.A B.Com Solved Question Paper & Notes</a></li>
+                        <li><a href="question-papers.html?course=ba">BA Papers</a></li>
+                        <li><a href="question-papers.html?course=bcom">B.Com Papers</a></li>
+                        <li><a href="question-papers.html?course=bsc">B.Sc Papers</a></li>
                     </ul>
                 </div>
             </div>
-            
             <div class="footer-bottom">
-                <p>&copy; 2024 Edu SmartSpark. All rights reserved.</p>
+                <p>&copy; 2023 Edu Smartspark. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-     <!-- Theme Toggle Button -->
-    <div class="theme-toggle">
-        <i class="fas fa-moon" aria-hidden="true"></i>
+    <!-- Theme Toggle Button -->
+    <div class="theme-toggle" id="theme-toggle">
+        <i class="fas fa-moon"></i>
     </div>
 
     <script>
-      // Theme functionality
-const themeToggle = document.querySelector('.theme-toggle');
-const themeIcon = themeToggle.querySelector('i');
+        // DOM Elements
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const nav = document.querySelector('nav');
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = themeToggle.querySelector('i');
+        const courseFilter = document.getElementById('course-filter');
+        const semesterFilter = document.getElementById('semester-filter');
+        const yearFilter = document.getElementById('year-filter');
+        const searchInput = document.getElementById('search-input');
+        const applyFiltersBtn = document.getElementById('apply-filters');
+        const resetFiltersBtn = document.getElementById('reset-filters');
+        const sortBy = document.getElementById('sort-by');
+        const papersContainer = document.getElementById('papers-container');
+        const pagination = document.getElementById('pagination');
+        const resultsTitle = document.getElementById('results-title');
 
-// Function to set theme
-function setTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-    
-    // Update icon
-    if (theme === 'dark') {
-        themeIcon.className = 'fas fa-moon';
-    } else {
-        themeIcon.className = 'fas fa-sun';
+        // Mobile Menu Toggle
+        mobileMenuBtn.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = nav.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+
+        // Theme Toggle
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            themeIcon.className = newTheme === 'light' ? 'fas fa-sun' : 'fas fa-moon';
+            
+            // Save theme preference to localStorage
+            localStorage.setItem('theme', newTheme);
+        });
+
+        // Load saved theme preference
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        themeIcon.className = savedTheme === 'light' ? 'fas fa-sun' : 'fas fa-moon';
+
+        // Sample Question Papers Data
+        const questionPapers = [
+    // BA Semester 1 Papers
+    {
+        id: 1,
+        course: 'BA',
+        semester: '1',
+        year: '2023',
+        subject: 'Assamese',
+        title: 'Assamese - Semester 1',
+        views: 40,
+        downloads: 0,
+        date: '2023-01-01',
+        link: 'Question-Papers/BA-First-Semester-Assamese-2023.html'
+    },
+    {
+        id: 2,
+        course: 'BA',
+        semester: '1',
+        year: '2024',
+        subject: 'English Communication (AEC)',
+        title: 'English Communication (AEC) - Semester 1',
+        views: 3300,
+        downloads:1900,
+        date: '2024-01-01',
+        link: 'Question-Papers/BA-First-Semester-English-Communication-2024.html'
+    },
+    {
+        id: 3,
+        course: 'BA',
+        semester: '1',
+        year: '2024',
+        subject: 'Economics',
+        title: 'Economics - Semester 1',
+        views: 2900,
+        downloads:2100,
+        date: '2024-01-01',
+        link: 'Question-Papers/BA-First-Semester-Economics-2024.html'
+    },
+    {
+        id: 4,
+        course: 'BA',
+        semester: '1',
+        year: '2024',
+        subject: 'Education',
+        title: 'Education - Semester 1',
+        views: 2401,
+        downloads:2031,
+        date: '2024-01-01',
+        link: 'Question-Papers/BA-First-Semester-Education-2024.html'
+    },
+    {
+        id: 5,
+        course: 'BA',
+        semester: '1',
+        year: '2023',
+        subject: 'Geography',
+        title: 'Geography - Semester 1',
+        views: 1890,
+        downloads:8690,
+        date: '2023-01-01',
+        link: 'Question-Papers/BA-First-Semester-Geography-2023.html'
+    },
+    {
+        id: 6,
+        course: 'BA',
+        semester: '1',
+        year: '2023',
+        subject: 'History (History of India)',
+        title: 'History (History of India) - Semester 1',
+        views: 2341,
+        downloads:2412,
+        date: '2023-01-01',
+        link: 'Question-Papers/BA-First-Semester-History-2023.html'
+    },
+    {
+        id: 7,
+        course: 'BA',
+        semester: '1',
+        year: '2023',
+        subject: 'Philosophy',
+        title: 'Philosophy - Semester 1',
+        views: 2391,
+        downloads:1912,
+        date: '2023-01-01',
+        link: 'Question-Papers/BA-First-Semester-Philosophy-2024.html'
+    },
+    {
+        id: 8,
+        course: 'BA',
+        semester: '1',
+        year: '2024',
+        subject: 'Political Science',
+        title: 'Political Science - Semester 1',
+        views: 5391,
+        downloads:4312,
+        date: '2024-01-01',
+        link: 'Question-Papers/BA-First-Semester-Political-2024.html'
+    },
+    {
+        id: 9,
+        course: 'BA',
+        semester: '1',
+        year: '2023',
+        subject: 'Political Science',
+        title: 'Political Science - Semester 1',
+        views: 1981,
+        downloads:1312,
+        date: '2023-01-01',
+        link: 'Question-Papers/working.html'
+    },
+    {
+        id: 10,
+        course: 'BA',
+        semester: '1',
+        year: '2024',
+        subject: 'ICT (MDC)',
+        title: 'ICT (MDC) - Semester 1',
+        views: 3481,
+        downloads:2083,
+        date: '2024-01-01',
+        link: 'Question-Papers/working.html'
+    },
+    {
+        id: 11,
+        course: 'BA',
+        semester: '1',
+        year: '2024',
+        subject: 'EVS (VAC)',
+        title: 'EVS (VAC) - Semester 1',
+        views: 2901,
+        downloads:2583,
+        date: '2024-01-01',
+        link: 'Question-Papers/working.html'
+    },
+
+    // BA Semester 2 Papers
+    {
+        id: 12,
+        course: 'BA',
+        semester: '2',
+        year: '2024',
+        subject: 'English Communication',
+        title: 'English Communication - Semester 2',
+        views: 4901,
+        downloads:6095,
+        date: '2024-01-01',
+        link: 'https://youtu.be/9crusIHADS0'
+    },
+    {
+        id: 13,
+        course: 'BA',
+        semester: '2',
+        year: '2024',
+        subject: 'Education',
+        title: 'Education - Semester 2',
+        views: 1932,
+        downloads:1675,
+        date: '2024-01-01',
+        link: 'https://youtu.be/29wPjAb_kN8'
+    },
+    {
+        id: 14,
+        course: 'BA',
+        semester: '2',
+        year: '2024',
+        subject: 'Political Science',
+        title: 'Political Science - Semester 2',
+        views: 4509,
+        downloads:4109,
+        date: '2024-01-01',
+        link: 'https://youtu.be/ngCy7NRgbi4'
+    },
+    {
+        id: 15,
+        course: 'BA',
+        semester: '2',
+        year: '2024',
+        subject: 'Economics',
+        title: 'Economics - Semester 2',
+        views: 2309,
+        downloads:1878,
+        date: '2024-01-01',
+        link: 'https://youtu.be/80PkA1bRzNc'
+    },
+    {
+        id: 16,
+        course: 'BA',
+        semester: '2',
+        year: '2024',
+        subject: 'ICT (MDC)',
+        title: 'ICT (MDC) - Semester 2',
+        views: 2900,
+        downloads:1600,
+        date: '2024-01-01',
+        link: 'https://youtu.be/DRwCfVbEULs'
+    },
+    {
+        id: 17,
+        course: 'BA',
+        semester: '2',
+        year: '2024',
+        subject: 'Environment - EVS (VAC)',
+        title: 'Environment - EVS (VAC) - Semester 2',
+        views: 2900,
+        downloads:1600,
+        date: '2024-01-01',
+        link: 'https://youtu.be/uGbGnts1ykg'
+    },
+
+    // BA Semester 3 Papers
+    {
+        id: 18,
+        course: 'BA',
+        semester: '3',
+        year: '2022',
+        subject: 'Assamese',
+        title: 'Assamese - Semester 3',
+        views: 2900,
+        downloads:1600,
+        date: '2022-01-01',
+        link: 'Question-Papers/BA-Third-Semester-Assamese-2022.html'
+    },
+    {
+        id: 19,
+        course: 'BA',
+        semester: '3',
+        year: '2024',
+        subject: 'English',
+        title: 'English - Semester 3',
+        views: 2901,
+        downloads:1601,
+        date: '2024-01-01',
+        link: 'Question-Papers/workin.html'
+    },
+    {
+        id: 20,
+        course: 'BA',
+        semester: '3',
+        year: '2024',
+        subject: 'Education (Educational Society)',
+        title: 'Education (Educational Society) - Semester 3',
+        views: 2901,
+        downloads:1601,
+        date: '2024-01-01',
+        link: 'Question-Papers/BA-Third-Semester-Education-2024.html'
+    },
+    {
+        id: 21,
+        course: 'BA',
+        semester: '3',
+        year: '2024',
+        subject: 'Intermediate Economics',
+        title: 'Intermediate Economics - Semester 3',
+        views: 2901,
+        downloads:1601,
+        date: '2024-01-01',
+        link: 'Question-Papers/BA-Third-Semester-Economics-2024.html'
+    },
+    {
+        id: 22,
+        course: 'BA',
+        semester: '3',
+        year: '2024',
+        subject: 'Political (Public Administration)',
+        title: 'Political (Public Administration) - Semester 3',
+        views: 2901,
+        downloads:1601,
+        date: '2024-01-01',
+        link: 'Question-Papers/BA-Third-Semester-Political-2024.html'
+    },
+    {
+        id: 23,
+        course: 'BA',
+        semester: '3',
+        year: '2024',
+        subject: 'ICT (MDC)',
+        title: 'ICT (MDC) - Semester 3',
+        views: 2901,
+        downloads:1601,
+        date: '2024-01-01',
+        link: 'Question-Papers/3rdQues-paper2024MDC(ICT).html'
+    },
+    {
+        id: 24,
+        course: 'BA',
+        semester: '3',
+        year: '2024',
+        subject: 'Humanities (MDC)',
+        title: 'Humanities (MDC) - Semester 3',
+        views: 2901,
+        downloads:1601,
+        date: '2024-01-01',
+        link: 'Question-Papers/3rdQues-paper2024huma.html'
     }
-}
+];
 
-// Function to get system preference
-function getSystemPreference() {
-    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-}
+        // Pagination variables
+        let currentPage = 1;
+        const papersPerPage = 6;
+        let filteredPapers = [...questionPapers];
 
-// Initialize theme
-function initTheme() {
-    const savedTheme = localStorage.getItem('theme');
-    const systemPreference = getSystemPreference();
-    
-    // Use saved theme if available, otherwise use system preference
-    if (savedTheme) {
-        setTheme(savedTheme);
-    } else {
-        setTheme(systemPreference);
-    }
-}
+        // Initialize the page
+        function initPage() {
+            // Check URL parameters for filters
+            const urlParams = new URLSearchParams(window.location.search);
+            const courseParam = urlParams.get('course');
+            
+            if (courseParam) {
+                courseFilter.value = courseParam;
+            }
+            
+            // Apply filters and render papers
+            applyFilters();
+            
+            // Add event listeners
+            applyFiltersBtn.addEventListener('click', applyFilters);
+            resetFiltersBtn.addEventListener('click', resetFilters);
+            sortBy.addEventListener('change', applyFilters);
+        }
 
-// Toggle theme
-themeToggle.addEventListener('click', () => {
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-});
+        // Apply filters to question papers
+        function applyFilters() {
+            const course = courseFilter.value;
+            const semester = semesterFilter.value;
+            const year = yearFilter.value;
+            const searchTerm = searchInput.value.toLowerCase();
+            const sortValue = sortBy.value;
+            
+            // Filter papers
+            filteredPapers = questionPapers.filter(paper => {
+                const courseMatch = course === 'all' || paper.course.toLowerCase() === course;
+                const semesterMatch = semester === 'all' || paper.semester === semester;
+                const yearMatch = year === 'all' || paper.year === year;
+                const searchMatch = paper.subject.toLowerCase().includes(searchTerm) || 
+                                   paper.title.toLowerCase().includes(searchTerm);
+                
+                return courseMatch && semesterMatch && yearMatch && searchMatch;
+            });
+            
+            // Sort papers
+            sortPapers(sortValue);
+            
+            // Reset to first page
+            currentPage = 1;
+            
+            // Update results title
+            updateResultsTitle();
+            
+            // Render papers and pagination
+            renderPapers();
+            renderPagination();
+        }
 
-// Listen for system theme changes
-window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', e => {
-    // Only change if user hasn't set a preference
-    if (!localStorage.getItem('theme')) {
-        setTheme(e.matches ? 'light' : 'dark');
-    }
-});
+        // Sort papers based on selected option
+        function sortPapers(sortValue) {
+            switch(sortValue) {
+                case 'newest':
+                    filteredPapers.sort((a, b) => new Date(b.date) - new Date(a.date));
+                    break;
+                case 'oldest':
+                    filteredPapers.sort((a, b) => new Date(a.date) - new Date(b.date));
+                    break;
+                case 'course':
+                    filteredPapers.sort((a, b) => a.course.localeCompare(b.course));
+                    break;
+                case 'semester':
+                    filteredPapers.sort((a, b) => parseInt(a.semester) - parseInt(b.semester));
+                    break;
+                default:
+                    // Default to newest first
+                    filteredPapers.sort((a, b) => new Date(b.date) - new Date(a.date));
+            }
+        }
 
-// Populate year dropdown
-const yearFilter = document.getElementById('year-filter');
-const currentYear = new Date().getFullYear();
+        // Reset all filters
+        function resetFilters() {
+            courseFilter.value = 'all';
+            semesterFilter.value = 'all';
+            yearFilter.value = 'all';
+            searchInput.value = '';
+            sortBy.value = 'newest';
+            
+            applyFilters();
+        }
 
-for (let year = 2020; year <= currentYear; year++) {
-    const option = document.createElement('option');
-    option.value = year;
-    option.textContent = year;
-    yearFilter.appendChild(option);
-}
-
-// Tab switching
-const tabButtons = document.querySelectorAll('.tab-btn');
-const courseContents = document.querySelectorAll('.course-content');
-
-tabButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        // Update active tab
-        tabButtons.forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
-        
-        // Show selected course content
-        const course = button.getAttribute('data-course');
-        courseContents.forEach(content => content.style.display = 'none');
-        document.getElementById(`${course}-papers`).style.display = 'block';
-        
-        // Update course filter to match
-        document.getElementById('course-filter').value = course;
-        
-        // Trigger filter to update display
-        filterPapers();
-    });
-});
-
-// Filter functionality
-const courseFilter = document.getElementById('course-filter');
-const semesterFilter = document.getElementById('semester-filter');
-const searchInput = document.getElementById('search-input');
-const clearFiltersBtn = document.getElementById('clear-filters');
-const paperCards = document.querySelectorAll('.semester-card');
-
-function filterPapers() {
-    const courseValue = courseFilter.value;
-    const semesterValue = semesterFilter.value;
-    const yearValue = yearFilter.value;
-    const searchValue = searchInput.value.toLowerCase();
-    
-    paperCards.forEach(card => {
-        const cardCourse = card.getAttribute('data-course');
-        const cardSemester = card.getAttribute('data-semester');
-        const paperNames = card.querySelectorAll('.paper-name');
-        const paperYears = card.querySelectorAll('.paper-year');
-        
-        let courseMatch = courseValue === 'all' || cardCourse === courseValue;
-        let semesterMatch = semesterValue === 'all' || cardSemester === semesterValue;
-        
-        // Check if any paper name matches search term
-        let searchMatch = false;
-        if (searchValue === '') {
-            searchMatch = true;
-        } else {
-            paperNames.forEach(paper => {
-                if (paper.textContent.toLowerCase().includes(searchValue)) {
-                    searchMatch = true;
+        // Update results title based on filters
+        function updateResultsTitle() {
+            const course = courseFilter.value;
+            const semester = semesterFilter.value;
+            const year = yearFilter.value;
+            const searchTerm = searchInput.value;
+            
+            let title = 'All Question Papers';
+            
+            if (course !== 'all' || semester !== 'all' || year !== 'all' || searchTerm) {
+                title = 'Filtered Question Papers';
+                
+                if (course !== 'all') {
+                    title += ` - ${course.toUpperCase()}`;
                 }
+                
+                if (semester !== 'all') {
+                    title += ` - Semester ${semester}`;
+                }
+                
+                if (year !== 'all') {
+                    title += ` - ${year}`;
+                }
+                
+                if (searchTerm) {
+                    title += ` - "${searchTerm}"`;
+                }
+            }
+            
+            resultsTitle.textContent = title;
+        }
+
+        // Render question papers for current page
+        function renderPapers() {
+            // Calculate papers to show for current page
+            const startIndex = (currentPage - 1) * papersPerPage;
+            const endIndex = startIndex + papersPerPage;
+            const papersToShow = filteredPapers.slice(startIndex, endIndex);
+            
+            // Clear container
+            papersContainer.innerHTML = '';
+            
+            // Show no results message if no papers found
+            if (papersToShow.length === 0) {
+                papersContainer.innerHTML = `
+                    <div class="no-results">
+                        <div class="no-results-icon">
+                            <i class="fas fa-file-search"></i>
+                        </div>
+                        <h3>No Question Papers Found</h3>
+                        <p>Try adjusting your filters or search term.</p>
+                        <button id="reset-filters-no-results" class="btn-primary">Reset Filters</button>
+                    </div>
+                `;
+                
+                // Add event listener to reset button in no results message
+                document.getElementById('reset-filters-no-results').addEventListener('click', resetFilters);
+                return;
+            }
+            
+            // Render papers
+            papersToShow.forEach(paper => {
+                const paperCard = document.createElement('div');
+                paperCard.className = 'paper-card';
+                paperCard.innerHTML = `
+                    <div class="paper-content">
+                        <div class="paper-meta">
+                            <span class="course-badge">${paper.course}</span>
+                            <span class="semester-badge">Sem ${paper.semester}</span>
+                            <span class="year-badge">${paper.year}</span>
+                        </div>
+                        <h3>${paper.subject}</h3>
+                        <div class="paper-info">
+                            <p><i class="fas fa-book"></i> ${paper.title}</p>
+                        </div>
+                        <div class="paper-stats">
+                            <span><i class="fas fa-eye"></i> ${paper.views} views</span>
+                            <span><i class="fas fa-download"></i> ${paper.downloads} downloads</span>
+                        </div>
+                        <div class="paper-actions">
+                            <a href="${paper.link}" class="btn-view">Preview</a>
+                            <a href="${paper.link}" class="btn-download-sm" download>Open PDF</a>
+                        </div>
+                    </div>
+                `;
+                papersContainer.appendChild(paperCard);
             });
         }
-        
-        // Check if any paper year matches year filter
-        let yearMatch = false;
-        if (yearValue === 'all') {
-            yearMatch = true;
-        } else {
-            paperYears.forEach(yearElement => {
-                if (yearElement.textContent === yearValue) {
-                    yearMatch = true;
+
+        // Render pagination controls
+        function renderPagination() {
+            const totalPages = Math.ceil(filteredPapers.length / papersPerPage);
+            
+            // Clear pagination
+            pagination.innerHTML = '';
+            
+            // Don't show pagination if only one page
+            if (totalPages <= 1) return;
+            
+            // Previous button
+            const prevButton = document.createElement('button');
+            prevButton.innerHTML = '<i class="fas fa-chevron-left"></i>';
+            prevButton.disabled = currentPage === 1;
+            prevButton.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderPapers();
+                    renderPagination();
+                    window.scrollTo({ top: papersContainer.offsetTop - 100, behavior: 'smooth' });
                 }
             });
+            pagination.appendChild(prevButton);
+            
+            // Page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                const pageButton = document.createElement('button');
+                pageButton.textContent = i;
+                pageButton.className = i === currentPage ? 'active' : '';
+                pageButton.addEventListener('click', () => {
+                    currentPage = i;
+                    renderPapers();
+                    renderPagination();
+                    window.scrollTo({ top: papersContainer.offsetTop - 100, behavior: 'smooth' });
+                });
+                pagination.appendChild(pageButton);
+            }
+            
+            // Next button
+            const nextButton = document.createElement('button');
+            nextButton.innerHTML = '<i class="fas fa-chevron-right"></i>';
+            nextButton.disabled = currentPage === totalPages;
+            nextButton.addEventListener('click', () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderPapers();
+                    renderPagination();
+                    window.scrollTo({ top: papersContainer.offsetTop - 100, behavior: 'smooth' });
+                }
+            });
+            pagination.appendChild(nextButton);
         }
-        
-        // Apply fade-out animation before hiding
-        if (courseMatch && semesterMatch && searchMatch && yearMatch) {
-            card.classList.remove('hidden');
-            card.classList.remove('fade-out');
-        } else {
-            card.classList.add('fade-out');
-            // Wait for animation to complete before hiding
-            setTimeout(() => {
-                card.classList.add('hidden');
-            }, 300);
-        }
-    });
-    
-    // Show no results message if needed
-    const visibleCards = document.querySelectorAll('.semester-card:not(.hidden)');
-    let noResults = document.querySelector('.no-results');
-    
-    if (visibleCards.length === 0) {
-        if (!noResults) {
-            noResults = document.createElement('div');
-            noResults.className = 'no-results';
-            noResults.innerHTML = `
-                <i class="fas fa-search"></i>
-                <h3>No question papers found</h3>
-                <p>Try adjusting your filters or search term</p>
-            `;
-            document.querySelector('.semester-grid').appendChild(noResults);
-        }
-    } else if (noResults) {
-        noResults.remove();
-    }
-}
 
-// Event listeners for filters
-courseFilter.addEventListener('change', filterPapers);
-semesterFilter.addEventListener('change', filterPapers);
-yearFilter.addEventListener('change', filterPapers);
-searchInput.addEventListener('input', filterPapers);
-
-// Clear filters
-clearFiltersBtn.addEventListener('click', () => {
-    courseFilter.value = 'all';
-    semesterFilter.value = 'all';
-    yearFilter.value = 'all';
-    searchInput.value = '';
-    filterPapers();
-});
-
-// Initialize theme and filter on page load
-document.addEventListener('DOMContentLoaded', () => {
-    initTheme();
-    filterPapers();
-});
-
-
-
-// Mobile menu functionality
-const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-const nav = document.querySelector('nav');
-
-mobileMenuBtn.addEventListener('click', () => {
-    nav.classList.toggle('active');
-    
-    // Change icon based on menu state
-    const icon = mobileMenuBtn.querySelector('i');
-    if (nav.classList.contains('active')) {
-        icon.className = 'fas fa-times';
-    } else {
-        icon.className = 'fas fa-bars';
-    }
-});
-
-// Close menu when clicking on a link
-document.querySelectorAll('nav a').forEach(link => {
-    link.addEventListener('click', () => {
-        nav.classList.remove('active');
-        const icon = mobileMenuBtn.querySelector('i');
-        icon.className = 'fas fa-bars';
-    });
-});
-
-// Close menu when clicking outside
-document.addEventListener('click', (e) => {
-    if (!nav.contains(e.target) && !mobileMenuBtn.contains(e.target) && nav.classList.contains('active')) {
-        nav.classList.remove('active');
-        const icon = mobileMenuBtn.querySelector('i');
-        icon.className = 'fas fa-bars';
-    }
-});
-
-
-
+        // Initialize the page when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initPage);
     </script>
 </body>
 </html>

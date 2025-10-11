@@ -42,4 +42,7 @@
 
 
 
-  
+  // Alert on page load
+        window.onload = function () {
+            alert("Screenshots are not allowed to protect content.⚠️");
+        };

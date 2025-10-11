@@ -63,7 +63,7 @@ header .container {
   flex-direction: row;
   justify-content: space-between;
   padding: 15px;
-  flex-wrap: nowrap;
+  flex-wrap: wrap; /* Changed to wrap to handle smaller screens better */
 }
 
 .main-content {
@@ -73,14 +73,15 @@ header .container {
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-  margin-left: 20px;
+  margin-left: 0; /* Removed margin-left to avoid unnecessary spacing on phones */
+  margin-right: 0;
   order: 1;
   transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .sidebar {
   flex: 0 0 250px;
-  order: 0;
+  order: 2; /* Changed to ensure sidebar appears after main content */
   background: #fff;
   border: 1px solid #ddd;
   padding: 10px;
@@ -90,7 +91,7 @@ header .container {
   top: 80px;
   height: fit-content;
   transition: background 0.3s ease, border-color 0.3s ease;
-  display: none; /* Hide sidebar by default */
+  display: none; /* Hidden by default */
 }
 
 h1, h2, h3 {
@@ -158,20 +159,13 @@ body.dark .essay-image {
   border-color: #666;
 }
 
-/* Show sidebar only on tablet, PC, and desktop (screens >= 768px) */
-@media (min-width: 768px) {
-  .sidebar {
-    display: block;
-  }
-}
-
-/* Ensure sidebar is hidden on phone screens (below 768px) */
+/* Hide sidebar on phone screens (below 768px) */
 @media (max-width: 767px) {
-  .sidebar {
-    display: none;
-  }
   .container-main {
-    flex-direction: column;
+    flex-direction: column; /* Stack main content and sidebar (if visible) vertically */
+  }
+  .sidebar {
+    display: none; /* Ensure sidebar is hidden on phone screens */
   }
   .main-content {
     margin-left: 0;
@@ -179,20 +173,27 @@ body.dark .essay-image {
   }
 }
 
-/* Adjustments for tablet and smaller desktop screens (up to 1024px) */
-@media (max-width: 1024px) {
-  .container-main {
-    flex-direction: row;
-  }
+/* Show sidebar on tablet, PC, and desktop (screens >= 768px) */
+@media (min-width: 768px) {
   .sidebar {
-    flex: 0 0 200px;
-    order: 0;
-    position: sticky;
-    top: 80px;
-    margin-right: 15px;
+    display: block; /* Show sidebar on larger screens */
+    margin-left: 15px;
+  }
+  .container-main {
+    flex-direction: row; /* Side-by-side layout for main content and sidebar */
   }
   .main-content {
-    margin-left: 15px;
-    margin-right: 0;
+    margin-right: 15px;
+  }
+}
+
+/* Adjustments for tablet and smaller desktop screens (768px to 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .sidebar {
+    flex: 0 0 200px; /* Slightly narrower sidebar for tablets */
+    margin-left: 10px;
+  }
+  .main-content {
+    margin-right: 10px;
   }
 }

@@ -1,0 +1,485 @@
+ /* BA Program Page Specific Styles */
+        .ba-program-page {
+            padding: 100px 0 30px;
+            background-color: var(--bg-color);
+            min-height: calc(100vh - 70px);
+        }
+        
+       /* Breadcrumb */
+.breadcrumb {
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    padding: 8px 15px;
+    background: var(--card-bg);
+    border-radius: 6px;
+    box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.breadcrumb a {
+    color: var(--nav-link-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb a:hover {
+    color: var(--primary-color);
+}
+
+.breadcrumb span {
+    margin: 0 6px;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+        
+        /* Page Header */
+        .page-header {
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 15px;
+        }
+        
+        .page-header h1 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .page-header p {
+            font-size: 1rem;
+            max-width: 800px;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+        
+        /* Wikipedia-like Layout */
+        .wiki-layout {
+            display: grid;
+            grid-template-columns: 1fr 250px;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .main-content {
+            max-width: 100%;
+        }
+        
+        .sidebar {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 3px 10px var(--shadow-color);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+        
+        .sidebar h3 {
+            margin-bottom: 15px;
+            color: var(--text-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 5px;
+            font-size: 1.1rem;
+        }
+        
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .sidebar li {
+            margin-bottom: 8px;
+        }
+        
+        .sidebar a {
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+        
+        .sidebar a:hover {
+            color: var(--primary-color);
+        }
+        
+ /* Table of Contents */
+        .toc {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 10px var(--shadow-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .toc h2 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--text-color);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .toc li {
+            margin-bottom: 5px;
+        }
+        
+        .toc a {
+            text-decoration: none;
+            color: var(--text-color);
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .toc a:hover {
+            color: var(--primary-color);
+        }
+        
+        /* Fixed TOC background image */
+        .toc .img-backgroung {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        /* Section Styles */
+        .section {
+            margin-bottom: 30px;
+            padding: 0 15px;
+        }
+        
+        .section h2 {
+            font-size: 1.5rem;
+            color: var(--text-color);
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--light-color);
+            padding-bottom: 8px;
+        }
+        
+        .section h3 {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin: 15px 0 8px;
+        }
+        
+        /* Info Box */
+        .infobox {
+            background-color: var(--card-bg);
+            border: 1px solid var(--light-color);
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            float: right;
+            width: 300px;
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .infobox th {
+            font-weight: bold;
+            padding-right: 10px;
+            text-align: left;
+            vertical-align: top;
+        }
+        
+        /* Subject Cards - Smaller for mobile */
+        .subject-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+        
+        .subject-card {
+            background-color: var(--card-bg);
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px var(--shadow-color);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .subject-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px var(--shadow-color);
+        }
+        
+        .card-icon {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+        
+        .card-content {
+            padding: 10px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card-content h3 {
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+            color: var(--text-color);
+        }
+        
+        .card-content p {
+            margin-bottom: 8px;
+            color: var(--text-color);
+            opacity: 0.8;
+            flex-grow: 1;
+            font-size: 0.75rem;
+            line-height: 1.2;
+        }
+        
+        /* Question Papers Section */
+        .qp-section {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 10px var(--shadow-color);
+        }
+        
+        .qp-section h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--text-color);
+            font-size: 1.3rem;
+        }
+        
+        .qp-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+        }
+        
+        .qp-item {
+            background-color: var(--bg-color);
+            border-radius: 5px;
+            padding: 12px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid var(--border-color);
+        }
+        
+        .qp-item:hover {
+            background-color: var(--light-color);
+            transform: translateY(-3px);
+        }
+        
+        .qp-item i {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+        }
+        
+        .qp-item h4 {
+            margin-bottom: 5px;
+            font-size: 0.85rem;
+        }
+        
+        /* Textbooks Section */
+        .textbook-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .textbook-list li {
+            background-color: var(--bg-color);
+            margin-bottom: 8px;
+            padding: 10px;
+            border-radius: 4px;
+            border-left: 3px solid var(--primary-color);
+            transition: box-shadow 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .textbook-list li:hover {
+            box-shadow: 0 2px 8px var(--shadow-color);
+        }
+        
+        .textbook-list a {
+            font-weight: 500;
+        }
+        
+        .textbook-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            font-size: 0.8rem;
+            color: var(--secondary-color);
+        }
+        
+        /* Competitive Exams Section */
+        .competitive-exams {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 10px var(--shadow-color);
+        }
+        
+        .competitive-exams h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--text-color);
+            font-size: 1.3rem;
+        }
+        
+        .exam-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .exam-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .exam-icon {
+            background-color: var(--primary-color);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.8rem;
+        }
+        
+        .exam-text h4 {
+            margin-bottom: 3px;
+            color: var(--text-color);
+            font-size: 0.95rem;
+        }
+        
+        .exam-text p {
+            font-size: 0.8rem;
+            color: var(--text-color);
+            opacity: 0.8;
+            line-height: 1.3;
+        }
+        
+        /* Resource Lists */
+        .resource-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .resource-list li {
+            background-color: var(--bg-color);
+            margin-bottom: 8px;
+            padding: 10px;
+            border-radius: 4px;
+            border-left: 3px solid var(--primary-color);
+            transition: box-shadow 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .resource-list li:hover {
+            box-shadow: 0 2px 8px var(--shadow-color);
+        }
+        
+        .resource-list a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+        
+        .resource-list a:hover {
+            color: var(--primary-color);
+        }
+        
+        /* Section Action Buttons */
+        .section-action {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .wiki-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                order: 2;
+                position: static;
+            }
+            
+            .page-header h1 {
+                font-size: 1.6rem;
+            }
+            
+            .subject-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .infobox {
+                float: none;
+                width: 100%;
+                margin-left: 0;
+            }
+            
+            .qp-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .exam-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .subject-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+            
+            .card-content {
+                padding: 8px;
+            }
+            
+            .card-content h3 {
+                font-size: 0.8rem;
+            }
+            
+            .card-content p {
+                font-size: 0.7rem;
+            }
+            
+            .qp-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .qp-item {
+                padding: 8px;
+            }
+            
+            .qp-item h4 {
+                font-size: 0.8rem;
+            }
+        }

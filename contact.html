@@ -3,93 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - Edu Smartspark</title>
-    <meta name="description" content="Get in touch with Edu Smartspark. Whether you have questions, feedback, or need support, we're here to help. Contact us via email, phone, or visit our location in Abhayapuri, India.">
-    <meta name="keywords" content="Contact Edu Smartspark, Edu Smartspark support, educational platform contact, Guwahati University help, Assam students contact, Saheb Ali contact, Najma Khatun contact">
-    <meta name="author" content="Saheb Ali - Founder of Edu Smartspark">
-    <meta name="publisher" content="Edu Smartspark">
-    <meta property="og:title" content="Contact Us - Edu Smartspark">
-    <meta property="og:description" content="Have questions or feedback? Reach out to Edu Smartspark, your trusted educational platform for Guwahati University students.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.eduspark.site/contact.html">
-    <meta property="og:image" content="https://www.eduspark.site/logo1.png">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Contact Us - Edu Smartspark">
-    <meta name="twitter:description" content="Contact Edu Smartspark for any questions or support. We're here to assist Guwahati University students with their educational needs.">
-    <meta name="twitter:image" content="https://www.eduspark.site/logo1.png">
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "EducationalOrganization",
-      "name": "Edu Smartspark",
-      "url": "https://www.eduspark.site/",
-      "logo": "https://www.eduspark.site/logo1.png",
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+91-6003816583",
-        "contactType": "Customer Support",
-        "email": "
-        "areaServed": "IN"
-      },
-        "founders": [
-            {
-            "@type": "Person",
-            "name": "Saheb Ali",
-            "jobTitle": "Founder"
-            },
-            {
-            "@type": "Person",
-            "name": "Najma Khatun",
-            "jobTitle": "Co-Founder"
-            }
-        ],
-        "foundingDate": "2023",
-        "description": "Edu Smartspark is an educational platform founded by Saheb Ali and Najma Khatun to provide notes, question papers, textbooks, and learning resources for Guwahati University students."
-    }
-    </script>
-    <!--App Logo-->
+    <title>Contact | MiaEdu</title>
+
+    <!-- Web APP Logo -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#007bff">
-    <link rel="icon" href="logo1.png" type="image/png">
-    
-    <link rel="stylesheet" href="otherCSS/contact.css">
-    <!--Font Awesome-->
+    <link rel="icon" href="assets/images/logo.png" type="image/png">
+    <!-- link with css -->
+    <link rel="stylesheet" href="assets/css/contact.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!--Google Adsense-->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3123651917845530"
-     crossorigin="anonymous"></script>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-H8H2R1J1CQ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-H8H2R1J1CQ');
-</script>
+    <link rel="stylesheet" href="assets/css/main.css">
 
 </head>
 <body>
-    <header>
-        <div class="container header-container">
-            <div class="logo">
-                <img src="logo1.png" alt="Edu Smartspark Logo">
-                <div class="logo-text">Edu <span>Smartspark</span></div>
-            </div>
-            <nav>
-                <a href="index.html">Home</a>
-                <a href="about.html">About</a>
-                <a href="contact.html" class="active">Contact</a>
+     <!-- Header -->
+    <header class="transparent-header">
+        <div class="container">
+            <nav>                
+                <div class="logo">
+                    <img src="assets/images/logo.png" alt="MiaEdu">
+                   <div class="logo-text"><a href="index.html">MiaEdu</a></div> 
+                </div>
+                <div class="nav-links">
+                    <ul class="nav-right">
+                        <li><a href="index.html">Home</a></li>
+                        
+                       
+                        <li class="dropdown">
+                            <a href="#" onclick="return false;">Resources<i class="fas fa-chevron-down"></i></a>
+                            <ul class="dropdown-menu">
+                              <li><a href="resources/college/index.html">BA, Bsc & B.Com</a></li>
+                              <li><a href="resources/school/index.html">VII to X</a></li>   
+                              <li><a href="resources/school/index.html">XI & XII</a></li>
+                                </ul>
+                                <li><a href="tools/index.html">Tools</a></li>
+                                 <li><a href="Blogs/index.html">Blogs</a></li>                                                
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="/" class="active">Contact</a></li>
+                    </ul>
+                    <div class="mobile-menu-btn">
+                        <i class="fas fa-bars"></i>
+                    </div>
+                </div>
             </nav>
         </div>
     </header>
 
-    <section class="contact-hero">
-        <div class="container">
-            <h1>Get In Touch</h1>
-            <p>Have questions or feedback? We'd love to hear from you!</p>
-        </div>
-    </section>
 
     <main class="contact-main">
         <div class="container">
@@ -118,7 +77,7 @@
                             <textarea name="message" id="message" class="form-control" required></textarea>
                         </div>
                         
-                        <button type="submit" class="submit-btn">Send Message</button>
+                        <button type="submit" class="btn">Send Message</button>
                         <p id="form-message" style="margin-top: 15px; display: none;"></p>
                     </form>
                 </div>
@@ -165,22 +124,61 @@
             </div>
             
             <div class="map-container">
-                <!-- Updated map for Abhayapuri, India -->
+                <!--  map of Abhayapuri, India -->
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28470.952936911!2d90.6671648!3d26.3202299!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3759af633cdf1d01%3A0xe5e9230aca1b0e9a!2sNew%20piradhara%2C%20Asaam%20(At%20Mr%20saheb%20House!5e0!3m2!1sen!2sin!4v1726492800000!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
     </main>
 
-    <footer>
+        <!-- Footer -->
+      <footer>
         <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <img src="assets/images/logo.png" alt="MiaEdu Logo" class="footer-logo">
+                    <p>Providing quality educational resources for lower class to higher class students includes- BA, B.Com, and B.Sc students since 2024.
+                    </p>
+                    <p>Here is our Social Media plateforms:</p>
+                    <div class="social-links">
+                        <a href="https://www.youtube.com/@EduSmartspark" aria-label="youtube"><i class="fab fa-youtube" aria-hidden="true"></i></a>
+                        <a href="https://www.facebook.com/people/Saheb-Ali/100050209846406/" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/__saheb_ali/" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                        
+                        <a href="https://wa.me/916003816583?text=Hello%20Saheb%2C%20%28Site%20Visitor%29" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="resources/school/e-books/ncert-books.html"><i class="fas fa-chevron-right" aria-hidden="true"></i>NCERT Books PDF VI-X</a></li>
+                        <li><a href="resources/index.html"><i class="fas fa-chevron-right" aria-hidden="true"></i>Digree-resources</a></li>
+                        <li><a href="resources/index.html"><i class="fas fa-chevron-right" aria-hidden="true"></i>HS Resources</a></li>
+                        <li><a href="resources/index.html"><i class="fas fa-chevron-right" aria-hidden="true"></i>6-10th Resources</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><a href="contact.html" aria-label="Contact"><i class="fas fa-phone" aria-hidden="true"></i>Contact- 'Click for info'</a></li>                      
+                        <li><a href="https://www.google.com/maps/place/New+piradhara,+Asaam+(At+Mr+saheb+House/@26.3188518,90.6825508,17z/data=!4m6!3m5!1s0x3759af633cdf1d01:0xe5e9230aca1b0e9a!8m2!3d26.3202299!4d90.6823143!16s%2Fg%2F11s7kxngg7?entry=ttu&g_ep=EgoyMDI1MDkyNC4wIKXMDSoASAFQAw%3D%3D" aria-label="Our location"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Near Abhayapuri Town 783384 -Assam </a></li>
+                        <li><a href="tel:+916003816583" aria-label="Call us"><i class="fas fa-phone" aria-hidden="true"></i> +91 6003816583</a></li>
+                        <li><a href="mailto:sahebali8474@gmail.com" aria-label="Email us"><i class="fas fa-envelope" aria-hidden="true"></i> sahebali8474@gmail.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            
             <div class="footer-bottom">
-                <p>&copy; 2024 Edu Smartspark. All Rights Reserved.</p>
+                <p>&copy;MiaEdu 2024. All Rights Reserved -Saheb Ali.</p>
+                <div class="legal-links">
+                    <a href="legal/terms.html">Terms</a>
+                    <a href="legal/privacy.html">Privacy</a>
+                </div>
             </div>
         </div>
     </footer>
 
     <script>
-        // Updated Google Apps Script URL - replace with your own after deploying
+        // Google Apps Script URL
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwGi4lelyZ2RmVkWo-OZtxG5zOn_mOv6UA-REX5fC4lQa0XS1JR8NAxSZYN9TdmoIKd/exec';
         const form = document.getElementById('contactForm');
         const messageElement = document.getElementById('form-message');
@@ -188,7 +186,7 @@
         form.addEventListener('submit', e => {
             e.preventDefault();
             
-            const submitButton = form.querySelector('.submit-btn');
+            const submitButton = form.querySelector('.btn');
             const originalText = submitButton.innerHTML;
             
             // Show loading state
@@ -236,5 +234,13 @@
             });
         });
     </script>
+
+
+    <!-- Theme Toggle Button -->
+    <div class="theme-toggle">
+        <i class="fas fa-moon" aria-hidden="true"></i>
+    </div>
+    <script src="assets/js/header.js"></script>
+    <script src="assets/js/main.js"></script>
 </body>
 </html>

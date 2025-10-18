@@ -1,0 +1,152 @@
+.text-change {
+  position: relative;
+  display: inline-block;
+  color:rgb(14, 192, 192);
+  font-weight: bold;
+  perspective: 1000px;
+}
+
+.text-change::after {
+  content: "Notes & Guide";
+  display: inline-block;
+  animation: smoothFlip 8s infinite;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+/* Smooth flip animation with 3D effect */
+@keyframes smoothFlip {
+  0%, 20% {
+    content: "Notes & Guide";
+    transform: rotateX(0deg);
+    opacity: 1;
+  }
+  25% {
+    transform: rotateX(90deg);
+    opacity: 0.5;
+  }
+  30%, 45% {
+    content: "PYQ Papers";
+    transform: rotateX(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: rotateX(90deg);
+    opacity: 0.5;
+  }
+  55%, 70% {
+    content: "Solved PYQP";
+    transform: rotateX(0deg);
+    opacity: 1;
+  }
+  75% {
+    transform: rotateX(90deg);
+    opacity: 0.5;
+  }
+  80%, 95% {
+    content: "Video Explanation";
+    transform: rotateX(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: rotateX(0deg);
+    opacity: 1;
+  }
+}
+
+/* Alternative: Fade animation for smoother transitions */
+@keyframes smoothFade {
+  0%, 20% {
+    content: "Notes & Guide";
+    opacity: 1;
+    transform: translateY(0);
+  }
+  25% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  30%, 45% {
+    content: "PYQ Papers";
+    opacity: 1;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  55%, 70% {
+    content: "Solved PYQP";
+    opacity: 1;
+    transform: translateY(0);
+  }
+  75% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  80%, 95% {
+    content: "Video Explanation";
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* For a more modern slide effect */
+@keyframes modernSlide {
+  0%, 20% {
+    content: "Notes & Guide";
+    transform: translateY(0);
+    opacity: 1;
+  }
+  23% {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  27%, 45% {
+    content: "PYQ Papers";
+    transform: translateY(0);
+    opacity: 1;
+  }
+  48% {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  52%, 70% {
+    content: "Solved PYQP";
+    transform: translateY(0);
+    opacity: 1;
+  }
+  73% {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  77%, 95% {
+    content: "Video Explanation";
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Usage examples - choose one: */
+
+/* For flip animation */
+.text-change.flip::after {
+  animation: smoothFlip 8s infinite;
+}
+
+/* For fade animation */
+.text-change.fade::after {
+  animation: smoothFade 8s infinite;
+}
+
+/* For modern slide animation */
+.text-change.slide::after {
+  animation: modernSlide 8s infinite;
+}

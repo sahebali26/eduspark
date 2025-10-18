@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Question Paper PDF | Edu SmartSpark</title>
+    <meta name="description" content="Get your Political Science question paper PDF by completing simple tasks. Follow the instructions to receive the download link.">
+    
+    <!-- Link to existing CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Page-specific CSS -->
+    <style>
+        /* Wikipedia-inspired layout */
+        body {
+            padding-top: 80px; /* Fixed header height */
+        }
+        
+        .download-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .download-header {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px var(--shadow-color);
+            text-align: center;
+        }
+        
+        .download-header h1 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+        
+        .download-header p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .instructions-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px var(--shadow-color);
+        }
+        
+        .instructions-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            text-align: center;
+        }
+        
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .step-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+            padding: 25px;
+            border-left: 5px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .step-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+        
+        .step-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+        
+        .step-card p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .youtube-section {
+            background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+            color: white;
+        }
+        
+        .youtube-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .youtube-section p {
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        .btn-youtube {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 25px;
+            background-color: white;
+            color: #ff0000;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .btn-youtube:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            background-color: #f8f9fa;
+        }
+        
+        .screenshot-guide {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 25px;
+            margin: 30px 0;
+            border: 2px dashed #a2a9b1;
+        }
+        
+        .screenshot-guide h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .screenshot-steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .screenshot-step {
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .screenshot-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-size: 1.5rem;
+        }
+        
+        .email-section {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+            color: white;
+        }
+        
+        .email-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .email-address {
+            background-color: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 1.3rem;
+            font-weight: 600;
+            word-break: break-all;
+        }
+        
+        .btn-copy {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background-color: white;
+            color: #3498db;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-copy:hover {
+            background-color: #f8f9fa;
+            transform: translateY(-2px);
+        }
+        
+        .whats-next {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .whats-next h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .timeline {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .timeline-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 25px;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 5px;
+            border: 1px solid #a2a9b1;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn:hover {
+            background-color: #f8f9fa;
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .download-container {
+                padding: 15px;
+            }
+            
+            .download-header {
+                padding: 20px;
+            }
+            
+            .download-header h1 {
+                font-size: 1.7rem;
+            }
+            
+            .instructions-card {
+                padding: 20px;
+            }
+            
+            .steps-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .screenshot-steps {
+                flex-direction: column;
+            }
+            
+            .navigation-buttons {
+                flex-direction: column;
+            }
+            
+            .nav-btn {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .download-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .email-address {
+                font-size: 1.1rem;
+            }
+            
+            .btn-youtube {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="transparent-header">
+        <div class="container">
+            <nav>                
+                <div class="logo">
+                    <img src="../assets/images/logo.png" alt="Edu Smartspark">
+                   <div class="logo-text"><a href="../index.html">Edu Smartspark</a></div> 
+                </div>
+                <div class="nav-links">
+                    <ul class="nav-right">
+                        <li><a href="../index.html">Home</a></li>
+                        
+                        <li class="dropdown">
+                            <a href="#" onclick="return false;">Resources<i class="fas fa-chevron-down"></i></a>
+                            <ul class="dropdown-menu">
+                              <li><a href="https://www.eduspark.site/question-papers.html">BA, Bsc & B.Com</a></li>
+                              <li><a href="../resources/school/">VII to X</a></li>   
+                              <li><a href="../resources/school/">XI & XII</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="../tools/index.html">Tools</a></li>
+                        <li><a href="index.html" class="active">Blogs</a></li>
+                        <li><a href="../about.html">About Us</a></li>
+                    </ul>
+                    <div class="mobile-menu-btn">
+                        <i class="fas fa-bars"></i>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="download-container">
+        <!-- Header Section -->
+        <div class="download-header">
+            <h1>Get Your Question Paper PDF</h1>
+            <p>We provide question papers for viewing on our website. To download the PDF version, please complete the simple tasks below. This helps support our educational content creation.</p>
+        </div>
+        
+        <!-- Instructions Card -->
+        <div class="instructions-card">
+            <h2>Follow These Simple Steps</h2>
+            <p style="text-align: center; margin-bottom: 25px; color: #666;">Complete these 4 easy steps to receive your Political Science question paper PDF</p>
+            
+            <div class="steps-container">
+                <!-- Step 1 -->
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Watch the Motivational Reel</h3>
+                    <p>Click the YouTube button below to watch our motivational short video. This helps support our channel and educational initiatives.</p>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Engage with the Video</h3>
+                    <p>While watching, please:
+                        <br>• Like the video (👍)
+                        <br>• Leave a positive comment
+                        <br>• Subscribe to our channel
+                    </p>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Take Screenshot</h3>
+                    <p>Capture a screenshot showing:
+                        <br>• You've liked the video
+                        <br>• Your comment is visible
+                        <br>• You're subscribed to the channel
+                    </p>
+                </div>
+                
+                <!-- Step 4 -->
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3>Email Us</h3>
+                    <p>Send the screenshot to our email address with the subject "Political Science PDF Request". We'll send you the download link within 24 hours.</p>
+                </div>
+            </div>
+            
+            <!-- YouTube Section -->
+            <div class="youtube-section">
+                <h3>Step 1: Watch Our Motivational Reel</h3>
+                <p>Click the button below to watch the video on YouTube and complete the engagement tasks</p>
+                <a href="https://www.youtube.com/shorts/Z2rcD-hlUok?si=y8JaMbP9dBdgeN5y" target="_blank" class="btn-youtube">
+                    <i class="fab fa-youtube"></i>
+                    Watch on YouTube
+                </a>
+                <p style="margin-top: 15px; font-size: 0.9rem; opacity: 0.8;">
+                    Short Link: https://www.youtube.com/shorts/Z2rcD-hlUok
+                </p>
+            </div>
+            
+            <!-- Screenshot Guide -->
+            <div class="screenshot-guide">
+                <h3>How to Take the Perfect Screenshot</h3>
+                <p style="text-align: center; margin-bottom: 20px;">Make sure your screenshot clearly shows all required elements:</p>
+                
+                <div class="screenshot-steps">
+                    <div class="screenshot-step">
+                        <div class="screenshot-icon">
+                            <i class="fas fa-thumbs-up"></i>
+                        </div>
+                        <p>Like Button (Red)</p>
+                    </div>
+                    
+                    <div class="screenshot-step">
+                        <div class="screenshot-icon">
+                            <i class="fas fa-comment"></i>
+                        </div>
+                        <p>Your Comment Visible</p>
+                    </div>
+                    
+                    <div class="screenshot-step">
+                        <div class="screenshot-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <p>Subscribe Button (Showing "Subscribed")</p>
+                    </div>
+                </div>
+                
+                <p style="text-align: center; font-size: 0.9rem; color: #666;">
+                    <i class="fas fa-lightbulb"></i> Tip: Make sure the video title and our channel name are visible in the screenshot
+                </p>
+            </div>
+            
+            <!-- Email Section -->
+            <div class="email-section">
+                <h3>Step 4: Send Us the Screenshot</h3>
+                <p>Email your screenshot to the address below with the subject "Political Science PDF Request"</p>
+                
+                <div class="email-address">
+                    sahebali8474@gmail.com
+                </div>
+                
+                <button class="btn-copy" onclick="copyEmail()">
+                    <i class="far fa-copy"></i>
+                    Copy Email Address
+                </button>
+                
+                <p style="margin-top: 20px; font-size: 0.9rem; opacity: 0.9;">
+                    We typically respond within 24 hours with your PDF download link
+                </p>
+            </div>
+        </div>
+        
+        <!-- What Happens Next -->
+        <div class="whats-next">
+            <h2>What Happens After You Email Us?</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div>
+                        <h4>Email Received</h4>
+                        <p>We receive your email with the screenshot attachment</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div>
+                        <h4>Verification</h4>
+                        <p>We verify your screenshot to confirm all tasks are completed</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-paper-plane"></i>
+                    </div>
+                    <div>
+                        <h4>PDF Sent</h4>
+                        <p>We email you the download link for your Political Science question paper PDF</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation Buttons -->
+        <div class="navigation-buttons">
+            <a href="../viewer/political-science-2023.html" class="nav-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to PDF Viewer
+            </a>
+            
+            <a href="../question-papers/ba/sem1/political-science-2023.html" class="nav-btn btn-primary">
+                <i class="fas fa-info-circle"></i>
+                Paper Details
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <img src="../assets/images/logo.png" alt="Edu Smartspark Logo" class="footer-logo">
+                    <p>Providing quality educational resources for lower class to higher class students includes- BA, B.Com, and B.Sc students since 2024.
+                    </p>
+                    <p>Here is our Social Media plateforms:</p>
+                    <div class="social-links">
+                        <a href="https://www.youtube.com/@EduSmartspark" aria-label="youtube"><i class="fab fa-youtube" aria-hidden="true"></i></a>
+                        <a href="https://www.facebook.com/people/Saheb-Ali/100050209846406/" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/__saheb_ali/" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                        <a href="https://wa.me/916003816583?text=Hello%20Saheb%2C%20%28Site%20Visitor%29" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="../NCERT Book.html"><i class="fas fa-chevron-right" aria-hidden="true"></i>NCERT Books PDF VI-X</a></li>
+                        <li><a href="../question-papers.html"><i class="fas fa-chevron-right" aria-hidden="true"></i>B.A B.Com Question Paper</a></li>
+                        <li><a href="../notes-book.html"><i class="fas fa-chevron-right" aria-hidden="true"></i>Notes & PDF (BA,BSc,Bcom )</a></li>
+                        <li><a href="../Solutions.html"><i class="fas fa-chevron-right" aria-hidden="true"></i>Solved B.A B.Com Question Papers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><a href="../contact.html" aria-label="Contact"><i class="fas fa-phone" aria-hidden="true"></i>Contact- 'Click for info'</a></li>                      
+                        <li><a href="https://www.google.com/maps/place/New+piradhara,+Asaam+(At+Mr+saheb+House/@26.3188518,90.6825508,17z/data=!4m6!3m5!1s0x3759af633cdf1d01:0xe5e9230aca1b0e9a!8m2!3d26.3202299!4d90.6823143!16s%2Fg%2F11s7kxngg7?entry=ttu&g_ep=EgoyMDI1MDkyNC4wIKXMDSoASAFQAw%3D%3D" aria-label="Our location"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Near Abhayapuri Town 783384 -Assam </a></li>
+                        <li><a href="tel:+916003816583" aria-label="Call us"><i class="fas fa-phone" aria-hidden="true"></i> +91 6003816583</a></li>
+                        <li><a href="mailto:sahebali8474@gmail.com" aria-label="Email us"><i class="fas fa-envelope" aria-hidden="true"></i> sahebali8474@gmail.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy;Edu Smartspark 2024. All Rights Reserved -Saheb Ali.</p>
+                <div class="legal-links">
+                    <a href="../terms.html">Terms</a>
+                    <a href="../policy.html">Privacy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Theme Toggle Button -->
+    <div class="theme-toggle">
+        <i class="fas fa-moon" aria-hidden="true"></i>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Copy email function
+        function copyEmail() {
+            const email = 'sahebali8474@gmail.com';
+            navigator.clipboard.writeText(email).then(function() {
+                // Show success message
+                const button = event.target.closest('.btn-copy');
+                const originalHTML = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                button.style.backgroundColor = '#27ae60';
+                button.style.color = 'white';
+                
+                setTimeout(function() {
+                    button.innerHTML = originalHTML;
+                    button.style.backgroundColor = '';
+                    button.style.color = '';
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Failed to copy email: ', err);
+                alert('Failed to copy email address. Please copy manually: ' + email);
+            });
+        }
+        
+        // Track YouTube link clicks
+        document.querySelector('.btn-youtube').addEventListener('click', function() {
+            // You can add analytics tracking here
+            console.log('YouTube link clicked - motivational reel');
+        });
+    </script>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/header.js"></script>
+</body>
+</html>

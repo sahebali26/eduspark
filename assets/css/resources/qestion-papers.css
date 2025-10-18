@@ -14,14 +14,12 @@
         }
         
         .ques-main-content {
-            background-color: var(--card-bg);
             border-radius: 8px;
             padding: 30px;
             box-shadow: 0 2px 10px var(--shadow-color);
         }
         
         .ques-sidebar {
-            background-color: var(--card-bg);
             border-radius: 8px;
             padding: 20px;
             box-shadow: 0 2px 10px var(--shadow-color);
@@ -71,7 +69,6 @@
         /* quespedia info box */
         .ques-infobox {
             border: 1px solid #a2a9b1;
-            background-color: #f8f9fa;
             padding: 15px;
             margin-bottom: 20px;
             border-radius: 5px;
@@ -106,7 +103,6 @@
     font-size: 0.9rem;
     color: var(--text-color);
     padding: 8px 15px;
-    background: var(--card-bg);
     border-radius: 6px;
     box-shadow: 0 2px 4px var(--shadow-color);
 }
@@ -129,7 +125,6 @@
         
         /* Table of Contents */
         .ques-toc {
-            background-color: #f8f9fa;
             border: 1px solid #a2a9b1;
             border-radius: 5px;
             padding: 15px;
@@ -203,7 +198,6 @@
         }
         
         .semester-table th {
-            background-color: #f8f9fa;
             border: 1px solid #a2a9b1;
             padding: 12px 15px;
             text-align: left;
@@ -216,9 +210,7 @@
             vertical-align: top;
         }
         
-        .semester-table tr:nth-child(even) {
-            background-color: #f8f9fa;
-        }
+       
         
         .semester-link {
             display: inline-block;

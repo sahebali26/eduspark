@@ -1,0 +1,7 @@
+# robots.txt for https://www.eduspark.site/
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://www.eduspark.site/sitemap.xml

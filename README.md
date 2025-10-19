@@ -1,6 +1,6 @@
-# 📚 MiaEdu
+# 📚 Edu Smartspark
 
-MiaEdu is a comprehensive educational platform designed to support students from school to university level. It offers curated academic resources, solved papers, study tools, and insightful blog content—all in one place.
+Edu Smartspark is a comprehensive educational platform designed to support students from school to university level. It offers curated academic resources, solved papers, study tools, and insightful blog content—all in one place.
 
 ---
 
@@ -8,7 +8,7 @@ MiaEdu is a comprehensive educational platform designed to support students from
 
 ### 🔹 Core Pages
 - `index.html` – Homepage with quick links and highlights
-- `about.html` – Overview of MiaEdu's mission and vision
+- `about.html` – Overview of Edu Smartspark's mission and vision
 - `contact.html` – Feedback and contact form
 
 ---
@@ -98,4 +98,4 @@ This project is licensed under the MIT License. See `LICENSE` for details.
 
 ## 🙌 Acknowledgments
 
-Thanks to all educators, contributors, and students who make MiaEdu a growing academic hub.
+Thanks to all educators, contributors, and students who make Edu Smartspark a growing academic hub.

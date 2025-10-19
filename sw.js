@@ -1,4 +1,4 @@
-const CACHE_NAME = 'Mia.Edu-v1';
+const CACHE_NAME = 'Edu.Smartspark-v1';
 const urlsToCache = [
   '/',
   '/index.html',

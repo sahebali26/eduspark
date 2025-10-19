@@ -134,7 +134,6 @@ body {
     padding: 15px;
     margin-bottom: 20px;
     font-size: 0.9rem;
-    background-color: var(--card-bg);
 }
 
 .ques-toc h2 {
@@ -200,7 +199,6 @@ body {
     border-collapse: collapse;
     margin-bottom: 30px;
     font-size: 0.9rem;
-    background-color: var(--card-bg);
 }
 
 .subject-table th {
@@ -208,7 +206,6 @@ body {
     padding: 12px 15px;
     text-align: left;
     font-weight: bold;
-    background-color: #f8f9fa;
 }
 
 .subject-table td {

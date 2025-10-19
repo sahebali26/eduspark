@@ -1,3 +1,4 @@
+/* main.css - Fixed version */
 /* Global Styles with CSS Variables for Theming */
 :root {
     --primary-color: #3498db;
@@ -41,7 +42,7 @@ body {
     line-height: 1.6;
     color: var(--text-color);
     background-color: var(--bg-color);
-    padding-top: 70px;
+    padding-top: 90px; /* Increased to match semester.css and prevent overlap */
     overflow-x: hidden;
     margin: 0;
     padding: 0;
@@ -319,10 +320,10 @@ nav {
 @media (max-width: 992px) {
     .nav-right {
         position: fixed;
-        top: 70px;
+        top: 90px; /* Adjusted for increased padding-top */
         right: -100%;
         width: 280px;
-        height: calc(100vh - 70px);
+        height: calc(100vh - 90px);
         background-color: var(--header-bg);
         flex-direction: column;
         padding: 20px;
@@ -441,7 +442,7 @@ nav {
     align-self: flex-start;
 }
 
-/* Footer with enhanced styling */
+/* Footer with enhanced styling - Reduced side spacing on mobile */
 footer {
     background-color: var(--footer-bg);
     color: var(--footer-text);
@@ -554,5 +555,24 @@ footer {
     margin-bottom: 20px;
 }
 
+/* Mobile adjustments for container and footer */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 10px; /* Reduced side padding on mobile to minimize space */
+    }
 
+    footer {
+        padding: 40px 0 20px; /* Reduced vertical padding slightly */
+    }
 
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 5px; /* Minimal padding on very small screens */
+    }
+}

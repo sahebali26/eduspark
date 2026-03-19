@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 5 – Correlation Analysis | Economics Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0f0e17;
+  --surface: #1a1826;
+  --surface2: #231f35;
+  --border: #2e2a45;
+  --accent1: #f5a623;
+  --accent2: #e94560;
+  --accent3: #4ecdc4;
+  --accent4: #a78bfa;
+  --text: #e8e6f0;
+  --muted: #8b87a8;
+  --gold: #ffd700;
+  --green: #56cf8f;
+  --red: #ff6b6b;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 16px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 10% 20%, rgba(167,139,250,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 50% at 90% 80%, rgba(245,166,35,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 30% at 50% 50%, rgba(78,205,196,0.04) 0%, transparent 70%);
+  pointer-events: none; z-index: 0;
+}
+
+.wrapper { position: relative; z-index: 1; max-width: 980px; margin: 0 auto; padding: 2rem 1.5rem 6rem; }
+
+/* ── HERO ── */
+.hero {
+  text-align: center;
+  padding: 3rem 1rem 2.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 3rem;
+}
+.hero::after {
+  content: ''; display: block; width: 80px; height: 3px;
+  background: linear-gradient(90deg, var(--accent4), var(--accent3));
+  margin: 1.5rem auto 0; border-radius: 2px;
+}
+.tag {
+  display: inline-block;
+  background: rgba(167,139,250,0.12);
+  border: 1px solid rgba(167,139,250,0.3);
+  color: var(--accent4);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
+  padding: .3rem .9rem; border-radius: 999px; margin-bottom: 1.2rem;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 900; line-height: 1.1;
+  background: linear-gradient(135deg, #fff 30%, var(--accent4) 80%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero .sub { color: var(--muted); font-size: .95rem; margin-top: .8rem; font-style: italic; }
+.meta-row { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-top: 1.5rem; }
+.meta-chip {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 8px; padding: .4rem 1rem;
+  font-family: 'JetBrains Mono', monospace; font-size: .78rem; color: var(--muted);
+}
+.meta-chip span { color: var(--accent3); font-weight: 600; }
+
+/* ── TOC ── */
+.toc {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; padding: 1.5rem 2rem; margin-bottom: 3rem;
+}
+.toc h3 {
+  font-family: 'JetBrains Mono', monospace; font-size: .8rem;
+  letter-spacing: .15em; text-transform: uppercase; color: var(--accent3); margin-bottom: 1rem;
+}
+.toc ol {
+  padding-left: 1.2rem; display: grid;
+  grid-template-columns: 1fr 1fr; gap: .3rem .5rem;
+}
+.toc li { font-size: .9rem; }
+.toc a { color: var(--muted); text-decoration: none; transition: color .2s; }
+.toc a:hover { color: var(--accent4); }
+@media(max-width:600px){ .toc ol { grid-template-columns: 1fr; } }
+
+/* ── SECTIONS ── */
+.section { margin-bottom: 3.5rem; animation: fadeUp .5s ease both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+.section-header {
+  display: flex; align-items: center; gap: 1rem;
+  margin-bottom: 1.5rem; padding-bottom: .8rem;
+  border-bottom: 1px solid var(--border);
+}
+.section-num {
+  width: 2.4rem; height: 2.4rem;
+  background: linear-gradient(135deg, var(--accent4), var(--accent3));
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: .85rem; flex-shrink: 0;
+  color: #0f0e17;
+}
+.section-header h2 {
+  font-family: 'Playfair Display', serif; font-size: 1.55rem;
+  font-weight: 700; color: #fff;
+}
+
+/* ── CARDS ── */
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 1.4rem 1.6rem;
+  margin-bottom: 1.2rem; transition: border-color .2s, transform .2s;
+}
+.card:hover { border-color: rgba(167,139,250,0.4); transform: translateY(-2px); }
+.card h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--accent4); margin-bottom: .6rem; }
+.card h4 { color: var(--accent3); margin: .8rem 0 .4rem; font-size: .95rem; }
+
+/* ── GRIDS ── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+@media(max-width:680px){ .grid-2,.grid-3 { grid-template-columns: 1fr; } }
+
+/* ── FORMULA BOX ── */
+.formula {
+  background: #0c0b14; border: 1px solid var(--border);
+  border-left: 3px solid var(--accent4); border-radius: 8px;
+  padding: .9rem 1.2rem;
+  font-family: 'JetBrains Mono', monospace; font-size: .88rem;
+  color: var(--gold); margin: .8rem 0; overflow-x: auto; line-height: 1.8;
+}
+.formula .label {
+  font-size: .7rem; color: var(--muted); letter-spacing: .1em;
+  text-transform: uppercase; display: block; margin-bottom: .3rem;
+}
+.formula.green { border-left-color: var(--green); }
+.formula.red   { border-left-color: var(--red); }
+.formula.cyan  { border-left-color: var(--accent3); }
+.formula.orange{ border-left-color: var(--accent1); }
+
+/* ── BOXES ── */
+.box { border-radius: 10px; padding: 1rem 1.3rem; margin: 1rem 0; font-size: .93rem; }
+.box-warn { background: rgba(245,166,35,.1); border: 1px solid rgba(245,166,35,.25); }
+.box-tip  { background: rgba(86,207,143,.09); border: 1px solid rgba(86,207,143,.25); color: #b8f0d8; }
+.box-exam { background: rgba(233,69,96,.1);  border: 1px solid rgba(233,69,96,.3); }
+.box-key  { background: rgba(167,139,250,.1); border: 1px solid rgba(167,139,250,.3); }
+.box-label {
+  font-family: 'JetBrains Mono', monospace; font-size: .7rem;
+  letter-spacing: .12em; text-transform: uppercase; margin-bottom: .4rem; font-weight: 600;
+}
+.box-warn .box-label { color: var(--accent1); }
+.box-tip  .box-label { color: var(--green); }
+.box-exam .box-label { color: var(--accent2); }
+.box-key  .box-label { color: var(--accent4); }
+
+/* ── GRAPH WRAP ── */
+.graph-wrap {
+  position: relative; background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 1.5rem; margin: 1.2rem 0; overflow: hidden;
+}
+.graph-title {
+  font-family: 'JetBrains Mono', monospace; font-size: .75rem;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--muted);
+  margin-bottom: 1rem; text-align: center;
+}
+svg text { fill: var(--muted); font-family: 'Source Serif 4', serif; font-size: 13px; }
+svg .axis-line { stroke: var(--border); stroke-width: 1.5; }
+svg .curve { fill: none; stroke-width: 2.5; }
+
+/* ── TABLE ── */
+table { width: 100%; border-collapse: collapse; font-size: .88rem; margin: 1rem 0; }
+thead tr { background: var(--surface2); }
+thead th {
+  padding: .7rem 1rem; text-align: left;
+  font-family: 'JetBrains Mono', monospace; font-size: .75rem;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--accent3);
+  border-bottom: 1px solid var(--border);
+}
+tbody tr { border-bottom: 1px solid var(--border); transition: background .15s; }
+tbody tr:hover { background: var(--surface2); }
+td { padding: .65rem 1rem; vertical-align: top; }
+td:first-child { color: var(--accent1); font-weight: 600; }
+
+/* ── STEPS ── */
+.steps { counter-reset: step; list-style: none; }
+.steps li {
+  counter-increment: step; padding: .65rem .8rem .65rem 3rem;
+  position: relative; margin-bottom: .4rem;
+  border-radius: 8px; background: var(--surface2); font-size: .93rem;
+}
+.steps li::before {
+  content: counter(step); position: absolute; left: .6rem; top: 50%; transform: translateY(-50%);
+  width: 1.6rem; height: 1.6rem;
+  background: linear-gradient(135deg, var(--accent4), var(--accent3));
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace; font-size: .75rem; font-weight: 700;
+  color: #0f0e17; line-height: 1.6rem; text-align: center;
+}
+
+/* ── BADGES ── */
+.badge-row { display: flex; flex-wrap: wrap; gap: .6rem; margin: .8rem 0; }
+.badge {
+  padding: .3rem .85rem; border-radius: 999px;
+  font-family: 'JetBrains Mono', monospace; font-size: .78rem; font-weight: 600;
+}
+.badge-pos  { background: rgba(86,207,143,.15); border: 1px solid var(--green); color: var(--green); }
+.badge-neg  { background: rgba(233,69,96,.15); border: 1px solid var(--red); color: var(--red); }
+.badge-zero { background: rgba(139,135,168,.15); border: 1px solid var(--muted); color: var(--muted); }
+.badge-info { background: rgba(78,205,196,.12); border: 1px solid var(--accent3); color: var(--accent3); }
+.badge-key  { background: rgba(167,139,250,.12); border: 1px solid var(--accent4); color: var(--accent4); }
+
+/* ── MEMORY TRICK ── */
+.memory {
+  background: linear-gradient(135deg, rgba(167,139,250,.07), rgba(78,205,196,.07));
+  border: 1px dashed rgba(167,139,250,.4); border-radius: 12px;
+  padding: 1rem 1.3rem; margin: 1rem 0;
+}
+.memory .mem-title {
+  font-family: 'JetBrains Mono', monospace; font-size: .7rem;
+  color: var(--accent4); letter-spacing: .12em; text-transform: uppercase; margin-bottom: .4rem;
+}
+.memory .mem-body { font-size: .92rem; }
+.memory strong { color: var(--accent4); }
+
+/* ── EXAM CORNER ── */
+.exam-corner {
+  background: linear-gradient(135deg, var(--surface) 0%, rgba(233,69,96,.07) 100%);
+  border: 1px solid rgba(233,69,96,.35); border-radius: 16px;
+  padding: 1.5rem 1.8rem; margin: 2rem 0;
+}
+.exam-corner h3 {
+  font-family: 'Playfair Display', serif; color: var(--accent2);
+  margin-bottom: 1rem; display: flex; align-items: center; gap: .6rem;
+}
+.exam-q { padding: .6rem 0; border-bottom: 1px solid var(--border); font-size: .92rem; }
+.exam-q:last-child { border-bottom: none; }
+.exam-q span {
+  font-family: 'JetBrains Mono', monospace; font-size: .7rem;
+  color: var(--accent2); margin-right: .5rem;
+}
+
+/* ── SCROLL PROGRESS ── */
+#progress {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: linear-gradient(90deg, var(--accent4), var(--accent3));
+  transition: width .1s; z-index: 999;
+}
+#btt {
+  position: fixed; bottom: 2rem; right: 2rem;
+  width: 2.5rem; height: 2.5rem; background: var(--surface2);
+  border: 1px solid var(--border); border-radius: 50%; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; opacity: 0; transition: opacity .3s, transform .2s; z-index: 100;
+  color: var(--text);
+}
+#btt:hover { transform: translateY(-3px); }
+#btt.show { opacity: 1; }
+
+/* ── CORR SCALE BAR ── */
+.scale-bar {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 1.2rem 1.5rem; margin: 1rem 0;
+}
+.scale-bar .track {
+  height: 10px; border-radius: 999px;
+  background: linear-gradient(90deg, #e94560 0%, #ff9f43 25%, #8b87a8 50%, #4ecdc4 75%, #56cf8f 100%);
+  position: relative; margin: .7rem 0 1.2rem;
+}
+.scale-bar .labels {
+  display: flex; justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace; font-size: .72rem; color: var(--muted);
+}
+.scale-bar .labels .neg { color: var(--red); }
+.scale-bar .labels .pos { color: var(--green); }
+.scale-bar .labels .mid { color: var(--muted); }
+
+/* ── TYPE CARDS (colored top border) ── */
+.type-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 1.2rem 1.5rem; margin-bottom: 1rem;
+  position: relative; overflow: hidden;
+}
+.type-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+.tc-pos::before { background: linear-gradient(90deg, var(--green), var(--accent3)); }
+.tc-neg::before { background: linear-gradient(90deg, var(--red), #ff9f43); }
+.tc-zero::before{ background: var(--border); }
+.tc-partial::before { background: linear-gradient(90deg, var(--accent4), var(--accent1)); }
+.tc-multiple::before{ background: linear-gradient(90deg, var(--accent1), var(--accent2)); }
+.type-card h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; margin-bottom: .4rem; }
+.tc-pos h3    { color: var(--green); }
+.tc-neg h3    { color: var(--red); }
+.tc-zero h3   { color: var(--muted); }
+.tc-partial h3{ color: var(--accent4); }
+.tc-multiple h3{ color: var(--accent1); }
+
+/* ── WORKED EXAMPLE TABLE ── */
+.worked-table {
+  width: 100%; border-collapse: collapse; font-size: .85rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+.worked-table th {
+  background: var(--surface2); padding: .5rem .7rem; font-size: .72rem;
+  text-align: center; color: var(--accent3); border: 1px solid var(--border);
+  letter-spacing: .08em; text-transform: uppercase;
+}
+.worked-table td {
+  padding: .45rem .7rem; text-align: center; border: 1px solid var(--border);
+  color: var(--text); font-size: .82rem;
+}
+.worked-table td:first-child { color: var(--accent1); font-weight: 600; }
+.worked-table tr:hover td { background: var(--surface2); }
+.worked-table .total-row td {
+  background: rgba(167,139,250,.08); color: var(--accent4); font-weight: 600;
+}
+
+/* ── NAV STRIP ── */
+.nav-strip {
+  background: rgba(15,14,23,0.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .75rem 1.5rem;
+}
+.nav-logo {
+  font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700;
+  color: var(--text); text-decoration: none;
+}
+.nav-logo span { color: var(--accent4); }
+.nav-back {
+  font-family: 'JetBrains Mono', monospace; font-size: .75rem;
+  color: var(--muted); text-decoration: none; letter-spacing: .08em;
+  transition: color .2s;
+}
+.nav-back:hover { color: var(--accent4); }
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- NAV -->
+<nav class="nav-strip">
+  <a href="../../index.html" class="nav-logo">Edu <span>Smartspark</span></a>
+  <a href="index.html" class="nav-back">← Unit Index</a>
+</nav>
+
+<div class="wrapper">
+
+<!-- ══════════════════════════════════════ -->
+<!-- HERO -->
+<!-- ══════════════════════════════════════ -->
+<div class="hero">
+  <div class="tag">Economics · 4th Semester · GU CBCS</div>
+  <h1>Correlation Analysis</h1>
+  <p class="sub">Introductory Quantitative Techniques for Economics — Unit 5</p>
+  <div class="meta-row">
+    <div class="meta-chip">Topics: <span>4</span></div>
+    <div class="meta-chip">Marks: <span>20</span></div>
+    <div class="meta-chip">Type: <span>Statistics-Based</span></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- TOC -->
+<!-- ══════════════════════════════════════ -->
+<div class="toc">
+  <h3>📚 Table of Contents</h3>
+  <ol>
+    <li><a href="#s1">What is Correlation?</a></li>
+    <li><a href="#s2">Types of Correlation</a></li>
+    <li><a href="#s3">Scatter Diagrams</a></li>
+    <li><a href="#s4">Karl Pearson's Linear Correlation</a></li>
+    <li><a href="#s5">Properties of r</a></li>
+    <li><a href="#s6">Pearson's r — Worked Example</a></li>
+    <li><a href="#s7">Spearman's Rank Correlation</a></li>
+    <li><a href="#s8">Rank Correlation — Worked Example</a></li>
+    <li><a href="#s9">Partial Correlation</a></li>
+    <li><a href="#s10">Multiple Correlation</a></li>
+    <li><a href="#s11">Comparison Table</a></li>
+    <li><a href="#s12">Exam Corner</a></li>
+  </ol>
+</div>
+
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 1 -->
+<!-- ══════════════════════════════════════ -->
+<div class="section" id="s1">
+  <div class="section-header">
+    <div class="section-num">01</div>
+    <h2>What is Correlation?</h2>
+  </div>
+
+  <div class="card">
+    <h3>Definition</h3>
+    <p>Correlation is a statistical technique that measures the <strong>degree and direction of the linear relationship</strong> between two or more variables. It answers: <em>"When one variable changes, does the other variable change too — and by how much?"</em></p>
+    <div class="box box-key">
+      <div class="box-label">🔑 Key Concept</div>
+      Correlation only measures <strong>association</strong>, not causation. Two variables can be correlated without one causing the other.
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>📌 Examples in Economics</h3>
+      <ul style="list-style:none; display:flex; flex-direction:column; gap:.4rem; font-size:.9rem; color:var(--muted)">
+        <li>💹 Income &amp; Consumption — <span style="color:var(--green)">Positive</span></li>
+        <li>📉 Price &amp; Demand — <span style="color:var(--red)">Negative</span></li>
+        <li>🏭 Employment &amp; Output — <span style="color:var(--green)">Positive</span></li>
+        <li>💰 Interest rate &amp; Investment — <span style="color:var(--red)">Negative</span></li>
+        <li>🌡️ Rainfall &amp; Shoe size — <span style="color:var(--muted)">Zero</span></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>📐 Notation</h3>
+      <p>We study relationship between variables:</p>
+      <div class="formula cyan">
+        <span class="label">Variables</span>
+        X = Independent variable<br>
+        Y = Dependent variable<br>
+        n = Number of pairs of observations
+      </div>
+      <p style="font-size:.86rem;color:var(--muted);margin-top:.4rem">The correlation coefficient is dimensionless — it has no units.</p>
+    </div>
+  </div>
+
+  <div class="memory">
+    <div class="mem-title">💡 Memory Trick</div>
+    <div class="mem-body"><strong>"Correlation is the SHADOW of causation"</strong> — two things moving together (correlation) doesn't mean one is dragging the other (causation). Always say: "r shows <em>association</em>, not cause-effect."</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 2 -->
+<!-- ══════════════════════════════════════ -->
+<div class="section" id="s2">
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <h2>Types of Correlation</h2>
+  </div>
+
+  <!-- By Direction -->
+  <div class="card">
+    <h3>A. Based on Direction</h3>
+    <div class="grid-2" style="margin-top:.6rem">
+      <div class="type-card tc-pos">
+        <h3>Positive Correlation</h3>
+        <p>Both variables move in the <strong>same direction</strong>. When X increases, Y increases; when X decreases, Y decreases.</p>
+        <div class="badge-row"><span class="badge badge-pos">r &gt; 0</span><span class="badge badge-pos">e.g. Income &amp; Expenditure</span></div>
+      </div>
+      <div class="type-card tc-neg">
+        <h3>Negative Correlation</h3>
+        <p>Variables move in <strong>opposite directions</strong>. When X increases, Y decreases and vice versa.</p>
+        <div class="badge-row"><span class="badge badge-neg">r &lt; 0</span><span class="badge badge-neg">e.g. Price &amp; Demand</span></div>
+      </div>
+    </div>
+    <div class="type-card tc-zero" style="margin-top:1rem">
+      <h3>Zero Correlation</h3>
+      <p>No systematic linear relationship between X and Y. Changes in one variable do not affect the other.</p>
+      <div class="badge-row"><span class="badge badge-zero">r = 0</span><span class="badge badge-zero">e.g. Shoe size &amp; Intelligence</span></div>
+    </div>
+  </div>
+
+  <!-- By Degree -->
+  <div class="card">
+    <h3>B. Based on Degree</h3>
+    <div class="scale-bar">
+      <div class="labels">
+        <span class="neg">−1<br>Perfect Negative</span>
+        <span class="neg" style="text-align:center">−0.75 to −0.5<br>High Neg</span>
+        <span class="mid" style="text-align:center">0<br>No Corr</span>
+        <span class="pos" style="text-align:center">+0.5 to +0.75<br>High Pos</span>
+        <span class="pos" style="text-align:right">+1<br>Perfect Positive</span>
+      </div>
+      <div class="track"></div>
+    </div>
+    <table>
+      <thead><tr><th>Value of r</th><th>Degree</th><th>Interpretation</th></tr></thead>
+      <tbody>
+        <tr><td>r = +1</td><td>Perfect Positive</td><td>All points exactly on an upward line</td></tr>
+        <tr><td>0.75 to 0.99</td><td>High Positive</td><td>Strong positive association</td></tr>
+        <tr><td>0.25 to 0.74</td><td>Moderate Positive</td><td>Moderate positive association</td></tr>
+        <tr><td>0 to 0.24</td><td>Low Positive</td><td>Weak positive association</td></tr>
+        <tr><td>r = 0</td><td style="color:var(--muted)">Zero</td><td>No linear relationship</td></tr>
+        <tr><td>−0.24 to 0</td><td>Low Negative</td><td>Weak negative association</td></tr>
+        <tr><td>−0.74 to −0.25</td><td>Moderate Negative</td><td>Moderate negative association</td></tr>
+        <tr><td>−0.99 to −0.75</td><td>High Negative</td><td>Strong negative association</td></tr>
+        <tr><td>r = −1</td><td>Perfect Negative</td><td>All points exactly on a downward line</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- By Nature -->
+  <div class="card">
+    <h3>C. Based on Nature (Number of Variables)</h3>
+    <div class="grid-3">
+      <div class="type-card tc-pos" style="margin-bottom:0">
+        <h3>Simple (Linear)</h3>
+        <p>Relationship between <strong>two</strong> variables. e.g. r between X and Y only.</p>
+        <div class="badge-row"><span class="badge badge-pos">r<sub>XY</sub></span></div>
+      </div>
+      <div class="type-card tc-partial" style="margin-bottom:0">
+        <h3>Partial</h3>
+        <p>Correlation between <strong>two</strong> variables while <strong>holding others constant</strong>.</p>
+        <div class="badge-row"><span class="badge badge-key">r<sub>12.3</sub></span></div>
+      </div>
+      <div class="type-card tc-multiple" style="margin-bottom:0">
+        <h3>Multiple</h3>
+        <p>Correlation between <strong>one variable</strong> and a <strong>set of other variables</strong> simultaneously.</p>
+        <div class="badge-row"><span class="badge" style="background:rgba(245,166,35,.12);border:1px solid var(--accent1);color:var(--accent1)">R<sub>1.23</sub></span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 3 -->
+<!-- ══════════════════════════════════════ -->
+<div class="section" id="s3">
+  <div class="section-header">
+    <div class="section-num">03</div>
+    <h2>Scatter Diagrams</h2>
+  </div>
+
+  <div class="card">
+    <h3>What is a Scatter Diagram?</h3>
+    <p>A scatter diagram (scatter plot) is a <strong>graphical method</strong> of studying correlation. Each pair (X, Y) is plotted as a point. The pattern of dots reveals the type and degree of correlation.</p>
+    <div class="box box-warn">
+      <div class="box-label">⚠️ Important</div>
+      Scatter diagrams give only a <strong>rough idea</strong> of correlation — they cannot give the exact numerical value. For that, we use Karl Pearson's r or Spearman's ρ.
+    </div>
+  </div>
+
+  <!-- 6-panel scatter SVG -->
+  <div class="graph-wrap">
+    <div class="graph-title">Six Types of Scatter Patterns</div>
+    <svg viewBox="0 0 720 440" xmlns="http://www.w3.org/2000/svg" style="width:100%;">
+
+      <!-- ── Panel 1: Perfect Positive ── -->
+      <text x="60" y="18" text-anchor="middle" fill="#56cf8f" font-size="11" font-family="JetBrains Mono">Perfect Positive (r=+1)</text>
+      <line x1="10" y1="180" x2="110" y2="180" stroke="#2e2a45" stroke-width="1.5"/>
+      <line x1="10" y1="30"  x2="10"  y2="180" stroke="#2e2a45" stroke-width="1.5"/>
+      <line x1="15" y1="170" x2="105" y2="40" stroke="#56cf8f" stroke-width="1.2" stroke-dasharray="3,3" opacity=".5"/>
+      <circle cx="20" cy="165" r="4" fill="#56cf8f"/>
+      <circle cx="35" cy="145" r="4" fill="#56cf8f"/>
+      <circle cx="50" cy="120" r="4" fill="#56cf8f"/>
+      <circle cx="65" cy="98"  r="4" fill="#56cf8f"/>
+      <circle cx="80" cy="75"  r="4" fill="#56cf8f"/>
+      <circle cx="95" cy="52"  r="4" fill="#56cf8f"/>
+      <text x="55" y="195" text-anchor="middle" fill="#8b87a8" font-size="10">X →</text>
+
+      <!-- ── Panel 2: Perfect Negative ── -->
+      <text x="220" y="18" text-anchor="middle" fill="#ff6b6b" font-size="11" font-family="JetBrains Mono">Perfect Negative (r=−1)</text>
+      <line x1="170" y1="180" x2="270" y2="180" stroke="#2e2a45" stroke-width="1.5"/>
+      <line x1="170" y1="30"  x2="170" y2="180" stroke="#2e2a45" stroke-width="1.5"/>
+      <line x1="175" y1="45"  x2="265" y2="170" stroke="#ff6b6b" stroke-width="1.2" stroke-dasharray="3,3" opacity=".5"/>
+      <circle cx="180" cy="52"  r="4" fill="#ff6b6b"/>
+      <circle cx="195" cy="75"  r="4" fill="#ff6b6b"/>
+      <circle cx="210" cy="100" r="4" fill="#ff6b6b"/>
+      <circle cx="225" cy="125" r="4" fill="#ff6b6b"/>
+      <circle cx="240" cy="148" r="4" fill="#ff6b6b"/>
+      <circle cx="255" cy="167" r="4" fill="#ff6b6b"/>
+      <text x="215" y="195" text-anchor="middle" fill="#8b87a8" font-size="10">X →</text>
+
+      <!-- ── Panel 3: Zero Correlation ── -->
+      <text x="380" y="18" text-anchor="middle" fill="#8b87a8" font-size="11" font-family="JetBrains Mono">No Correlation (r≈0)</text>
+      <line x1="330" y1="180" x2="430" y2="180" stroke="#2e2a45" stroke-width="1.5"/>
+      <line x1="330" y1="30"  x2="330" y2="180" stroke="#2e2a45" stroke-width="1.5"/>
+      <circle cx="340" cy="80"  r="4" fill="#8b87a8"/>
+      <circle cx="355" cy="155" r="4" fill="#8b87a8"/>
+      <circle cx="360" cy="50"  r="4" fill="#8b87a8"/>
+      <circle cx="368" cy="130" r="4" fill="#8b87a8"/>
+      <circle cx="378" cy="70"  r="4" fill="#8b87a8"/>
+      <circle cx="385" cy="160" r="4" fill="#8b87a8"/>
+      <circle cx="395" cy="45"  r="4" fill="#8b87a8"/>
+      <circle cx="405" cy="140" r="4" fill="#8b87a8"/>
+      <circle cx="415" cy="90"  r="4" fill="#8b87a8"/>
+      <circle cx="422" cy="55"  r="4" fill="#8b87a8"/>
+      <text x="375" y="195" text-anchor="middle" fill="#8b87a8" font-size="10">X →</text>
+
+      <!-- ── Panel 4: High Positive ── -->
+      <text x="60" y="230" text-anchor="middle" fill="#4ecdc4" font-size="11" font-family="JetBrains Mono">High Positive (r≈+0.9)</text>
+      <line x1="10" y1="390" x2="110" y2="390" stroke="#2e2a45" stroke-width="1.5"/>
+      <line x1="10" y1="240" x2="10"  y2="390" stroke="#2e2a45" stroke-width="1.5"/>
+      <circle cx="18"  cy="370" r="4" fill="#4ecdc4"/>
+      <circle cx="26"  cy="350" r="4" fill="#4ecdc4"/>
+      <circle cx="36"  cy="335" r="4" fill="#4ecdc4"/>
+      <circle cx="42"  cy="318" r="4" fill="#4ecdc4"/>
+      <circle cx="52"  cy="300" r="4" fill="#4ecdc4"/>
+      <circle cx="58"  cy="290" r="4" fill="#4ecdc4"/>
+      <circle cx="66"  cy="272" r="4" fill="#4ecdc4"/>
+      <circle cx="75"  cy="265" r="4" fill="#4ecdc4"/>
+      <circle cx="82"  cy="258" r="4" fill="#4ecdc4"/>
+      <circle cx="95"  cy="248" r="4" fill="#4ecdc4"/>
+      <circle cx="105" cy="255" r="4" fill="#4ecdc4"/>
+      <!-- trend line -->
+      <line x1="14" y1="375" x2="108" y2="248" stroke="#4ecdc4" stroke-width="1.2" stroke-dasharray="3,3" opacity=".4"/>
+      <text x="55" y="405" text-anchor="middle" fill="#8b87a8" font-size="10">X →</text>
+
+      <!-- ── Panel 5: Moderate Positive ── -->
+      <text x="220" y="230" text-anchor="middle" fill="#f5a623" font-size="11" font-family="JetBrains Mono">Moderate Positive (r≈+0.6)</text>
+      <line x1="170" y1="390" x2="270" y2="390" stroke="#2e2a45" stroke-width="1.5"/>
+      <line x1="170" y1="240" x2="170" y2="390" stroke="#2e2a45" stroke-width="1.5"/>
+      <circle cx="178" cy="360" r="4" fill="#f5a623"/>
+      <circle cx="188" cy="345" r="4" fill="#f5a623"/>
+      <circle cx="195" cy="370" r="4" fill="#f5a623"/>
+      <circle cx="203" cy="318" r="4" fill="#f5a623"/>
+      <circle cx="210" cy="340" r="4" fill="#f5a623"/>
+      <circle cx="218" cy="290" r="4" fill="#f5a623"/>
+      <circle cx="225" cy="310" r="4" fill="#f5a623"/>
+      <circle cx="232" cy="278" r="4" fill="#f5a623"/>
+      <circle cx="242" cy="295" r="4" fill="#f5a623"/>
+      <circle cx="250" cy="260" r="4" fill="#f5a623"/>
+      <circle cx="260" cy="255" r="4" fill="#f5a623"/>
+      <line x1="175" y1="372" x2="263" y2="252" stroke="#f5a623" stroke-width="1.2" stroke-dasharray="3,3" opacity=".4"/>
+      <text x="215" y="405" text-anchor="middle" fill="#8b87a8" font-size="10">X →</text>
+
+      <!-- ── Panel 6: High Negative ── -->
+      <text x="380" y="230" text-anchor="middle" fill="#e94560" font-size="11" font-family="JetBrains Mono">High Negative (r≈−0.9)</text>
+      <line x1="330" y1="390" x2="430" y2="390" stroke="#2e2a45" stroke-width="1.5"/>
+      <line x1="330" y1="240" x2="330" y2="390" stroke="#2e2a45" stroke-width="1.5"/>
+      <circle cx="338" cy="255" r="4" fill="#e94560"/>
+      <circle cx="345" cy="265" r="4" fill="#e94560"/>
+      <circle cx="352" cy="278" r="4" fill="#e94560"/>
+      <circle cx="360" cy="295" r="4" fill="#e94560"/>
+      <circle cx="368" cy="310" r="4" fill="#e94560"/>
+      <circle cx="375" cy="325" r="4" fill="#e94560"/>
+      <circle cx="383" cy="340" r="4" fill="#e94560"/>
+      <circle cx="390" cy="348" r="4" fill="#e94560"/>
+      <circle cx="400" cy="362" r="4" fill="#e94560"/>
+      <circle cx="410" cy="372" r="4" fill="#e94560"/>
+      <line x1="335" y1="252" x2="413" y2="375" stroke="#e94560" stroke-width="1.2" stroke-dasharray="3,3" opacity=".4"/>
+      <text x="375" y="405" text-anchor="middle" fill="#8b87a8" font-size="10">X →</text>
+
+      <!-- Panel borders -->
+      <rect x="8"   y="25" width="106" height="160" rx="4" fill="none" stroke="#2e2a45" stroke-width="1"/>
+      <rect x="168" y="25" width="106" height="160" rx="4" fill="none" stroke="#2e2a45" stroke-width="1"/>
+      <rect x="328" y="25" width="106" height="160" rx="4" fill="none" stroke="#2e2a45" stroke-width="1"/>
+      <rect x="8"   y="235" width="106" height="160" rx="4" fill="none" stroke="#2e2a45" stroke-width="1"/>
+      <rect x="168" y="235" width="106" height="160" rx="4" fill="none" stroke="#2e2a45" stroke-width="1"/>
+      <rect x="328" y="235" width="106" height="160" rx="4" fill="none" stroke="#2e2a45" stroke-width="1"/>
+    </svg>
+  </div>
+
+  <div class="box box-tip">
+    <div class="box-label">📖 Exam Tip</div>
+    In exams you may be asked: <em>"Draw scatter diagrams showing (i) perfect positive, (ii) negative and (iii) no correlation."</em> — Practice drawing all six patterns above.
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 4 -->
+<!-- ══════════════════════════════════════ -->
+<div class="section" id="s4">
+  <div class="section-header">
+    <div class="section-num">04</div>
+    <h2>Karl Pearson's Linear Correlation Coefficient</h2>
+  </div>
+
+  <div class="card">
+    <h3>What is r?</h3>
+    <p>Pearson's correlation coefficient <strong>r</strong> (also called the product-moment correlation coefficient) is the most widely used measure of linear correlation. It gives a precise numerical value of the strength and direction of the linear relationship between two quantitative variables.</p>
+    <div class="badge-row">
+      <span class="badge badge-info">Developed by Karl Pearson (1896)</span>
+      <span class="badge badge-info">Range: −1 ≤ r ≤ +1</span>
+      <span class="badge badge-info">Dimensionless</span>
+    </div>
+  </div>
+
+  <!-- Main Formula -->
+  <div class="card">
+    <h3>Formula (Standard Form)</h3>
+    <div class="formula">
+      <span class="label">Karl Pearson's r — Definition Form</span>
+      r = Σ(X − X̄)(Y − Ȳ)
+          ──────────────────────────────
+          √[Σ(X − X̄)²] × √[Σ(Y − Ȳ)²]
+    </div>
+    <p style="font-size:.88rem;color:var(--muted)">Where X̄ = mean of X, Ȳ = mean of Y</p>
+
+    <h4>Shortcut Formula (Calculation Form) — Most Used in Exams</h4>
+    <div class="formula orange">
+      <span class="label">Pearson's r — Shortcut (Direct Method)</span>
+      r =         n·ΣXY − ΣX·ΣY
+          ───────────────────────────────────────────────
+          √[n·ΣX² − (ΣX)²] × √[n·ΣY² − (ΣY)²]
+    </div>
+
+    <h4>Deviation from Mean Form (When X̄, Ȳ are integers)</h4>
+    <div class="formula cyan">
+      <span class="label">Using deviations dx = X − X̄, dy = Y − Ȳ</span>
+      r =          Σdx·dy
+          ──────────────────────────
+          √(Σdx²) × √(Σdy²)
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>What each term means</h3>
+      <table>
+        <thead><tr><th>Symbol</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td>n</td><td>Number of paired observations</td></tr>
+          <tr><td>ΣXY</td><td>Sum of products of X and Y</td></tr>
+          <tr><td>ΣX, ΣY</td><td>Sum of all X values, Y values</td></tr>
+          <tr><td>ΣX², ΣY²</td><td>Sum of squares of X, Y</td></tr>
+          <tr><td>X̄, Ȳ</td><td>Arithmetic mean of X, Y</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3>Columns to make in exams</h3>
+      <ol class="steps">
+        <li>X values and Y values (given)</li>
+        <li>X² column (square each X)</li>
+        <li>Y² column (square each Y)</li>
+        <li>XY column (multiply each pair)</li>
+        <li>Find ΣX, ΣY, ΣX², ΣY², ΣXY</li>
+        <li>Apply shortcut formula</li>
+      </ol>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 5 -->
+<!-- ══════════════════════════════════════ -->
+<div class="section" id="s5">
+  <div class="section-header">
+    <div class="section-num">05</div>
+    <h2>Properties of Karl Pearson's r</h2>
+  </div>
+
+  <div class="card">
+    <h3>7 Key Properties — Must Know for Exam</h3>
+
+    <div class="box box-key" style="margin-bottom:.8rem">
+      <div class="box-label">Property 1 — Range</div>
+      The value of r always lies between −1 and +1 inclusive:<br>
+      <strong>−1 ≤ r ≤ +1</strong>
+    </div>
+
+    <div class="box box-tip" style="margin-bottom:.8rem">
+      <div class="box-label">Property 2 — Direction</div>
+      If r &gt; 0 → Positive correlation. If r &lt; 0 → Negative correlation. If r = 0 → No linear correlation.
+    </div>
+
+    <div class="box box-warn" style="margin-bottom:.8rem">
+      <div class="box-label">Property 3 — Pure Number</div>
+      r is a <strong>pure number</strong> (dimensionless). It is independent of the units of measurement of X and Y. Changing units does not change r.
+    </div>
+
+    <div class="box box-key" style="margin-bottom:.8rem">
+      <div class="box-label">Property 4 — Symmetry</div>
+      r<sub>XY</sub> = r<sub>YX</sub>. The correlation between X and Y equals the correlation between Y and X.
+    </div>
+
+    <div class="box box-tip" style="margin-bottom:.8rem">
+      <div class="box-label">Property 5 — Change of Origin &amp; Scale</div>
+      r is unchanged if we substitute u = (X − a)/h and v = (Y − b)/k (change of origin and scale). This is used in the <strong>assumed mean shortcut</strong>.
+    </div>
+
+    <div class="box box-warn" style="margin-bottom:.8rem">
+      <div class="box-label">Property 6 — Perfect Correlation</div>
+      r = ±1 only when all points lie exactly on a straight line. <strong>r = +1</strong>: perfectly upward line. <strong>r = −1</strong>: perfectly downward line.
+    </div>
+
+    <div class="box box-exam">
+      <div class="box-label">Property 7 — Limitation</div>
+      r measures only <strong>linear</strong> relationships. Even if r = 0, there may be a strong <em>non-linear</em> (curved) relationship between X and Y.
+    </div>
+  </div>
+
+  <!-- Visual: r = geometric mean of regression coefficients -->
+  <div class="card">
+    <h3>r and Regression Coefficients</h3>
+    <div class="formula">
+      <span class="label">Relationship between r and Regression Coefficients b<sub>YX</sub>, b<sub>XY</sub></span>
+      r = √(b<sub>YX</sub> × b<sub>XY</sub>)
+      <br><br>
+      Where:  b<sub>YX</sub> = regression coefficient of Y on X
+              b<sub>XY</sub> = regression coefficient of X on Y
+    </div>
+    <div class="box box-warn">
+      <div class="box-label">⚠️ Sign Rule</div>
+      b<sub>YX</sub> and b<sub>XY</sub> must have the <strong>same sign</strong>. If both are positive → r is positive. If both negative → r is negative. They can never have opposite signs.
+    </div>
+  </div>
+
+  <div class="memory">
+    <div class="mem-title">💡 Memory Trick</div>
+    <div class="mem-body"><strong>"r is the Geometric Mean of the two regression bees (b's)"</strong><br>
+    r = √(b₁ × b₂) — just like geometric mean of two numbers.</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 6 -->
+<!-- ══════════════════════════════════════ -->
+<div class="section" id="s6">
+  <div class="section-header">
+    <div class="section-num">06</div>
+    <h2>Pearson's r — Full Worked Example</h2>
+  </div>
+
+  <div class="card">
+    <h3>Problem</h3>
+    <p>Calculate Karl Pearson's coefficient of correlation for the following data:</p>
+    <div style="overflow-x:auto; margin-top:.8rem">
+      <table class="worked-table">
+        <thead>
+          <tr><th>Obs.</th><th>X (Income)</th><th>Y (Expenditure)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>10</td><td>8</td></tr>
+          <tr><td>2</td><td>14</td><td>11</td></tr>
+          <tr><td>3</td><td>18</td><td>14</td></tr>
+          <tr><td>4</td><td>22</td><td>16</td></tr>
+          <tr><td>5</td><td>26</td><td>20</td></tr>
+          <tr><td>6</td><td>30</td><td>24</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Step 1 — Build the Calculation Table</h3>
+    <div style="overflow-x:auto">
+      <table class="worked-table">
+        <thead>
+          <tr><th>X</th><th>Y</th><th>X²</th><th>Y²</th><th>XY</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>10</td><td>8</td><td>100</td><td>64</td><td>80</td></tr>
+          <tr><td>14</td><td>11</td><td>196</td><td>121</td><td>154</td></tr>
+          <tr><td>18</td><td>14</td><td>324</td><td>196</td><td>252</td></tr>
+          <tr><td>22</td><td>16</td><td>484</td><td>256</td><td>352</td></tr>
+          <tr><td>26</td><td>20</td><td>676</td><td>400</td><td>520</td></tr>
+          <tr><td>30</td><td>24</td><td>900</td><td>576</td><td>720</td></tr>
+          <tr class="total-row">
+            <td>ΣX = 120</td><td>ΣY = 93</td><td>ΣX² = 2680</td><td>ΣY² = 1613</td><td>ΣXY = 2078</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:.85rem;color:var(--muted);margin-top:.6rem">n = 6</p>
+  </div>
+
+  <div class="card">
+    <h3>Step 2 — Apply the Shortcut Formula</h3>
+    <ol class="steps">
+      <li>n·ΣXY = 6 × 2078 = 12,468</li>
+      <li>ΣX·ΣY = 120 × 93 = 11,160</li>
+      <li>Numerator = 12,468 − 11,160 = <strong style="color:var(--accent3)">1,308</strong></li>
+      <li>n·ΣX² − (ΣX)² = 6×2680 − 120² = 16,080 − 14,400 = <strong>1,680</strong></li>
+      <li>n·ΣY² − (ΣY)² = 6×1613 − 93² = 9,678 − 8,649 = <strong>1,029</strong></li>
+      <li>Denominator = √1680 × √1029 = 40.99 × 32.08 = <strong style="color:var(--accent3)">1314.96</strong></li>
+    </ol>
+    <div class="formula orange">
+      <span class="label">Final Answer</span>
+      r = 1308 / 1314.96 ≈ <strong>0.995</strong>
+    </div>
+    <div class="box box-key">
+      <div class="box-label">✅ Interpretation</div>
+      r ≈ +0.995 → <strong>Very high positive correlation</strong> between income and expenditure. As income rises, expenditure rises almost proportionally.
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 7 -->
+<!-- ══════════════════════════════════════ -->
+<div class="section" id="s7">
+  <div class="section-header">
+    <div class="section-num">07</div>
+    <h2>Spearman's Rank Correlation (ρ)</h2>
+  </div>
+
+  <div class="card">
+    <h3>Why Rank Correlation?</h3>
+    <p>Spearman's Rank Correlation Coefficient <strong>ρ (rho)</strong> is used when:</p>
+    <ul style="list-style:none; display:flex; flex-direction:column; gap:.35rem; padding-left:.2rem; font-size:.91rem; color:var(--muted); margin-top:.5rem">
+      <li>✦ Data is given in <strong>qualitative form</strong> (e.g. beauty, intelligence, character) that can only be ranked</li>
+      <li>✦ Variables cannot be measured precisely in numbers</li>
+      <li>✦ The distribution is <strong>heavily skewed</strong> (non-normal)</li>
+      <li>✦ Exact values are not available, only <strong>ranks are given</strong></li>
+    </ul>
+    <div class="badge-row" style="margin-top:.8rem">
+      <span class="badge badge-info">Developed by Charles Spearman (1904)</span>
+      <span class="badge badge-info">Range: −1 ≤ ρ ≤ +1</span>
+      <span class="badge badge-key">Non-parametric</span>
+    </div>
+  </div>
+
+  <!-- Case A: No Ties -->
+  <div class="card">
+    <h3>Case A — When Ranks Are Not Repeated (No Ties)</h3>
+    <div class="formula">
+      <span class="label">Spearman's Rank Correlation Formula</span>
+      ρ = 1 −    6·Σd²
+               ─────────────
+                n(n² − 1)
+      <br><br>
+      Where: d = R₁ − R₂ (difference of ranks for each pair)
+             n = number of pairs
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <h4>Step-by-step procedure</h4>
+        <ol class="steps">
+          <li>Assign ranks to X: rank 1 to highest (or lowest — be consistent)</li>
+          <li>Assign ranks to Y similarly</li>
+          <li>Find d = R₁ − R₂ for each pair</li>
+          <li>Find d² for each pair</li>
+          <li>Sum all d² to get Σd²</li>
+          <li>Apply formula: ρ = 1 − 6Σd² / n(n²−1)</li>
+        </ol>
+      </div>
+      <div>
+        <div class="box box-warn">
+          <div class="box-label">⚠️ Ranking Rule</div>
+          <p>Give rank 1 to the largest value (or smallest — use the same convention for both X and Y). Verify: sum of all ranks = n(n+1)/2.</p>
+        </div>
+        <div class="formula" style="margin-top:.8rem">
+          <span class="label">Check: Sum of Ranks</span>
+          ΣR = n(n+1)/2<br>
+          e.g., n=6: ΣR = 6×7/2 = 21 ✓
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Case B: With Ties -->
+  <div class="card">
+    <h3>Case B — When Ranks Are Repeated (With Ties)</h3>
+    <p>When two or more items have the <strong>same value</strong>, they are given the <strong>average of the ranks</strong> they would have received. A correction factor is added to Σd².</p>
+
+    <div class="formula orange">
+      <span class="label">Spearman's Formula with Tie Correction</span>
+      ρ = 1 −      6[Σd² + CF₁ + CF₂ + …]
+               ─────────────────────────────────
+                        n(n² − 1)
+      <br><br>
+      Correction Factor (CF) for each tied group:
+      CF = (m³ − m) / 12
+      <br><br>
+      Where m = number of items with the same rank (size of the tied group)
+    </div>
+
+    <div class="box box-key">
+      <div class="box-label">🔑 How to Handle Ties</div>
+      If 3 items are tied at ranks 4, 5, 6 → each gets rank (4+5+6)/3 = <strong>5</strong>. Then CF = (3³−3)/12 = (27−3)/12 = 24/12 = <strong>2</strong>. Add one CF for each tied group in either variable.
+    </div>
+
+    <div class="grid-2" style="margin-top:.8rem">
+      <div class="box box-tip">
+        <div class="box-label">📖 Example — Tie in X</div>
+        X values: 8, 5, 5, 3. The two 5's are tied at ranks 2 and 3, so both get rank (2+3)/2 = <strong>2.5</strong>. CF = (2³−2)/12 = 6/12 = 0.5.
+      </div>
+      <div class="box box-tip">
+        <div class="box-label">📖 Example — Three-way Tie</div>
+        Y values: 10, 7, 7, 7, 4. Three 7's tied at ranks 2, 3, 4 → each gets rank <strong>3</strong>. CF = (3³−3)/12 = 24/12 = <strong>2</strong>.
+      </div>
+    </div>
+  </div>
+
+  <!-- Pearson vs Spearman comparison -->
+  <div class="card">
+    <h3>Pearson's r vs Spearman's ρ</h3>
+    <table>
+      <thead><tr><th>Aspect</th><th>Pearson's r</th><th>Spearman's ρ</th></tr></thead>
+      <tbody>
+        <tr><td>Data type</td><td>Quantitative, continuous</td><td>Ordinal / ranked data</td></tr>
+        <tr><td>Assumption</td><td>Normal distribution</td><td>No distributional assumption</td></tr>
+        <tr><td>Relationship</td><td>Linear only</td><td>Monotonic (linear or nonlinear)</td></tr>
+        <tr><td>Outliers</td><td>Sensitive to outliers</td><td>Less sensitive</td></tr>
+        <tr><td>Calculation</td><td>More complex</td><td>Simpler formula</td></tr>
+        <tr><td>Nature</td><td>Parametric</td><td>Non-parametric</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="memory">
+    <div class="mem-title">💡 Memory Trick</div>
+    <div class="mem-body"><strong>"SPEARMAN for SUBJECTIVE situations"</strong> — Beauty contest, teaching quality, management skills → use Spearman's ρ. Exact measurable data → use Pearson's r.</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 8 -->
+<!-- ══════════════════════════════════════ -->
+<div class="section" id="s8">
+  <div class="section-header">
+    <div class="section-num">08</div>
+    <h2>Rank Correlation — Worked Examples</h2>
+  </div>
+
+  <!-- Example A: No ties -->
+  <div class="card">
+    <h3>Example A — Ranks Not Given (No Ties)</h3>
+    <p>Ten students were given marks in Economics (X) and Mathematics (Y). Find Spearman's ρ.</p>
+    <div style="overflow-x:auto; margin-top:.8rem">
+      <table class="worked-table">
+        <thead>
+          <tr><th>Student</th><th>X (Eco)</th><th>Y (Maths)</th><th>R₁</th><th>R₂</th><th>d = R₁−R₂</th><th>d²</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>75</td><td>80</td><td>4</td><td>3</td><td>1</td><td>1</td></tr>
+          <tr><td>2</td><td>88</td><td>92</td><td>2</td><td>1</td><td>1</td><td>1</td></tr>
+          <tr><td>3</td><td>60</td><td>55</td><td>8</td><td>9</td><td>−1</td><td>1</td></tr>
+          <tr><td>4</td><td>90</td><td>88</td><td>1</td><td>2</td><td>−1</td><td>1</td></tr>
+          <tr><td>5</td><td>55</td><td>60</td><td>9</td><td>8</td><td>1</td><td>1</td></tr>
+          <tr><td>6</td><td>70</td><td>72</td><td>6</td><td>5</td><td>1</td><td>1</td></tr>
+          <tr><td>7</td><td>45</td><td>50</td><td>10</td><td>10</td><td>0</td><td>0</td></tr>
+          <tr><td>8</td><td>72</td><td>68</td><td>5</td><td>6</td><td>−1</td><td>1</td></tr>
+          <tr><td>9</td><td>82</td><td>74</td><td>3</td><td>4</td><td>−1</td><td>1</td></tr>
+          <tr><td>10</td><td>65</td><td>65</td><td>7</td><td>7</td><td>0</td><td>0</td></tr>
+          <tr class="total-row"><td colspan="5">—</td><td>Σd² =</td><td>8</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="formula" style="margin-top:1rem">
+      <span class="label">Applying Formula (n = 10, Σd² = 8)</span>
+      ρ = 1 − 6×8 / 10(100−1)
+        = 1 − 48 / 990
+        = 1 − 0.0485
+        = <strong style="color:var(--green)">0.951</strong>
+    </div>
+    <div class="box box-key">
+      <div class="box-label">✅ Interpretation</div>
+      ρ = 0.951 → <strong>Very high positive rank correlation</strong>. Students who score high in Economics also tend to score high in Mathematics.
+    </div>
+  </div>
+
+  <!-- Example B: With ties -->
+  <div class="card">
+    <h3>Example B — With Tied Ranks</h3>
+    <p>Find Spearman's ρ for the following data where some values are repeated.</p>
+    <div style="overflow-x:auto">
+      <table class="worked-table">
+        <thead>
+          <tr><th>Pair</th><th>X</th><th>Y</th><th>R₁</th><th>R₂</th><th>d</th><th>d²</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>50</td><td>40</td><td>5</td><td>4</td><td>1</td><td>1</td></tr>
+          <tr><td>2</td><td>65</td><td>55</td><td>3</td><td>2</td><td>1</td><td>1</td></tr>
+          <tr><td>3</td><td>75</td><td>65</td><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+          <tr><td>4</td><td>65</td><td>50</td><td>3</td><td>3</td><td>0</td><td>0</td></tr>
+          <tr><td>5</td><td>45</td><td>35</td><td>6</td><td>5</td><td>1</td><td>1</td></tr>
+          <tr><td>6</td><td>65</td><td>30</td><td>3</td><td>6</td><td>−3</td><td>9</td></tr>
+          <tr><td>7</td><td>70</td><td>55</td><td>2</td><td>2</td><td>0</td><td>0</td></tr>
+          <tr class="total-row"><td colspan="5">—</td><td>Σd² =</td><td>12</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ol class="steps" style="margin-top:.9rem">
+      <li>X = 65 appears 3 times → ranks 2, 3, 4 → each gets (2+3+4)/3 = <strong>3</strong> → CF = (3³−3)/12 = 24/12 = <strong>2</strong></li>
+      <li>Y = 55 appears 2 times → ranks 1, 2 → each gets (1+2)/2 = <strong>1.5</strong> … but in our table above Y=55 appears twice → CF = (2³−2)/12 = 6/12 = <strong>0.5</strong></li>
+    </ol>
+    <div class="formula orange" style="margin-top:.8rem">
+      <span class="label">With Tie Correction (Σd² = 12, n = 7, CF_X = 2, CF_Y = 0.5)</span>
+      ρ = 1 − 6[12 + 2 + 0.5] / 7(49 − 1)
+        = 1 − 6 × 14.5 / 7 × 48
+        = 1 − 87 / 336
+        = 1 − 0.259
+        = <strong style="color:var(--accent3)">0.741</strong>
+    </div>
+    <div class="box box-key">
+      <div class="box-label">✅ Interpretation</div>
+      ρ ≈ +0.74 → <strong>High positive rank correlation</strong> between the two series.
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 9 -->
+<!-- ══════════════════════════════════════ -->
+<div class="section" id="s9">
+  <div class="section-header">
+    <div class="section-num">09</div>
+    <h2>Partial Correlation</h2>
+  </div>
+
+  <div class="card">
+    <h3>What is Partial Correlation?</h3>
+    <p>Partial correlation measures the <strong>degree of linear relationship between two variables</strong> while <strong>controlling for (holding constant)</strong> the effect of one or more other variables.</p>
+    <div class="box box-key">
+      <div class="box-label">🔑 Why it matters</div>
+      Simple correlation between X₁ and X₂ may be spurious (false) because of a third variable X₃ influencing both. Partial correlation removes this effect to reveal the <em>true</em> relationship.
+    </div>
+    <div class="badge-row">
+      <span class="badge badge-key">Notation: r<sub>12.3</sub></span>
+      <span class="badge badge-key">"correlation between 1 and 2, holding 3 constant"</span>
+    </div>
+  </div>
+
+  <!-- Example: spurious -->
+  <div class="card">
+    <h3>Classic Spurious Correlation Example</h3>
+    <div class="graph-wrap" style="margin:0">
+      <div class="graph-title">Why Partial Correlation is Needed</div>
+      <svg viewBox="0 0 580 180" xmlns="http://www.w3.org/2000/svg" style="width:100%">
+        <!-- X3 box -->
+        <rect x="220" y="15" width="140" height="44" rx="8" fill="#231f35" stroke="#a78bfa" stroke-width="1.5"/>
+        <text x="290" y="32" text-anchor="middle" fill="#a78bfa" font-size="12">X₃ (Third Variable)</text>
+        <text x="290" y="50" text-anchor="middle" fill="#8b87a8" font-size="10">e.g. GDP / National Income</text>
+        <!-- arrows from X3 to X1 and X2 -->
+        <line x1="220" y1="37" x2="130" y2="90" stroke="#a78bfa" stroke-width="1.5" marker-end="url(#arrowp)"/>
+        <line x1="360" y1="37" x2="445" y2="90" stroke="#a78bfa" stroke-width="1.5" marker-end="url(#arrowp)"/>
+        <!-- X1 box -->
+        <rect x="30" y="90" width="140" height="44" rx="8" fill="#231f35" stroke="#4ecdc4" stroke-width="1.5"/>
+        <text x="100" y="107" text-anchor="middle" fill="#4ecdc4" font-size="12">X₁ (Variable 1)</text>
+        <text x="100" y="125" text-anchor="middle" fill="#8b87a8" font-size="10">e.g. Public Expenditure</text>
+        <!-- X2 box -->
+        <rect x="410" y="90" width="140" height="44" rx="8" fill="#231f35" stroke="#f5a623" stroke-width="1.5"/>
+        <text x="480" y="107" text-anchor="middle" fill="#f5a623" font-size="12">X₂ (Variable 2)</text>
+        <text x="480" y="125" text-anchor="middle" fill="#8b87a8" font-size="10">e.g. Crime Rate</text>
+        <!-- Spurious arrow between X1 and X2 -->
+        <line x1="170" y1="112" x2="410" y2="112" stroke="#e94560" stroke-width="2" stroke-dasharray="6,4"/>
+        <text x="290" y="107" text-anchor="middle" fill="#e94560" font-size="11">Spurious r₁₂ = 0.82?</text>
+        <text x="290" y="150" text-anchor="middle" fill="#8b87a8" font-size="10">After controlling for X₃:  r₁₂.₃ ≈ 0.12 (very low!)</text>
+        <defs>
+          <marker id="arrowp" markerWidth="8" markerHeight="8" refX="4" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#a78bfa"/>
+          </marker>
+        </defs>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Formulas -->
+  <div class="card">
+    <h3>Formulas for Partial Correlation</h3>
+    <p>Given three variables X₁, X₂, X₃ with simple correlations r₁₂, r₁₃, r₂₃:</p>
+
+    <div class="formula">
+      <span class="label">First Order Partial Correlation — r₁₂.₃ (controlling X₃)</span>
+      r₁₂.₃ =        r₁₂ − r₁₃ · r₂₃
+               ──────────────────────────────────────
+               √(1 − r₁₃²) × √(1 − r₂₃²)
+    </div>
+
+    <div class="formula cyan">
+      <span class="label">First Order Partial Correlation — r₁₃.₂ (controlling X₂)</span>
+      r₁₃.₂ =        r₁₃ − r₁₂ · r₂₃
+               ──────────────────────────────────────
+               √(1 − r₁₂²) × √(1 − r₂₃²)
+    </div>
+
+    <div class="formula orange">
+      <span class="label">First Order Partial Correlation — r₂₃.₁ (controlling X₁)</span>
+      r₂₃.₁ =        r₂₃ − r₁₂ · r₁₃
+               ──────────────────────────────────────
+               √(1 − r₁₂²) × √(1 − r₁₃²)
+    </div>
+
+    <div class="box box-warn">
+      <div class="box-label">⚠️ Note on Order</div>
+      <strong>Zero order</strong> = simple correlations (r₁₂, r₁₃, r₂₃) — no variable controlled.<br>
+      <strong>First order</strong> = one variable held constant (r₁₂.₃) — the digit after the dot indicates which variable is controlled.<br>
+      <strong>Second order</strong> = two variables held constant (r₁₂.₃₄) — rarely tested at UG level.
+    </div>
+  </div>
+
+  <!-- Worked Example -->
+  <div class="card">
+    <h3>Worked Example — Partial Correlation</h3>
+    <p>Given: r₁₂ = 0.6, r₁₃ = 0.5, r₂₃ = 0.4. Find r₁₂.₃.</p>
+    <ol class="steps">
+      <li>Numerator: r₁₂ − r₁₃ × r₂₃ = 0.6 − (0.5 × 0.4) = 0.6 − 0.20 = <strong>0.40</strong></li>
+      <li>√(1 − r₁₃²) = √(1 − 0.25) = √0.75 = <strong>0.866</strong></li>
+      <li>√(1 − r₂₃²) = √(1 − 0.16) = √0.84 = <strong>0.917</strong></li>
+      <li>Denominator: 0.866 × 0.917 = <strong>0.794</strong></li>
+    </ol>
+    <div class="formula">
+      <span class="label">Result</span>
+      r₁₂.₃ = 0.40 / 0.794 = <strong style="color:var(--green)">0.504</strong>
+    </div>
+    <div class="box box-key">
+      <div class="box-label">✅ Interpretation</div>
+      While simple r₁₂ = 0.6, after removing the effect of X₃, the partial correlation r₁₂.₃ = 0.504. The correlation reduced — some of r₁₂ was due to the common influence of X₃.
+    </div>
+  </div>
+
+  <div class="memory">
+    <div class="mem-title">💡 Memory Trick</div>
+    <div class="mem-body"><strong>"Partial = Remove the Pest (the third variable)"</strong> — Partial correlation purges the influence of the unwanted third variable, leaving the pure relationship between the two variables of interest.</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 10 -->
+<!-- ══════════════════════════════════════ -->
+<div class="section" id="s10">
+  <div class="section-header">
+    <div class="section-num">10</div>
+    <h2>Multiple Correlation</h2>
+  </div>
+
+  <div class="card">
+    <h3>What is Multiple Correlation?</h3>
+    <p>Multiple correlation coefficient <strong>R</strong> measures the degree of linear relationship between <strong>one dependent variable</strong> and <strong>two or more independent variables jointly</strong>.</p>
+    <p style="margin-top:.6rem; color:var(--muted); font-size:.91rem">Unlike partial correlation (which <em>removes</em> effects), multiple correlation measures how well a set of predictors <em>together</em> explain the dependent variable.</p>
+    <div class="badge-row" style="margin-top:.8rem">
+      <span class="badge" style="background:rgba(245,166,35,.12);border:1px solid var(--accent1);color:var(--accent1)">Notation: R₁.₂₃</span>
+      <span class="badge badge-info">Range: 0 ≤ R ≤ 1</span>
+      <span class="badge badge-pos">R = 1 → Perfect Fit</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Key Difference from Simple &amp; Partial Correlation</h3>
+    <table>
+      <thead><tr><th>Feature</th><th>Simple r</th><th>Partial r</th><th>Multiple R</th></tr></thead>
+      <tbody>
+        <tr><td>Variables involved</td><td>2</td><td>2 (controlling others)</td><td>1 + (2 or more)</td></tr>
+        <tr><td>Direction</td><td>+ or −</td><td>+ or −</td><td>Always + (0 to 1)</td></tr>
+        <tr><td>Purpose</td><td>Association of 2 vars</td><td>Pure association after control</td><td>Joint predictive power</td></tr>
+        <tr><td>Notation</td><td>r₁₂</td><td>r₁₂.₃</td><td>R₁.₂₃</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Formula -->
+  <div class="card">
+    <h3>Formula for Multiple Correlation Coefficient R₁.₂₃</h3>
+    <p>R₁.₂₃ = correlation of X₁ with both X₂ and X₃ simultaneously.</p>
+
+    <div class="formula">
+      <span class="label">R₁.₂₃ — Formula using simple correlations</span>
+      R₁.₂₃² =    r₁₂² + r₁₃² − 2·r₁₂·r₁₃·r₂₃
+                 ──────────────────────────────────────
+                            1 − r₂₃²
+    </div>
+
+    <div class="box box-warn">
+      <div class="box-label">⚠️ Important</div>
+      <strong>R₁.₂₃ is always positive</strong> (it is the positive square root). It ranges from 0 to 1 only — unlike r and ρ which can be negative. R = 0 means no relationship; R = 1 means perfect linear relationship.
+    </div>
+
+    <h4>Relationship between R and r (key property)</h4>
+    <div class="formula cyan">
+      <span class="label">Coefficient of Multiple Determination</span>
+      R₁.₂₃² = Explained variation / Total variation
+      <br><br>
+      Also: R₁.₂₃ ≥ |r₁₂| and R₁.₂₃ ≥ |r₁₃|
+      (Adding more predictors never reduces R)
+    </div>
+  </div>
+
+  <!-- Worked Example -->
+  <div class="card">
+    <h3>Worked Example — Multiple Correlation</h3>
+    <p>Given: r₁₂ = 0.7, r₁₃ = 0.6, r₂₃ = 0.4. Find R₁.₂₃.</p>
+    <ol class="steps">
+      <li>Numerator: r₁₂² + r₁₃² − 2·r₁₂·r₁₃·r₂₃ = (0.49) + (0.36) − 2×0.7×0.6×0.4 = 0.85 − 0.336 = <strong>0.514</strong></li>
+      <li>Denominator: 1 − r₂₃² = 1 − 0.16 = <strong>0.84</strong></li>
+      <li>R₁.₂₃² = 0.514 / 0.84 = <strong>0.6119</strong></li>
+    </ol>
+    <div class="formula orange">
+      <span class="label">Result</span>
+      R₁.₂₃ = √0.6119 = <strong style="color:var(--green)">0.782</strong>
+    </div>
+    <div class="box box-key">
+      <div class="box-label">✅ Interpretation</div>
+      R₁.₂₃ = 0.782 → X₁ has a <strong>high positive multiple correlation</strong> with X₂ and X₃ jointly. About <strong>61.19%</strong> (= R² × 100) of the variation in X₁ is explained by X₂ and X₃ together.
+    </div>
+  </div>
+
+  <!-- Visual: multiple correlation concept -->
+  <div class="graph-wrap">
+    <div class="graph-title">Multiple Correlation — Conceptual Diagram</div>
+    <svg viewBox="0 0 620 220" xmlns="http://www.w3.org/2000/svg" style="width:100%">
+      <!-- Dependent Y / X₁ -->
+      <circle cx="310" cy="110" r="75" fill="rgba(167,139,250,0.08)" stroke="#a78bfa" stroke-width="1.5"/>
+      <text x="310" y="105" text-anchor="middle" fill="#a78bfa" font-size="13">X₁</text>
+      <text x="310" y="122" text-anchor="middle" fill="#8b87a8" font-size="10">(Dependent)</text>
+
+      <!-- X2 circle -->
+      <circle cx="160" cy="110" r="60" fill="rgba(78,205,196,0.07)" stroke="#4ecdc4" stroke-width="1.5"/>
+      <text x="145" y="105" text-anchor="middle" fill="#4ecdc4" font-size="13">X₂</text>
+      <text x="145" y="122" text-anchor="middle" fill="#8b87a8" font-size="10">(Predictor)</text>
+
+      <!-- X3 circle -->
+      <circle cx="460" cy="110" r="60" fill="rgba(245,166,35,0.07)" stroke="#f5a623" stroke-width="1.5"/>
+      <text x="472" y="105" text-anchor="middle" fill="#f5a623" font-size="13">X₃</text>
+      <text x="472" y="122" text-anchor="middle" fill="#8b87a8" font-size="10">(Predictor)</text>
+
+      <!-- Overlap annotations -->
+      <text x="234" y="102" text-anchor="middle" fill="#4ecdc4" font-size="10">r₁₂</text>
+      <text x="385" y="102" text-anchor="middle" fill="#f5a623" font-size="10">r₁₃</text>
+      <text x="310" y="185" text-anchor="middle" fill="#8b87a8" font-size="10">r₂₃</text>
+
+      <!-- R annotation -->
+      <text x="310" y="30" text-anchor="middle" fill="#a78bfa" font-size="13">R₁.₂₃ = combined effect of X₂ and X₃ on X₁</text>
+    </svg>
+  </div>
+
+  <div class="memory">
+    <div class="mem-title">💡 Memory Trick</div>
+    <div class="mem-body"><strong>"R is ALWAYS positive — it's the REPORT CARD of predictors"</strong> — R² (coefficient of determination) tells you the % of the dependent variable's variation explained. R = 1 is a perfect report card; R = 0 means predictors are useless.</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 11 -->
+<!-- ══════════════════════════════════════ -->
+<div class="section" id="s11">
+  <div class="section-header">
+    <div class="section-num">11</div>
+    <h2>Comparison: All Four Types at a Glance</h2>
+  </div>
+
+  <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Linear Correlation (r)</th>
+          <th>Rank Correlation (ρ)</th>
+          <th>Partial Correlation</th>
+          <th>Multiple Correlation (R)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Developed by</td>
+          <td>Karl Pearson</td>
+          <td>Charles Spearman</td>
+          <td>Multiple authors</td>
+          <td>Multiple authors</td>
+        </tr>
+        <tr>
+          <td>Range</td>
+          <td style="color:var(--accent3)">−1 to +1</td>
+          <td style="color:var(--accent3)">−1 to +1</td>
+          <td style="color:var(--accent3)">−1 to +1</td>
+          <td style="color:var(--green)">0 to +1 only</td>
+        </tr>
+        <tr>
+          <td>Variables</td>
+          <td>2 (X &amp; Y)</td>
+          <td>2 (ranks)</td>
+          <td>2 (controlling 1+)</td>
+          <td>1 dependent + 2+ predictors</td>
+        </tr>
+        <tr>
+          <td>Data type</td>
+          <td>Quantitative</td>
+          <td>Ordinal or ranked</td>
+          <td>Quantitative</td>
+          <td>Quantitative</td>
+        </tr>
+        <tr>
+          <td>Measures</td>
+          <td>Linear association</td>
+          <td>Monotonic association</td>
+          <td>Pure association (after control)</td>
+          <td>Joint predictive power</td>
+        </tr>
+        <tr>
+          <td>Key formula</td>
+          <td style="color:var(--gold); font-family:monospace">nΣXY−ΣXΣY / √[…]</td>
+          <td style="color:var(--gold); font-family:monospace">1 − 6Σd²/n(n²−1)</td>
+          <td style="color:var(--gold); font-family:monospace">(r₁₂−r₁₃r₂₃)/√[…]</td>
+          <td style="color:var(--gold); font-family:monospace">√[(r₁₂²+r₁₃²−2r₁₂r₁₃r₂₃)/(1−r₂₃²)]</td>
+        </tr>
+        <tr>
+          <td>Outlier sensitivity</td>
+          <td style="color:var(--red)">High</td>
+          <td style="color:var(--green)">Low</td>
+          <td>Moderate</td>
+          <td>Moderate</td>
+        </tr>
+        <tr>
+          <td>Can be negative?</td>
+          <td style="color:var(--green)">Yes</td>
+          <td style="color:var(--green)">Yes</td>
+          <td style="color:var(--green)">Yes</td>
+          <td style="color:var(--red)">No (always ≥ 0)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Quick-fire visual decision tree -->
+  <div class="graph-wrap">
+    <div class="graph-title">Which Correlation to Use? — Decision Flowchart</div>
+    <svg viewBox="0 0 680 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;">
+      <defs>
+        <marker id="arrw" markerWidth="8" markerHeight="8" refX="4" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#8b87a8"/>
+        </marker>
+      </defs>
+      <!-- Start -->
+      <rect x="240" y="10" width="200" height="38" rx="19" fill="#1a1826" stroke="#a78bfa" stroke-width="1.5"/>
+      <text x="340" y="33" text-anchor="middle" fill="#a78bfa" font-size="12">How many variables?</text>
+
+      <!-- Arrow to 2 vars -->
+      <line x1="240" y1="29" x2="140" y2="29" stroke="#8b87a8" stroke-width="1.3" marker-end="url(#arrw)"/>
+      <text x="190" y="22" text-anchor="middle" fill="#8b87a8" font-size="10">2 vars</text>
+
+      <!-- Arrow to 3+ vars -->
+      <line x1="440" y1="29" x2="540" y2="29" stroke="#8b87a8" stroke-width="1.3" marker-end="url(#arrw)"/>
+      <text x="490" y="22" text-anchor="middle" fill="#8b87a8" font-size="10">3+ vars</td>
+
+      <!-- 2 vars box -->
+      <rect x="40" y="15" width="100" height="28" rx="6" fill="#231f35" stroke="#4ecdc4" stroke-width="1.2"/>
+      <text x="90" y="33" text-anchor="middle" fill="#4ecdc4" font-size="11">Is data ranked?</text>
+
+      <!-- 3+ vars box -->
+      <rect x="540" y="15" width="120" height="28" rx="6" fill="#231f35" stroke="#f5a623" stroke-width="1.2"/>
+      <text x="600" y="29" text-anchor="middle" fill="#f5a623" font-size="11">Control others?</text>
+
+      <!-- Yes / No from 2 vars -->
+      <line x1="60" y1="43" x2="60" y2="85" stroke="#8b87a8" stroke-width="1.3" marker-end="url(#arrw)"/>
+      <text x="35" y="70" fill="#56cf8f" font-size="10">Yes</text>
+      <line x1="120" y1="43" x2="200" y2="85" stroke="#8b87a8" stroke-width="1.3" marker-end="url(#arrw)"/>
+      <text x="155" y="70" fill="#ff6b6b" font-size="10">No</text>
+
+      <!-- Yes / No from 3+ vars -->
+      <line x1="570" y1="43" x2="490" y2="85" stroke="#8b87a8" stroke-width="1.3" marker-end="url(#arrw)"/>
+      <text x="510" y="70" fill="#56cf8f" font-size="10">Yes</text>
+      <line x1="620" y1="43" x2="620" y2="85" stroke="#8b87a8" stroke-width="1.3" marker-end="url(#arrw)"/>
+      <text x="628" y="70" fill="#ff6b6b" font-size="10">No</text>
+
+      <!-- Spearman box -->
+      <rect x="10" y="85" width="100" height="40" rx="8" fill="rgba(78,205,196,.12)" stroke="#4ecdc4" stroke-width="1.5"/>
+      <text x="60" y="103" text-anchor="middle" fill="#4ecdc4" font-size="12">Spearman's ρ</text>
+      <text x="60" y="118" text-anchor="middle" fill="#8b87a8" font-size="10">Rank Correlation</text>
+
+      <!-- Pearson box -->
+      <rect x="150" y="85" width="100" height="40" rx="8" fill="rgba(86,207,143,.12)" stroke="#56cf8f" stroke-width="1.5"/>
+      <text x="200" y="103" text-anchor="middle" fill="#56cf8f" font-size="12">Pearson's r</text>
+      <text x="200" y="118" text-anchor="middle" fill="#8b87a8" font-size="10">Linear Correlation</text>
+
+      <!-- Partial box -->
+      <rect x="430" y="85" width="110" height="40" rx="8" fill="rgba(167,139,250,.12)" stroke="#a78bfa" stroke-width="1.5"/>
+      <text x="485" y="103" text-anchor="middle" fill="#a78bfa" font-size="12">Partial r</text>
+      <text x="485" y="118" text-anchor="middle" fill="#8b87a8" font-size="10">r₁₂.₃ formula</text>
+
+      <!-- Multiple box -->
+      <rect x="565" y="85" width="110" height="40" rx="8" fill="rgba(245,166,35,.12)" stroke="#f5a623" stroke-width="1.5"/>
+      <text x="620" y="103" text-anchor="middle" fill="#f5a623" font-size="12">Multiple R</text>
+      <text x="620" y="118" text-anchor="middle" fill="#8b87a8" font-size="10">R₁.₂₃ formula</text>
+
+      <!-- Usage notes -->
+      <text x="60"  y="155" text-anchor="middle" fill="#8b87a8" font-size="10">Beauty, grades,</text>
+      <text x="60"  y="168" text-anchor="middle" fill="#8b87a8" font-size="10">subjective data</text>
+      <text x="200" y="155" text-anchor="middle" fill="#8b87a8" font-size="10">Income &amp; spend,</text>
+      <text x="200" y="168" text-anchor="middle" fill="#8b87a8" font-size="10">exact numeric data</text>
+      <text x="485" y="155" text-anchor="middle" fill="#8b87a8" font-size="10">Remove third-var</text>
+      <text x="485" y="168" text-anchor="middle" fill="#8b87a8" font-size="10">spurious effect</text>
+      <text x="620" y="155" text-anchor="middle" fill="#8b87a8" font-size="10">Multiple predictors</text>
+      <text x="620" y="168" text-anchor="middle" fill="#8b87a8" font-size="10">joint effect on Y</text>
+    </svg>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 12 — EXAM CORNER -->
+<!-- ══════════════════════════════════════ -->
+<div class="section" id="s12">
+  <div class="exam-corner">
+    <h3>🎯 Exam Corner — Likely Questions (20 Marks)</h3>
+
+    <div class="exam-q"><span>2M</span> Define correlation. Distinguish between positive and negative correlation with examples.</div>
+    <div class="exam-q"><span>3M</span> What is a scatter diagram? Draw scatter diagrams showing (i) perfect positive, (ii) negative, and (iii) no correlation.</div>
+    <div class="exam-q"><span>3M</span> State and explain any four properties of Karl Pearson's coefficient of correlation.</div>
+    <div class="exam-q"><span>5M</span> Calculate Karl Pearson's coefficient of correlation from the following data and interpret the result. [Data given in 5–8 pairs]</div>
+    <div class="exam-q"><span>2M</span> What is rank correlation? Under what circumstances is Spearman's rank correlation preferred over Pearson's r?</div>
+    <div class="exam-q"><span>5M</span> Calculate Spearman's rank correlation coefficient from the following data. (Data with equal ranks / ties — apply correction factor.)</div>
+    <div class="exam-q"><span>3M</span> Distinguish between simple, partial, and multiple correlation with suitable examples.</div>
+    <div class="exam-q"><span>4M</span> Given r₁₂ = 0.7, r₁₃ = 0.5, r₂₃ = 0.4, calculate (i) partial correlation r₁₂.₃ and (ii) multiple correlation R₁.₂₃.</div>
+    <div class="exam-q"><span>2M</span> Prove that the multiple correlation coefficient is always non-negative. OR Show that R₁.₂₃ ≥ r₁₂.</div>
+    <div class="exam-q"><span>3M</span> What is spurious correlation? How does partial correlation help in identifying it?</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════ -->
+<!-- FINAL FORMULA SHEET -->
+<!-- ══════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">★</div>
+    <h2>Last-Minute Formula Sheet</h2>
+  </div>
+
+  <div class="grid-2">
+    <div>
+      <div class="formula">
+        <span class="label">Pearson's r — Shortcut</span>
+        r = [n·ΣXY − ΣX·ΣY] / √{[n·ΣX²−(ΣX)²][n·ΣY²−(ΣY)²]}
+      </div>
+      <div class="formula green">
+        <span class="label">Pearson's r — Deviation Form</span>
+        r = Σdxdy / √(Σdx² · Σdy²)  ;  dx=X−X̄, dy=Y−Ȳ
+      </div>
+      <div class="formula">
+        <span class="label">Spearman's ρ — No Ties</span>
+        ρ = 1 − 6Σd² / n(n²−1)
+      </div>
+      <div class="formula orange">
+        <span class="label">Spearman's ρ — With Ties</span>
+        ρ = 1 − 6[Σd² + ΣCF] / n(n²−1)   ;  CF = (m³−m)/12
+      </div>
+    </div>
+    <div>
+      <div class="formula cyan">
+        <span class="label">Partial Correlation r₁₂.₃</span>
+        r₁₂.₃ = (r₁₂ − r₁₃·r₂₃) / √[(1−r₁₃²)(1−r₂₃²)]
+      </div>
+      <div class="formula">
+        <span class="label">Multiple Correlation R₁.₂₃</span>
+        R₁.₂₃ = √[(r₁₂²+r₁₃²−2·r₁₂·r₁₃·r₂₃) / (1−r₂₃²)]
+      </div>
+      <div class="formula green">
+        <span class="label">r via Regression Coefficients</span>
+        r = √(b<sub>YX</sub> · b<sub>XY</sub>)  ;  sign = sign of b's
+      </div>
+      <div class="formula orange">
+        <span class="label">Coeff. of Multiple Determination</span>
+        R² = Explained variation / Total variation  (0 ≤ R² ≤ 1)
+      </div>
+    </div>
+  </div>
+
+  <div class="formula" style="margin-top:1rem; border-left-color:var(--accent4);">
+    <span class="label">Range &amp; Sign Summary</span>
+    Pearson r :  −1 ≤ r ≤ +1  (can be +ve or −ve)
+    Spearman ρ : −1 ≤ ρ ≤ +1  (can be +ve or −ve)
+    Partial r  : −1 ≤ r₁₂.₃ ≤ +1  (can be +ve or −ve)
+    Multiple R : 0  ≤ R ≤ +1   (ALWAYS non-negative)
+  </div>
+
+  <!-- Tie correction reminder -->
+  <div class="formula" style="border-left-color:var(--accent1); margin-top:.8rem">
+    <span class="label">Tie Correction Factor (CF) — Quick Reference</span>
+    2 items tied → CF = (8−2)/12 = 0.5
+    3 items tied → CF = (27−3)/12 = 2.0
+    4 items tied → CF = (64−4)/12 = 5.0
+    Add one CF for each tied group in X, one for each tied group in Y
+  </div>
+</div>
+
+</div><!-- end wrapper -->
+
+<script>
+const prog = document.getElementById('progress');
+const btt  = document.getElementById('btt');
+window.addEventListener('scroll', () => {
+  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+  prog.style.width = pct + '%';
+  btt.classList.toggle('show', window.scrollY > 400);
+});
+document.querySelectorAll('.section').forEach((el, i) => {
+  el.style.animationDelay = (i * 0.07) + 's';
+});
+</script>
+</body>
+</html>

@@ -1,46 +1,458 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Introductory Quantitative Techniques | Edu Smartspark</title>
-    <link rel="stylesheet" href="../../style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Introductory Quantitative Techniques | Edu Smartspark</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<style>
+:root {
+  --bg: #0f0e17;
+  --surface: #1a1826;
+  --surface2: #231f35;
+  --border: #2e2a45;
+  --accent1: #f5a623;
+  --accent2: #e94560;
+  --accent3: #4ecdc4;
+  --accent4: #a78bfa;
+  --text: #e8e6f0;
+  --muted: #8b87a8;
+  --gold: #ffd700;
+  --green: #56cf8f;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 16px; line-height: 1.7; min-height: 100vh;
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(ellipse 55% 40% at 20% 15%, rgba(167,139,250,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 50% at 80% 80%, rgba(78,205,196,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 35% 35% at 50% 45%, rgba(245,166,35,0.04) 0%, transparent 70%);
+  pointer-events: none; z-index: 0;
+}
+#progress {
+  position: fixed; top: 0; left: 0;
+  height: 2px; width: 0%;
+  background: linear-gradient(90deg, var(--accent4), var(--accent3));
+  z-index: 1000; transition: width .1s;
+}
+header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(15,14,23,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.9rem 2rem;
+}
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem; font-weight: 700;
+  color: var(--text); text-decoration: none;
+  display: flex; align-items: center; gap: .5rem;
+}
+.logo i { color: var(--accent1); }
+nav { display: flex; gap: 1.5rem; align-items: center; }
+nav a {
+  color: var(--muted); text-decoration: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .78rem; letter-spacing: .08em;
+  text-transform: uppercase; transition: color .2s;
+}
+nav a:hover { color: var(--accent4); }
+
+.wrapper {
+  position: relative; z-index: 1;
+  max-width: 1020px; margin: 0 auto;
+  padding: 2rem 1.5rem 6rem;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .72rem; color: var(--muted);
+  margin-bottom: 2.5rem;
+  display: flex; align-items: center; gap: .5rem; flex-wrap: wrap;
+}
+.breadcrumb a { color: var(--muted); text-decoration: none; transition: color .2s; }
+.breadcrumb a:hover { color: var(--accent4); }
+.breadcrumb .cur { color: var(--accent4); }
+.breadcrumb i { font-size: .55rem; }
+
+/* Hero */
+.hero {
+  padding: 3rem 0 2.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 3rem;
+}
+.hero::after {
+  content: '';
+  display: block; width: 60px; height: 3px;
+  background: linear-gradient(90deg, var(--accent4), var(--accent3));
+  margin-top: 1.5rem; border-radius: 2px;
+}
+.tag {
+  display: inline-block;
+  background: rgba(167,139,250,0.1);
+  border: 1px solid rgba(167,139,250,0.3);
+  color: var(--accent4);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
+  padding: .3rem .9rem; border-radius: 999px; margin-bottom: 1.1rem;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 900; line-height: 1.15;
+  background: linear-gradient(135deg, #fff 40%, var(--accent4) 90%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero .sub {
+  color: var(--muted); font-size: .95rem;
+  margin-top: .7rem; font-style: italic;
+}
+.meta-row {
+  display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem;
+}
+.meta-chip {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px; padding: .35rem .9rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .76rem; color: var(--muted);
+}
+.meta-chip span { color: var(--accent3); font-weight: 600; }
+
+/* Section label */
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .75rem; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--accent4); margin-bottom: 1.4rem;
+  display: flex; align-items: center; gap: .6rem;
+}
+.section-label::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+
+/* Unit grid */
+.unit-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.3rem;
+}
+
+/* Color per unit */
+.unit-color-1 { --uc: var(--accent1); --ucb: rgba(245,166,35,0.12); --ucborder: rgba(245,166,35,0.3); }
+.unit-color-2 { --uc: var(--accent2); --ucb: rgba(233,69,96,0.1);  --ucborder: rgba(233,69,96,0.3); }
+.unit-color-3 { --uc: var(--green);   --ucb: rgba(86,207,143,0.09); --ucborder: rgba(86,207,143,0.3); }
+.unit-color-4 { --uc: var(--accent3); --ucb: rgba(78,205,196,0.09); --ucborder: rgba(78,205,196,0.3); }
+.unit-color-5 { --uc: var(--accent4); --ucb: rgba(167,139,250,0.1); --ucborder: rgba(167,139,250,0.3); }
+.unit-color-6 { --uc: var(--gold);    --ucb: rgba(255,215,0,0.08);  --ucborder: rgba(255,215,0,0.28); }
+
+.unit-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.6rem;
+  text-decoration: none;
+  color: var(--text);
+  display: flex; flex-direction: column; gap: .55rem;
+  transition: border-color .25s, transform .25s, box-shadow .25s;
+  position: relative; overflow: hidden;
+  animation: fadeUp .5s ease both;
+}
+.unit-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--uc);
+  opacity: .6;
+  transition: opacity .25s;
+}
+.unit-card:hover {
+  border-color: var(--ucborder);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0,0,0,.38);
+}
+.unit-card:hover::before { opacity: 1; }
+.unit-card.active {
+  border-color: var(--ucborder);
+  background: linear-gradient(140deg, var(--surface) 70%, var(--ucb));
+}
+.unit-card.coming .unit-num,
+.unit-card.coming h3,
+.unit-card.coming .unit-topics { opacity: .45; }
+.unit-card.coming::after {
+  content: 'Coming Soon';
+  position: absolute; top: .9rem; right: .9rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .63rem; letter-spacing: .1em; text-transform: uppercase;
+  background: rgba(139,135,168,.12); border: 1px solid rgba(139,135,168,.27);
+  color: var(--muted); padding: .2rem .6rem; border-radius: 999px;
+}
+
+.unit-badge {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.unit-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .68rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--uc);
+}
+.unit-status-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--uc);
+  opacity: .7;
+}
+.unit-card.coming .unit-status-dot { background: var(--muted); opacity: .4; }
+
+.unit-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem; font-weight: 700;
+  color: #fff; line-height: 1.25;
+}
+.unit-topics {
+  font-size: .82rem; color: var(--muted); line-height: 1.6;
+}
+.unit-topics strong { color: var(--uc); font-style: normal; font-weight: 600; }
+
+.unit-arrow {
+  margin-top: .5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .74rem; color: var(--uc);
+  display: flex; align-items: center; gap: .4rem;
+  opacity: 0; transform: translateX(-4px);
+  transition: opacity .2s, transform .2s;
+}
+.unit-card:hover .unit-arrow { opacity: 1; transform: translateX(0); }
+.unit-card.coming:hover .unit-arrow { display: none; }
+
+/* Progress tracker */
+.progress-strip {
+  margin-top: 3rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.4rem 1.6rem;
+  animation: fadeUp .5s .5s ease both;
+}
+.progress-strip h4 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .75rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--accent3); margin-bottom: 1rem;
+}
+.prog-bar-track {
+  background: var(--surface2);
+  border-radius: 999px; height: 6px;
+  overflow: hidden; margin-bottom: .5rem;
+}
+.prog-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent4), var(--accent3));
+  border-radius: 999px;
+  width: 33%;
+  transition: width 1.2s ease;
+}
+.prog-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .72rem; color: var(--muted);
+  display: flex; justify-content: space-between;
+}
+.prog-label span { color: var(--accent3); }
+
+footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 1.8rem 1.5rem; text-align: center;
+  display: flex; flex-direction: column; gap: .7rem;
+  position: relative; z-index: 1;
+}
+.social-links { display: flex; justify-content: center; gap: 1.2rem; }
+.social-links a {
+  color: var(--muted); font-size: 1.2rem;
+  transition: color .2s; text-decoration: none;
+}
+.social-links a:hover { color: var(--accent1); }
+.footer-links a {
+  color: var(--muted); text-decoration: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .74rem; margin: 0 .6rem; transition: color .2s;
+}
+.footer-links a:hover { color: var(--accent3); }
+.footer-bottom {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .72rem; color: var(--muted);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media(max-width:600px){
+  header { padding: .8rem 1rem; }
+  .unit-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 1.7rem; }
+}
+</style>
 </head>
 <body>
-    <header>
-        <a href="../../index.html" class="logo">Edu Smartspark</a>
-        <nav><a href="../index.html">Back to Semester 4</a></nav>
-    </header>
+<div id="progress"></div>
 
-    <main>
-        <h1>Introductory Quantitative Techniques for Economics</h1>
-        <p>Complete syllabus notes for Semester 4, Paper 3.</p>
+<header>
+  <a href="../../index.html" class="logo"><i class="fas fa-graduation-cap"></i> Edu Smartspark</a>
+  <nav>
+    <a href="../index.html">← Semester 4</a>
+  </nav>
+</header>
 
-        <div class="grid-container">
-            <a href="../../404.html" class="card">
-                <h3>Unit 1: Preliminaries of Mathematics</h3>
-                <p>Sets, functions, limits, and continuity.</p>
-            </a>
-            <a href="../../404.html" class="card">
-                <h3>Unit 2: Differential Calculus</h3>
-                <p>Rules of differentiation; partial and total differentiation.</p>
-            </a>
-            <a href="../../404.html" class="card">
-                <h3>Unit 3: Integration of Functions</h3>
-                <p>Rules of integration; consumer/producer surplus.</p>
-            </a>
-            <a href="unit4.html" class="card" style="border-color: #3b82f6;">
-                <h3>Unit 4: Single Variable Optimization</h3>
-                <p>Maxima and minima; profit and revenue maximization.</p>
-            </a>
-            <a href="unit5.html" class="card" style="border-color: #3b82f6;">
-                <h3>Unit 5: Correlation Analysis</h3>
-                <p>Linear, Rank, Partial, and Multiple correlation.</p>
-            </a>
-            <a href="../../404.html" class="card">
-                <h3>Unit 6: Regression Analysis</h3>
-                <p>Least squares method; properties of regression coefficients.</p>
-            </a>
-        </div>
-    </main>
+<div class="wrapper">
+
+  <div class="breadcrumb">
+    <a href="../../index.html">Home</a>
+    <i class="fas fa-chevron-right"></i>
+    <a href="../index.html">Semester 4</a>
+    <i class="fas fa-chevron-right"></i>
+    <span class="cur">Quantitative Techniques</span>
+  </div>
+
+  <div class="hero">
+    <div class="tag">Sem 4 · Paper 3</div>
+    <h1>Introductory Quantitative<br>Techniques for Economics</h1>
+    <p class="sub">Complete syllabus notes — mathematics, calculus, statistics &amp; more.</p>
+    <div class="meta-row">
+      <div class="meta-chip">Units <span>6 total</span></div>
+      <div class="meta-chip">Available <span>Units 4 &amp; 5</span></div>
+      <div class="meta-chip">Paper <span>03 of 04</span></div>
+    </div>
+  </div>
+
+  <div class="section-label">Unit-wise Notes</div>
+
+  <div class="unit-grid">
+
+    <a href="../../404.html" class="unit-card unit-color-1 coming">
+      <div class="unit-badge">
+        <div class="unit-num">Unit · 01</div>
+        <div class="unit-status-dot"></div>
+      </div>
+      <h3>Preliminaries of Mathematics</h3>
+      <div class="unit-topics">
+        Sets, functions, limits, and continuity — <strong>foundations for calculus.</strong>
+      </div>
+      <div class="unit-arrow"><i class="fas fa-arrow-right"></i> Open Unit</div>
+    </a>
+
+    <a href="../../404.html" class="unit-card unit-color-2 coming">
+      <div class="unit-badge">
+        <div class="unit-num">Unit · 02</div>
+        <div class="unit-status-dot"></div>
+      </div>
+      <h3>Differential Calculus</h3>
+      <div class="unit-topics">
+        Rules of differentiation; <strong>partial and total differentiation</strong> with applications.
+      </div>
+      <div class="unit-arrow"><i class="fas fa-arrow-right"></i> Open Unit</div>
+    </a>
+
+    <a href="../../404.html" class="unit-card unit-color-3 coming">
+      <div class="unit-badge">
+        <div class="unit-num">Unit · 03</div>
+        <div class="unit-status-dot"></div>
+      </div>
+      <h3>Integration of Functions</h3>
+      <div class="unit-topics">
+        Rules of integration; <strong>consumer &amp; producer surplus</strong> derivations.
+      </div>
+      <div class="unit-arrow"><i class="fas fa-arrow-right"></i> Open Unit</div>
+    </a>
+
+    <a href="unit4.html" class="unit-card unit-color-4 active">
+      <div class="unit-badge">
+        <div class="unit-num">Unit · 04</div>
+        <div class="unit-status-dot"></div>
+      </div>
+      <h3>Single Variable Optimization</h3>
+      <div class="unit-topics">
+        Maxima &amp; minima; FOC &amp; SOC; <strong>profit, revenue &amp; cost optimization</strong> with worked examples.
+      </div>
+      <div class="unit-arrow"><i class="fas fa-arrow-right"></i> Open Unit</div>
+    </a>
+
+    <a href="unit5.html" class="unit-card unit-color-5 active">
+      <div class="unit-badge">
+        <div class="unit-num">Unit · 05</div>
+        <div class="unit-status-dot"></div>
+      </div>
+      <h3>Correlation Analysis</h3>
+      <div class="unit-topics">
+        Linear, rank, partial &amp; multiple correlation — <strong>measuring statistical relationships.</strong>
+      </div>
+      <div class="unit-arrow"><i class="fas fa-arrow-right"></i> Open Unit</div>
+    </a>
+
+    <a href="../../404.html" class="unit-card unit-color-6 coming">
+      <div class="unit-badge">
+        <div class="unit-num">Unit · 06</div>
+        <div class="unit-status-dot"></div>
+      </div>
+      <h3>Regression Analysis</h3>
+      <div class="unit-topics">
+        Least squares method; <strong>properties of regression coefficients</strong> and predictions.
+      </div>
+      <div class="unit-arrow"><i class="fas fa-arrow-right"></i> Open Unit</div>
+    </a>
+
+  </div>
+
+  <!-- Progress tracker -->
+  <div class="progress-strip">
+    <h4>Paper Progress</h4>
+    <div class="prog-bar-track">
+      <div class="prog-bar-fill" id="progFill"></div>
+    </div>
+    <div class="prog-label">
+      <span>2 of 6 units published</span>
+      <span>33%</span>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="social-links">
+    <a href="https://www.youtube.com/@EduSmartspark" target="_blank"><i class="fab fa-youtube"></i></a>
+    <a href="https://www.instagram.com/__saheb_ali/" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.facebook.com/people/Saheb-Ali/100050209846406/" target="_blank"><i class="fab fa-facebook"></i></a>
+  </div>
+  <div class="footer-links">
+    <a href="../../terms.html">Terms</a>
+    <a href="../../policy.html">Privacy Policy</a>
+  </div>
+  <div class="footer-bottom">&copy; Edu Smartspark 2026 &mdash; All Rights Reserved · Saheb Ali</div>
+</footer>
+
+<script>
+const prog = document.getElementById('progress');
+window.addEventListener('scroll', () => {
+  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+  prog.style.width = pct + '%';
+});
+document.querySelectorAll('.unit-card').forEach((el, i) => {
+  el.style.animationDelay = (i * 0.08) + 's';
+});
+// Animate progress bar on load
+setTimeout(() => {
+  document.getElementById('progFill').style.width = '33%';
+}, 300);
+</script>
 </body>
 </html>

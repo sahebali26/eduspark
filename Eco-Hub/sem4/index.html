@@ -1,36 +1,350 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Semester 4 | Edu Smartspark</title>
-    <link rel="stylesheet" href="../style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semester 4 | Edu Smartspark</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<style>
+:root {
+  --bg: #0f0e17;
+  --surface: #1a1826;
+  --surface2: #231f35;
+  --border: #2e2a45;
+  --accent1: #f5a623;
+  --accent2: #e94560;
+  --accent3: #4ecdc4;
+  --accent4: #a78bfa;
+  --text: #e8e6f0;
+  --muted: #8b87a8;
+  --gold: #ffd700;
+  --green: #56cf8f;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 16px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 15% 20%, rgba(78,205,196,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 50% at 85% 75%, rgba(245,166,35,0.06) 0%, transparent 70%);
+  pointer-events: none; z-index: 0;
+}
+#progress {
+  position: fixed; top: 0; left: 0;
+  height: 2px; width: 0%;
+  background: linear-gradient(90deg, var(--accent3), var(--accent4));
+  z-index: 1000; transition: width .1s;
+}
+header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(15,14,23,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.9rem 2rem;
+}
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem; font-weight: 700;
+  color: var(--text); text-decoration: none;
+  display: flex; align-items: center; gap: .5rem;
+}
+.logo i { color: var(--accent1); }
+nav { display: flex; gap: 1.5rem; }
+nav a {
+  color: var(--muted); text-decoration: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .78rem; letter-spacing: .08em;
+  text-transform: uppercase; transition: color .2s;
+}
+nav a:hover { color: var(--accent3); }
+nav a .back-arrow { margin-right: .3rem; }
+
+.wrapper {
+  position: relative; z-index: 1;
+  max-width: 1000px; margin: 0 auto;
+  padding: 2rem 1.5rem 6rem;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .73rem;
+  color: var(--muted);
+  margin-bottom: 2.5rem;
+  display: flex; align-items: center; gap: .5rem;
+}
+.breadcrumb a { color: var(--muted); text-decoration: none; transition: color .2s; }
+.breadcrumb a:hover { color: var(--accent3); }
+.breadcrumb span { color: var(--accent3); }
+
+/* Hero */
+.hero {
+  padding: 3rem 0 2.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 3rem;
+  position: relative;
+}
+.hero::after {
+  content: '';
+  display: block;
+  width: 60px; height: 3px;
+  background: linear-gradient(90deg, var(--accent3), var(--accent4));
+  margin-top: 1.5rem;
+  border-radius: 2px;
+}
+.tag {
+  display: inline-block;
+  background: rgba(78,205,196,0.1);
+  border: 1px solid rgba(78,205,196,0.3);
+  color: var(--accent3);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .72rem; letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: .3rem .9rem; border-radius: 999px;
+  margin-bottom: 1.1rem;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.9rem, 4.5vw, 3rem);
+  font-weight: 900; line-height: 1.1;
+  background: linear-gradient(135deg, #fff 40%, var(--accent3) 90%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero .sub {
+  color: var(--muted); font-size: .95rem;
+  margin-top: .7rem; font-style: italic;
+}
+
+/* Section label */
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .75rem; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--accent3);
+  margin-bottom: 1.4rem;
+  display: flex; align-items: center; gap: .6rem;
+}
+.section-label::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+
+/* Paper Grid */
+.paper-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.3rem;
+}
+
+.paper-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.7rem;
+  text-decoration: none;
+  color: var(--text);
+  display: flex; flex-direction: column; gap: .6rem;
+  transition: border-color .25s, transform .25s, box-shadow .25s;
+  position: relative; overflow: hidden;
+  animation: fadeUp .5s ease both;
+}
+.paper-card::before {
+  content: '';
+  position: absolute; inset: 0; opacity: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(78,205,196,0.05), transparent 70%);
+  transition: opacity .3s;
+}
+.paper-card:hover {
+  border-color: rgba(78,205,196,0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0,0,0,.38);
+}
+.paper-card:hover::before { opacity: 1; }
+.paper-card.active {
+  border-color: rgba(78,205,196,.5);
+  background: linear-gradient(135deg, var(--surface) 75%, rgba(78,205,196,0.07));
+}
+.paper-card.coming .paper-num { opacity: .5; }
+.paper-card.coming h3 { opacity: .5; }
+.paper-card.coming::after {
+  content: 'Coming Soon';
+  position: absolute; top: 1rem; right: 1rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .64rem; letter-spacing: .1em; text-transform: uppercase;
+  background: rgba(139,135,168,.12); border: 1px solid rgba(139,135,168,.28);
+  color: var(--muted); padding: .2rem .6rem; border-radius: 999px;
+}
+
+.paper-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .68rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--accent1);
+}
+.paper-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem; font-weight: 700; color: #fff; line-height: 1.25;
+}
+.paper-card p {
+  font-size: .84rem; color: var(--muted); line-height: 1.5;
+}
+.paper-arrow {
+  margin-top: .6rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .74rem; color: var(--accent3);
+  display: flex; align-items: center; gap: .4rem;
+  opacity: 0; transform: translateX(-4px);
+  transition: opacity .2s, transform .2s;
+}
+.paper-card:hover .paper-arrow { opacity: 1; transform: translateX(0); }
+.paper-card.coming:hover .paper-arrow { display: none; }
+
+/* Info note */
+.note-box {
+  margin-top: 3rem;
+  background: rgba(167,139,250,.08);
+  border: 1px solid rgba(167,139,250,.22);
+  border-radius: 12px;
+  padding: 1.2rem 1.5rem;
+  font-size: .88rem;
+  color: var(--muted);
+  display: flex; align-items: flex-start; gap: .8rem;
+  animation: fadeUp .5s .4s ease both;
+}
+.note-box i { color: var(--accent4); font-size: 1rem; margin-top: .15rem; flex-shrink: 0; }
+
+footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 1.8rem 1.5rem;
+  text-align: center;
+  display: flex; flex-direction: column; gap: .7rem;
+  position: relative; z-index: 1;
+}
+.social-links { display: flex; justify-content: center; gap: 1.2rem; }
+.social-links a {
+  color: var(--muted); font-size: 1.2rem;
+  transition: color .2s; text-decoration: none;
+}
+.social-links a:hover { color: var(--accent1); }
+.footer-links a {
+  color: var(--muted); text-decoration: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .74rem; margin: 0 .6rem; transition: color .2s;
+}
+.footer-links a:hover { color: var(--accent3); }
+.footer-bottom {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .72rem; color: var(--muted);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media(max-width:600px){
+  header { padding: .8rem 1rem; }
+  .paper-grid { grid-template-columns: 1fr; }
+}
+</style>
 </head>
 <body>
-    <header>
-        <a href="../index.html" class="logo">Edu Smartspark</a>
-        <nav><a href="../index.html">Back to Home</a></nav>
-    </header>
+<div id="progress"></div>
 
-    <main>
-        <h1>Semester 4 Syllabus & Notes</h1>
-        <p>Select a paper to access unit-wise notes and resources.</p>
-        
-        <div class="grid-container">
-            <a href="../404.html" class="card">
-                <h3>1. Public Finance</h3>
-            </a>
-            <a href="../404.html" class="card">
-                <h3>2. Advanced Macroeconomics</h3>
-            </a>
-            <a href="quantitative-techniques/index.html" class="card" style="border-color: #3b82f6;">
-                <h3>3. Introductory Quantitative Techniques</h3>
-                <p>Mathematics & Statistics for Economics</p>
-            </a>
-            <a href="../404.html" class="card">
-                <h3>4. Advanced Microeconomics</h3>
-            </a>
-        </div>
-    </main>
-    </body>
+<header>
+  <a href="../index.html" class="logo"><i class="fas fa-graduation-cap"></i> Edu Smartspark</a>
+  <nav>
+    <a href="../index.html"><span class="back-arrow">←</span> All Semesters</a>
+  </nav>
+</header>
+
+<div class="wrapper">
+
+  <div class="breadcrumb">
+    <a href="../index.html">Home</a>
+    <i class="fas fa-chevron-right" style="font-size:.6rem"></i>
+    <span>Semester 4</span>
+  </div>
+
+  <div class="hero">
+    <div class="tag">Semester · 04 &nbsp;·&nbsp; BA Economics</div>
+    <h1>Semester 4<br>Syllabus &amp; Notes</h1>
+    <p class="sub">Select a paper below to access unit-wise notes, formulas, and exam guides.</p>
+  </div>
+
+  <div class="section-label">Papers this Semester</div>
+
+  <div class="paper-grid">
+
+    <a href="../404.html" class="paper-card coming">
+      <div class="paper-num">Paper · 01</div>
+      <h3>Public Finance</h3>
+      <p>Public expenditure, taxation theory, and fiscal policy.</p>
+      <div class="paper-arrow"><i class="fas fa-arrow-right"></i> Open Paper</div>
+    </a>
+
+    <a href="../404.html" class="paper-card coming">
+      <div class="paper-num">Paper · 02</div>
+      <h3>Advanced Macroeconomics</h3>
+      <p>Growth models, IS-LM framework, and open economy.</p>
+      <div class="paper-arrow"><i class="fas fa-arrow-right"></i> Open Paper</div>
+    </a>
+
+    <a href="quantitative-techniques/index.html" class="paper-card active">
+      <div class="paper-num">Paper · 03</div>
+      <h3>Introductory Quantitative Techniques</h3>
+      <p>Mathematics &amp; Statistics for Economics — calculus, correlation, regression.</p>
+      <div class="paper-arrow"><i class="fas fa-arrow-right"></i> Open Paper</div>
+    </a>
+
+    <a href="../404.html" class="paper-card coming">
+      <div class="paper-num">Paper · 04</div>
+      <h3>Advanced Microeconomics</h3>
+      <p>Consumer theory, market structures, and game theory basics.</p>
+      <div class="paper-arrow"><i class="fas fa-arrow-right"></i> Open Paper</div>
+    </a>
+
+  </div>
+
+  <div class="note-box">
+    <i class="fas fa-info-circle"></i>
+    <div>More papers are being added progressively. <strong style="color:var(--accent4)">Paper 3 (Quantitative Techniques)</strong> is fully available with unit-wise notes and exam corners. Check back soon for the remaining papers.</div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="social-links">
+    <a href="https://www.youtube.com/@EduSmartspark" target="_blank"><i class="fab fa-youtube"></i></a>
+    <a href="https://www.instagram.com/__saheb_ali/" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.facebook.com/people/Saheb-Ali/100050209846406/" target="_blank"><i class="fab fa-facebook"></i></a>
+  </div>
+  <div class="footer-links">
+    <a href="../terms.html">Terms</a>
+    <a href="../policy.html">Privacy Policy</a>
+  </div>
+  <div class="footer-bottom">&copy; Edu Smartspark 2026 &mdash; All Rights Reserved · Saheb Ali</div>
+</footer>
+
+<script>
+const prog = document.getElementById('progress');
+window.addEventListener('scroll', () => {
+  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+  prog.style.width = pct + '%';
+});
+document.querySelectorAll('.paper-card').forEach((el, i) => {
+  el.style.animationDelay = (i * 0.09) + 's';
+});
+</script>
+</body>
 </html>

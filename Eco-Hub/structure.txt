@@ -1,0 +1,16 @@
+eduspark-site/
+│-- index.html
+│-- about.html
+│-- contact.html
+│-- terms.html
+│-- policy.html
+│-- 404.html
+│-- style.css
+│-- assets/
+│   └── (store your images/logos here)
+│-- sem4/
+│   ├── index.html
+│   └── quantitative-techniques/
+│       ├── index.html
+│       ├── unit4.html
+│       └── unit5.html

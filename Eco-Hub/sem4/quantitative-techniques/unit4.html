@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 4 – Single Variable Optimization | Economics Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0f0e17;
+  --surface: #1a1826;
+  --surface2: #231f35;
+  --border: #2e2a45;
+  --accent1: #f5a623;
+  --accent2: #e94560;
+  --accent3: #4ecdc4;
+  --accent4: #a78bfa;
+  --text: #e8e6f0;
+  --muted: #8b87a8;
+  --gold: #ffd700;
+  --green: #56cf8f;
+  --red: #ff6b6b;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 16px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+/* Decorative BG */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse 60% 40% at 10% 20%, rgba(167,139,250,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 50% at 90% 80%, rgba(245,166,35,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 30% at 50% 50%, rgba(78,205,196,0.04) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wrapper { position: relative; z-index: 1; max-width: 980px; margin: 0 auto; padding: 2rem 1.5rem 6rem; }
+
+/* ── HERO ── */
+.hero {
+  text-align: center;
+  padding: 3rem 1rem 2.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 3rem;
+  position: relative;
+}
+.hero::after {
+  content: '';
+  display: block;
+  width: 80px; height: 3px;
+  background: linear-gradient(90deg, var(--accent1), var(--accent2));
+  margin: 1.5rem auto 0;
+  border-radius: 2px;
+}
+.tag {
+  display: inline-block;
+  background: rgba(245,166,35,0.12);
+  border: 1px solid rgba(245,166,35,0.3);
+  color: var(--accent1);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .72rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: .3rem .9rem;
+  border-radius: 999px;
+  margin-bottom: 1.2rem;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 900;
+  line-height: 1.1;
+  background: linear-gradient(135deg, #fff 30%, var(--accent1) 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero .sub {
+  color: var(--muted);
+  font-size: .95rem;
+  margin-top: .8rem;
+  font-style: italic;
+}
+.meta-row {
+  display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+.meta-chip {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: .4rem 1rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .78rem;
+  color: var(--muted);
+}
+.meta-chip span { color: var(--accent3); font-weight: 600; }
+
+/* ── TOC ── */
+.toc {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem 2rem;
+  margin-bottom: 3rem;
+}
+.toc h3 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .8rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--accent3);
+  margin-bottom: 1rem;
+}
+.toc ol {
+  padding-left: 1.2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .3rem .5rem;
+}
+.toc li { font-size: .9rem; }
+.toc a { color: var(--muted); text-decoration: none; transition: color .2s; }
+.toc a:hover { color: var(--accent1); }
+@media(max-width:600px){ .toc ol { grid-template-columns: 1fr; } }
+
+/* ── SECTIONS ── */
+.section {
+  margin-bottom: 3.5rem;
+  animation: fadeUp .5s ease both;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.section-header {
+  display: flex; align-items: center; gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: .8rem;
+  border-bottom: 1px solid var(--border);
+}
+.section-num {
+  width: 2.4rem; height: 2.4rem;
+  background: linear-gradient(135deg, var(--accent1), var(--accent2));
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  font-size: .85rem;
+  flex-shrink: 0;
+}
+.section-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* ── CARDS ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.4rem 1.6rem;
+  margin-bottom: 1.2rem;
+  transition: border-color .2s, transform .2s;
+}
+.card:hover { border-color: rgba(167,139,250,0.4); transform: translateY(-2px); }
+.card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  color: var(--accent4);
+  margin-bottom: .6rem;
+}
+.card h4 { color: var(--accent3); margin: .8rem 0 .4rem; font-size: .95rem; }
+
+/* ── GRID ── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+@media(max-width:680px){ .grid-2,.grid-3 { grid-template-columns: 1fr; } }
+
+/* ── FORMULA BOX ── */
+.formula {
+  background: #0c0b14;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent1);
+  border-radius: 8px;
+  padding: .9rem 1.2rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .9rem;
+  color: var(--gold);
+  margin: .8rem 0;
+  overflow-x: auto;
+}
+.formula .label {
+  font-size: .7rem;
+  color: var(--muted);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: .3rem;
+}
+
+/* ── HIGHLIGHT BOXES ── */
+.box {
+  border-radius: 10px;
+  padding: 1rem 1.3rem;
+  margin: 1rem 0;
+  font-size: .93rem;
+}
+.box-warn { background: rgba(245,166,35,.1); border: 1px solid rgba(245,166,35,.25); }
+.box-tip  { background: rgba(86,207,143,.09); border: 1px solid rgba(86,207,143,.25); color: #b8f0d8; }
+.box-exam { background: rgba(233,69,96,.1);  border: 1px solid rgba(233,69,96,.3); }
+.box-key  { background: rgba(167,139,250,.1); border: 1px solid rgba(167,139,250,.3); }
+.box-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .7rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: .4rem;
+  font-weight: 600;
+}
+.box-warn .box-label { color: var(--accent1); }
+.box-tip  .box-label { color: var(--green); }
+.box-exam .box-label { color: var(--accent2); }
+.box-key  .box-label { color: var(--accent4); }
+
+/* ── VISUAL GRAPH (CSS only) ── */
+.graph-wrap {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.5rem;
+  margin: 1.2rem 0;
+  overflow: hidden;
+}
+.graph-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .75rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+svg text { fill: var(--muted); font-family: 'Source Serif 4', serif; font-size: 13px; }
+svg .axis-line { stroke: var(--border); stroke-width: 1.5; }
+svg .curve { fill: none; stroke-width: 2.5; }
+svg .dashed { stroke-dasharray: 5,4; stroke-width: 1; }
+svg .pt { stroke-width: 2; }
+svg .area { opacity: .15; }
+
+/* ── COMPARISON TABLE ── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .88rem;
+  margin: 1rem 0;
+}
+thead tr { background: var(--surface2); }
+thead th {
+  padding: .7rem 1rem;
+  text-align: left;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .75rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent3);
+  border-bottom: 1px solid var(--border);
+}
+tbody tr { border-bottom: 1px solid var(--border); transition: background .15s; }
+tbody tr:hover { background: var(--surface2); }
+td { padding: .65rem 1rem; vertical-align: top; }
+td:first-child { color: var(--accent1); font-weight: 600; }
+
+/* ── STEPS ── */
+.steps { counter-reset: step; list-style: none; }
+.steps li {
+  counter-increment: step;
+  padding: .6rem .6rem .6rem 3rem;
+  position: relative;
+  margin-bottom: .4rem;
+  border-radius: 8px;
+  background: var(--surface2);
+  font-size: .93rem;
+}
+.steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: .6rem; top: 50%; transform: translateY(-50%);
+  width: 1.6rem; height: 1.6rem;
+  background: linear-gradient(135deg, var(--accent3), var(--accent4));
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .75rem; font-weight: 700;
+  color: #0f0e17;
+  line-height: 1.6rem;
+  text-align: center;
+}
+
+/* ── QUICK RECALL BADGE ── */
+.badge-row { display: flex; flex-wrap: wrap; gap: .6rem; margin: .8rem 0; }
+.badge {
+  padding: .3rem .85rem;
+  border-radius: 999px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .78rem;
+  font-weight: 600;
+}
+.badge-max { background: rgba(86,207,143,.15); border: 1px solid var(--green); color: var(--green); }
+.badge-min { background: rgba(233,69,96,.15); border: 1px solid var(--red); color: var(--red); }
+.badge-info { background: rgba(78,205,196,.12); border: 1px solid var(--accent3); color: var(--accent3); }
+
+/* ── MEMORY TRICK ── */
+.memory {
+  background: linear-gradient(135deg, rgba(245,166,35,.07), rgba(167,139,250,.07));
+  border: 1px dashed rgba(245,166,35,.4);
+  border-radius: 12px;
+  padding: 1rem 1.3rem;
+  margin: 1rem 0;
+}
+.memory .mem-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .7rem;
+  color: var(--accent1);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: .4rem;
+}
+.memory .mem-body { font-size: .92rem; }
+.memory strong { color: var(--accent1); }
+
+/* ── EXAM CORNER ── */
+.exam-corner {
+  background: linear-gradient(135deg, var(--surface) 0%, rgba(233,69,96,.07) 100%);
+  border: 1px solid rgba(233,69,96,.35);
+  border-radius: 16px;
+  padding: 1.5rem 1.8rem;
+  margin: 2rem 0;
+}
+.exam-corner h3 {
+  font-family: 'Playfair Display', serif;
+  color: var(--accent2);
+  margin-bottom: 1rem;
+  display: flex; align-items: center; gap: .6rem;
+}
+.exam-q {
+  padding: .6rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: .92rem;
+}
+.exam-q:last-child { border-bottom: none; }
+.exam-q span {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .7rem;
+  color: var(--accent2);
+  margin-right: .5rem;
+}
+
+/* ── DIVIDER ── */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2.5rem 0;
+}
+
+/* ── SCROLL PROGRESS ── */
+#progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent1), var(--accent2));
+  transition: width .1s;
+  z-index: 999;
+}
+
+/* ── BACK TO TOP ── */
+#btt {
+  position: fixed;
+  bottom: 2rem; right: 2rem;
+  width: 2.5rem; height: 2.5rem;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  opacity: 0;
+  transition: opacity .3s, transform .2s;
+  z-index: 100;
+}
+#btt:hover { transform: translateY(-3px); }
+#btt.show { opacity: 1; }
+
+/* application cards */
+.app-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.3rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.app-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.app-profit::before { background: linear-gradient(90deg, var(--green), var(--accent3)); }
+.app-cost::before   { background: linear-gradient(90deg, var(--accent2), #ff9f43); }
+.app-rev::before    { background: linear-gradient(90deg, var(--accent4), var(--accent3)); }
+.app-card h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; margin-bottom: .5rem; }
+.app-profit h3 { color: var(--green); }
+.app-cost h3   { color: var(--accent2); }
+.app-rev h3    { color: var(--accent4); }
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<div class="wrapper">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="tag">Economics · 4th Semester · GU CBCS</div>
+  <h1>Single Variable Optimization</h1>
+  <p class="sub">Introductory Quantitative Techniques for Economics — Unit 4</p>
+  <div class="meta-row">
+    <div class="meta-chip">Classes: <span>8</span></div>
+    <div class="meta-chip">Marks: <span>20</span></div>
+    <div class="meta-chip">Type: <span>Calculus-Based</span></div>
+  </div>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <h3>📚 Table of Contents</h3>
+  <ol>
+    <li><a href="#s1">What is Optimization?</a></li>
+    <li><a href="#s2">Local vs Global Optima</a></li>
+    <li><a href="#s3">Geometric Characterization</a></li>
+    <li><a href="#s4">Calculus: First Order Conditions</a></li>
+    <li><a href="#s5">Second Order Conditions</a></li>
+    <li><a href="#s6">Profit Maximization</a></li>
+    <li><a href="#s7">Cost Minimization</a></li>
+    <li><a href="#s8">Revenue Maximization</a></li>
+    <li><a href="#s9">Quick Reference Table</a></li>
+    <li><a href="#s10">Exam Corner</a></li>
+  </ol>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 1 -->
+<!-- ══════════════════════════════════════ -->
+<div class="section" id="s1">
+  <div class="section-header">
+    <div class="section-num">01</div>
+    <h2>What is Optimization?</h2>
+  </div>
+
+  <div class="card">
+    <h3>Core Idea</h3>
+    <p>Optimization means finding the value of a variable <strong>x</strong> that makes a function <strong>y = f(x)</strong> as large (maximum) or as small (minimum) as possible.</p>
+    <div class="box box-key">
+      <div class="box-label">🔑 Key Concept</div>
+      In economics: firms <em>maximize profit/revenue</em> and <em>minimize cost</em>. Optimization provides the mathematical tool to find the optimal output level <strong>Q*</strong>.
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Maximization</h3>
+      <p>Find x such that f(x) is the <em>highest possible value</em>.</p>
+      <div class="badge-row">
+        <span class="badge badge-max">Profit Max</span>
+        <span class="badge badge-max">Revenue Max</span>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Minimization</h3>
+      <p>Find x such that f(x) is the <em>lowest possible value</em>.</p>
+      <div class="badge-row">
+        <span class="badge badge-min">Cost Min</span>
+        <span class="badge badge-min">Loss Min</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="memory">
+    <div class="mem-title">💡 Memory Trick</div>
+    <div class="mem-body"><strong>"FIND the PEAK or the PIT"</strong> — optimization finds either the peak (maximum) or the pit (minimum) of a curve.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 2 -->
+<!-- ══════════════════════════════════════ -->
+<div class="section" id="s2">
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <h2>Local vs Global Optima</h2>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>🏔️ Local Optimum</h3>
+      <p>A point that is the best in its <em>neighbourhood</em> (nearby region) — but not necessarily the best overall.</p>
+      <div class="formula">
+        <span class="label">Definition</span>
+        f(x*) ≥ f(x) for all x near x*<br>(local maximum)
+      </div>
+      <p style="font-size:.88rem; color:var(--muted); margin-top:.5rem;">Think of it as: best on your street, not necessarily in the city.</p>
+    </div>
+    <div class="card">
+      <h3>🌍 Global Optimum</h3>
+      <p>A point that is the best over the <em>entire domain</em> of the function.</p>
+      <div class="formula">
+        <span class="label">Definition</span>
+        f(x*) ≥ f(x) for ALL x in domain<br>(global maximum)
+      </div>
+      <p style="font-size:.88rem; color:var(--muted); margin-top:.5rem;">Best in the entire city — no other point beats it.</p>
+    </div>
+  </div>
+
+  <!-- Visual: Local vs Global -->
+  <div class="graph-wrap">
+    <div class="graph-title">Visual: Local Maximum vs Global Maximum</div>
+    <svg viewBox="0 0 700 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-height:260px;">
+      <!-- Axes -->
+      <line x1="50" y1="220" x2="660" y2="220" class="axis-line"/>
+      <line x1="50" y1="20"  x2="50"  y2="220" class="axis-line"/>
+      <text x="665" y="224">x</text>
+      <text x="52"  y="16">y</text>
+      <!-- Curve with local max at ~x=200, global max at ~x=480 -->
+      <path d="M60,200 C100,200 120,180 150,160 C175,145 185,100 200,85 C215,100 220,130 240,148 C260,160 300,172 330,168 C360,162 380,130 400,110 C420,90 450,55 480,45 C510,55 530,90 550,115 C570,140 600,180 650,200"
+            class="curve" stroke="#f5a623"/>
+      <!-- Local max at ~(200, 85) -->
+      <circle cx="200" cy="85" r="7" fill="#4ecdc4" stroke="#4ecdc4" class="pt"/>
+      <line x1="200" y1="85" x2="200" y2="220" stroke="#4ecdc4" stroke-dasharray="5,4" stroke-width="1"/>
+      <text x="185" y="75" fill="#4ecdc4" font-size="11">Local Max</text>
+      <!-- Global max at ~(480, 45) -->
+      <circle cx="480" cy="45" r="9" fill="#f5a623" stroke="#f5a623" class="pt"/>
+      <line x1="480" y1="45" x2="480" y2="220" stroke="#f5a623" stroke-dasharray="5,4" stroke-width="1"/>
+      <text x="460" y="35" fill="#f5a623" font-size="11">Global Max</text>
+      <!-- local min at ~(330, 168) -->
+      <circle cx="330" cy="168" r="6" fill="#ff6b6b" stroke="#ff6b6b" class="pt"/>
+      <text x="335" y="185" fill="#ff6b6b" font-size="10">Local Min</text>
+      <!-- x labels -->
+      <text x="193" y="235" fill="#8b87a8" font-size="11">x₁</text>
+      <text x="473" y="235" fill="#8b87a8" font-size="11">x*</text>
+    </svg>
+  </div>
+
+  <div class="box box-warn">
+    <div class="box-label">⚠️ Important Distinction</div>
+    Every global optimum is also a local optimum. But every local optimum is <strong>NOT</strong> necessarily a global optimum. In economics, we usually seek the global optimum.
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 3 -->
+<!-- ══════════════════════════════════════ -->
+<div class="section" id="s3">
+  <div class="section-header">
+    <div class="section-num">03</div>
+    <h2>Geometric Characterization</h2>
+  </div>
+
+  <div class="card">
+    <h3>What the Tangent Line Tells You</h3>
+    <p>Geometrically, an optimum occurs where the <strong>tangent to the curve is horizontal</strong> — i.e., slope = 0.</p>
+  </div>
+
+  <div class="grid-2">
+    <!-- Max graph -->
+    <div class="graph-wrap">
+      <div class="graph-title">Maximum — ∩ Shape (Concave)</div>
+      <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-height:200px;">
+        <line x1="20" y1="175" x2="285" y2="175" class="axis-line"/>
+        <line x1="20" y1="10"  x2="20"  y2="175" class="axis-line"/>
+        <path d="M30,160 C70,140 100,60 150,40 C200,60 230,140 270,160"
+              class="curve" stroke="#56cf8f"/>
+        <!-- Horizontal tangent at peak -->
+        <circle cx="150" cy="40" r="6" fill="#56cf8f"/>
+        <line x1="110" y1="40" x2="190" y2="40" stroke="#56cf8f" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <text x="155" y="35" fill="#56cf8f" font-size="10">f'(x)=0</text>
+        <text x="140" y="190" fill="#8b87a8" font-size="10">x*</text>
+        <line x1="150" y1="40" x2="150" y2="175" stroke="#56cf8f" stroke-dasharray="4,4" stroke-width="1"/>
+        <!-- slope indicators -->
+        <text x="55" y="120" fill="#4ecdc4" font-size="9">f'&gt;0 ↗</text>
+        <text x="195" y="120" fill="#ff6b6b" font-size="9">f'&lt;0 ↘</text>
+      </svg>
+    </div>
+    <!-- Min graph -->
+    <div class="graph-wrap">
+      <div class="graph-title">Minimum — ∪ Shape (Convex)</div>
+      <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-height:200px;">
+        <line x1="20" y1="185" x2="285" y2="185" class="axis-line"/>
+        <line x1="20" y1="10"  x2="20"  y2="185" class="axis-line"/>
+        <path d="M30,30 C70,50 100,140 150,155 C200,140 230,50 270,30"
+              class="curve" stroke="#ff6b6b"/>
+        <!-- Horizontal tangent at bottom -->
+        <circle cx="150" cy="155" r="6" fill="#ff6b6b"/>
+        <line x1="110" y1="155" x2="190" y2="155" stroke="#ff6b6b" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <text x="155" y="150" fill="#ff6b6b" font-size="10">f'(x)=0</text>
+        <text x="140" y="200" fill="#8b87a8" font-size="10">x*</text>
+        <line x1="150" y1="155" x2="150" y2="185" stroke="#ff6b6b" stroke-dasharray="4,4" stroke-width="1"/>
+        <text x="55" y="95" fill="#ff6b6b" font-size="9">f'&lt;0 ↘</text>
+        <text x="195" y="95" fill="#56cf8f" font-size="9">f'&gt;0 ↗</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Key Geometric Rules</h3>
+    <table>
+      <thead><tr><th>Situation</th><th>Slope Before x*</th><th>Slope After x*</th><th>Type</th></tr></thead>
+      <tbody>
+        <tr><td>Maximum</td><td style="color:var(--green)">Positive (+)</td><td style="color:var(--red)">Negative (−)</td><td>Peak / ∩</td></tr>
+        <tr><td>Minimum</td><td style="color:var(--red)">Negative (−)</td><td style="color:var(--green)">Positive (+)</td><td>Trough / ∪</td></tr>
+        <tr><td>Inflection Point</td><td>Same sign</td><td>Same sign</td><td>Neither (saddle)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="memory">
+    <div class="mem-title">💡 Memory Trick</div>
+    <div class="mem-body">
+      <strong>MAX = Mountain (+→−)</strong> &nbsp;|&nbsp; <strong>MIN = Valley (−→+)</strong><br>
+      Slope goes from positive to negative for a mountain peak; negative to positive for a valley bottom.
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 4 -->
+<!-- ══════════════════════════════════════ -->
+<div class="section" id="s4">
+  <div class="section-header">
+    <div class="section-num">04</div>
+    <h2>First Order Condition (FOC)</h2>
+  </div>
+
+  <div class="card">
+    <h3>The Necessary Condition</h3>
+    <p>For f(x) to have a local optimum at x = x*, the first derivative must equal zero:</p>
+    <div class="formula">
+      <span class="label">First Order Condition (FOC)</span>
+      f '(x*) = 0
+      <br><br>
+      i.e., dy/dx = 0  at  x = x*
+    </div>
+    <div class="box box-warn">
+      <div class="box-label">⚠️ Warning</div>
+      FOC is <strong>necessary but NOT sufficient</strong>. f '(x*) = 0 tells us there is a <em>stationary (critical) point</em> — but it could be a max, a min, or an inflection point. We need the Second Order Condition (SOC) to decide.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Steps to Find Critical Points</h3>
+    <ol class="steps">
+      <li>Write the function: y = f(x)</li>
+      <li>Differentiate: find f '(x) = dy/dx</li>
+      <li>Set f '(x) = 0</li>
+      <li>Solve for x → this gives critical point(s) x*</li>
+    </ol>
+  </div>
+
+  <div class="box box-tip">
+    <div class="box-label">📖 Example</div>
+    If f(x) = −2x² + 8x + 5, then f '(x) = −4x + 8.<br>
+    Setting f '(x) = 0: −4x + 8 = 0 → x* = 2. Check SOC next!
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 5 -->
+<!-- ══════════════════════════════════════ -->
+<div class="section" id="s5">
+  <div class="section-header">
+    <div class="section-num">05</div>
+    <h2>Second Order Condition (SOC)</h2>
+  </div>
+
+  <div class="card">
+    <h3>The Sufficient Condition — Tells MAX or MIN</h3>
+    <p>After finding critical point x* from FOC, differentiate again (second derivative) to confirm the nature:</p>
+    <div class="grid-2">
+      <div>
+        <div class="formula">
+          <span class="label">For MAXIMUM</span>
+          f ''(x*) &lt; 0
+          <br>(Second derivative is NEGATIVE)
+          <br>⟹ function is concave (∩) at x*
+        </div>
+      </div>
+      <div>
+        <div class="formula">
+          <span class="label">For MINIMUM</span>
+          f ''(x*) &gt; 0
+          <br>(Second derivative is POSITIVE)
+          <br>⟹ function is convex (∪) at x*
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>What if f ''(x*) = 0?</h3>
+    <p>SOC is <strong>inconclusive</strong>. The point could be a maximum, minimum, or inflection point. Higher-order derivatives or graphical inspection needed.</p>
+  </div>
+
+  <!-- Visual SOC intuition -->
+  <div class="graph-wrap">
+    <div class="graph-title">Second Derivative Intuition</div>
+    <svg viewBox="0 0 680 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-height:200px;">
+      <!-- Left: Concave (max) -->
+      <line x1="30" y1="175" x2="290" y2="175" class="axis-line"/>
+      <path d="M40,155 C80,130 110,50 160,35 C210,50 240,130 280,155"
+            class="curve" stroke="#56cf8f"/>
+      <circle cx="160" cy="35" r="6" fill="#56cf8f"/>
+      <text x="60" y="170" fill="#56cf8f" font-size="11">Concave ∩ : f''&lt;0 → MAX</text>
+      <!-- arrows showing curve bends down -->
+      <text x="135" y="25" fill="#56cf8f" font-size="12">↓ bends down</text>
+
+      <!-- divider -->
+      <line x1="340" y1="10" x2="340" y2="185" stroke="#2e2a45" stroke-width="1" stroke-dasharray="6,4"/>
+
+      <!-- Right: Convex (min) -->
+      <line x1="360" y1="175" x2="660" y2="175" class="axis-line"/>
+      <path d="M370,40 C410,65 440,145 490,160 C540,145 570,65 640,40"
+            class="curve" stroke="#ff6b6b"/>
+      <circle cx="490" cy="160" r="6" fill="#ff6b6b"/>
+      <text x="383" y="170" fill="#ff6b6b" font-size="11">Convex ∪ : f''&gt;0 → MIN</text>
+      <text x="460" y="185" fill="#ff6b6b" font-size="12">↑ bends up</text>
+    </svg>
+  </div>
+
+  <div class="memory">
+    <div class="mem-title">💡 Memory Trick</div>
+    <div class="mem-body">
+      <strong>NEGATIVE second → MAXIMUM</strong> (like a ∩, top is negative/down)<br>
+      <strong>POSITIVE second → MINIMUM</strong> (like a ∪, cup holds positivity/up)<br>
+      <em>Mnemonic: "NM–PM" → Negative=Max, Positive=Min</em>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Complete Test Summary</h3>
+    <table>
+      <thead><tr><th>Condition</th><th>f '(x*)</th><th>f ''(x*)</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><td>Maximum</td><td>= 0</td><td style="color:var(--red)">&lt; 0</td><td>🏔️ Local Max</td></tr>
+        <tr><td>Minimum</td><td>= 0</td><td style="color:var(--green)">&gt; 0</td><td>🏞️ Local Min</td></tr>
+        <tr><td>Inconclusive</td><td>= 0</td><td>= 0</td><td>❓ Need further test</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 6 -->
+<!-- ══════════════════════════════════════ -->
+<div class="section" id="s6">
+  <div class="section-header">
+    <div class="section-num">06</div>
+    <h2>Application: Profit Maximization</h2>
+  </div>
+
+  <div class="app-card app-profit">
+    <h3>🟢 Profit Maximization</h3>
+    <p>A firm wants to find the output level Q* that maximizes profit π.</p>
+    <div class="formula">
+      <span class="label">Profit Function</span>
+      π(Q) = TR(Q) − TC(Q)
+      <br><br>
+      where TR = Total Revenue,  TC = Total Cost
+    </div>
+    <div class="formula">
+      <span class="label">FOC (Necessary Condition)</span>
+      dπ/dQ = 0
+      ⟹  dTR/dQ − dTC/dQ = 0
+      ⟹  MR = MC
+    </div>
+    <div class="formula">
+      <span class="label">SOC (Sufficient Condition for Maximum)</span>
+      d²π/dQ² &lt; 0
+      ⟹  dMR/dQ &lt; dMC/dQ
+      (MC must be rising faster than MR, or MR falling)
+    </div>
+    <div class="box box-key">
+      <div class="box-label">🔑 Golden Rule</div>
+      <strong>Profit is maximized when MR = MC</strong>, provided the MC curve cuts the MR curve from below (SOC).
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Worked Example</h3>
+    <p>Let TR = 50Q − 2Q² and TC = Q³ − 5Q² + 20Q + 10</p>
+    <ol class="steps">
+      <li>π = TR − TC = 50Q − 2Q² − Q³ + 5Q² − 20Q − 10 = −Q³ + 3Q² + 30Q − 10</li>
+      <li>dπ/dQ = −3Q² + 6Q + 30 = 0</li>
+      <li>Divide by −3: Q² − 2Q − 10 = 0 → Q* ≈ 4.32 (taking positive root)</li>
+      <li>d²π/dQ² = −6Q + 6; At Q*: negative ✓ → Maximum confirmed</li>
+    </ol>
+  </div>
+
+  <!-- Visual: MR=MC -->
+  <div class="graph-wrap">
+    <div class="graph-title">Profit Maximization: MR = MC Rule</div>
+    <svg viewBox="0 0 620 230" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-height:230px;">
+      <!-- Axes -->
+      <line x1="50" y1="200" x2="590" y2="200" class="axis-line"/>
+      <line x1="50" y1="10"  x2="50"  y2="200" class="axis-line"/>
+      <text x="595" y="204">Q</text>
+      <text x="52" y="10">P/C</text>
+      <!-- MR line (downward sloping) -->
+      <line x1="60" y1="50" x2="540" y2="170" stroke="#56cf8f" stroke-width="2"/>
+      <text x="545" y="175" fill="#56cf8f" font-size="12">MR</text>
+      <!-- MC curve (U-shaped rising) -->
+      <path d="M60,170 C100,155 160,120 220,100 C280,82 360,75 450,80 C500,85 530,100 550,120"
+            class="curve" stroke="#ff6b6b"/>
+      <text x="555" y="120" fill="#ff6b6b" font-size="12">MC</text>
+      <!-- Intersection -->
+      <circle cx="280" cy="110" r="7" fill="#ffd700" stroke="#ffd700"/>
+      <line x1="280" y1="110" x2="280" y2="200" stroke="#ffd700" stroke-dasharray="5,4" stroke-width="1.2"/>
+      <text x="265" y="215" fill="#ffd700" font-size="12">Q*</text>
+      <text x="285" y="105" fill="#ffd700" font-size="11">MR=MC</text>
+      <!-- π area -->
+      <text x="140" y="180" fill="#8b87a8" font-size="11">π increasing (MR>MC)</text>
+      <text x="340" y="165" fill="#8b87a8" font-size="11">π decreasing (MC>MR)</text>
+    </svg>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 7 -->
+<!-- ══════════════════════════════════════ -->
+<div class="section" id="s7">
+  <div class="section-header">
+    <div class="section-num">07</div>
+    <h2>Application: Cost Minimization</h2>
+  </div>
+
+  <div class="app-card app-cost">
+    <h3>🔴 Cost Minimization</h3>
+    <p>A firm wants to produce a given output at the <em>lowest possible total cost</em>, or find the output where average cost is minimized.</p>
+    <div class="formula">
+      <span class="label">Total Cost Function</span>
+      TC = TC(Q)  → usually a cubic: TC = aQ³ + bQ² + cQ + d
+    </div>
+    <div class="formula">
+      <span class="label">Average Cost</span>
+      AC = TC / Q
+    </div>
+    <div class="formula">
+      <span class="label">Minimize AC — FOC</span>
+      d(AC)/dQ = 0
+    </div>
+    <div class="formula">
+      <span class="label">SOC — Confirm Minimum</span>
+      d²(AC)/dQ² &gt; 0
+    </div>
+    <div class="box box-key">
+      <div class="box-label">🔑 Key Result</div>
+      AC is minimized where <strong>MC = AC</strong> (the MC curve crosses the AC curve at its minimum point).
+    </div>
+  </div>
+
+  <!-- AC MC graph -->
+  <div class="graph-wrap">
+    <div class="graph-title">Cost Minimization: MC cuts AC at its Minimum</div>
+    <svg viewBox="0 0 600 230" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-height:230px;">
+      <line x1="40" y1="200" x2="570" y2="200" class="axis-line"/>
+      <line x1="40" y1="15"  x2="40"  y2="200" class="axis-line"/>
+      <text x="575" y="204">Q</text>
+      <text x="42" y="13">Cost</text>
+      <!-- AC U-shaped -->
+      <path d="M60,160 C100,130 160,85 240,70 C310,58 370,65 430,80 C480,95 510,120 540,150"
+            class="curve" stroke="#4ecdc4"/>
+      <text x="545" y="155" fill="#4ecdc4" font-size="13">AC</text>
+      <!-- MC rising after min -->
+      <path d="M60,175 C90,155 130,120 200,95 C260,75 330,60 400,55 C450,52 490,60 530,80"
+            class="curve" stroke="#f5a623"/>
+      <text x="535" y="82" fill="#f5a623" font-size="13">MC</text>
+      <!-- Intersection at AC minimum -->
+      <circle cx="300" cy="63" r="8" fill="#ffd700" stroke="#ffd700"/>
+      <line x1="300" y1="63" x2="300" y2="200" stroke="#ffd700" stroke-dasharray="5,4" stroke-width="1.2"/>
+      <text x="285" y="215" fill="#ffd700" font-size="12">Q*</text>
+      <text x="305" y="57" fill="#ffd700" font-size="11">AC min</text>
+      <!-- annotations -->
+      <text x="90" y="195" fill="#8b87a8" font-size="10">MC &lt; AC: AC falling</text>
+      <text x="380" y="195" fill="#8b87a8" font-size="10">MC &gt; AC: AC rising</text>
+    </svg>
+  </div>
+
+  <div class="memory">
+    <div class="mem-title">💡 Memory Trick</div>
+    <div class="mem-body">
+      <strong>"MC is the boss — it pulls AC up when it's above, and pulls it down when below."</strong><br>
+      AC minimum always occurs where MC = AC.
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 8 -->
+<!-- ══════════════════════════════════════ -->
+<div class="section" id="s8">
+  <div class="section-header">
+    <div class="section-num">08</div>
+    <h2>Application: Revenue Maximization</h2>
+  </div>
+
+  <div class="app-card app-rev">
+    <h3>🟣 Revenue Maximization</h3>
+    <p>A firm maximizes Total Revenue TR regardless of profit (common in Baumol's model of firm behaviour).</p>
+    <div class="formula">
+      <span class="label">Revenue Function</span>
+      TR = P × Q  =  AR × Q
+      <br><br>
+      If demand: P = a − bQ, then TR = aQ − bQ²
+    </div>
+    <div class="formula">
+      <span class="label">FOC (Marginal Revenue = 0)</span>
+      dTR/dQ = 0
+      ⟹  MR = 0
+    </div>
+    <div class="formula">
+      <span class="label">SOC — Confirm Maximum</span>
+      d²TR/dQ² &lt; 0
+    </div>
+    <div class="box box-key">
+      <div class="box-label">🔑 Key Result</div>
+      Total Revenue is maximized when <strong>MR = 0</strong> (not when MR = MC!).
+    </div>
+  </div>
+
+  <!-- TR curve visual -->
+  <div class="graph-wrap">
+    <div class="graph-title">Revenue Maximization: TR peaks where MR = 0</div>
+    <svg viewBox="0 0 620 230" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-height:230px;">
+      <line x1="40" y1="200" x2="590" y2="200" class="axis-line"/>
+      <line x1="40" y1="200" x2="40" y2="10" class="axis-line"/>
+      <text x="595" y="204">Q</text>
+      <text x="42" y="12">TR</text>
+      <!-- TR inverted parabola -->
+      <path d="M50,185 C120,140 200,60 310,35 C420,60 490,130 560,185"
+            class="curve" stroke="#a78bfa" stroke-width="2.5"/>
+      <text x="565" y="190" fill="#a78bfa" font-size="12">TR</text>
+      <!-- peak of TR -->
+      <circle cx="310" cy="35" r="8" fill="#ffd700" stroke="#ffd700"/>
+      <line x1="310" y1="35" x2="310" y2="200" stroke="#ffd700" stroke-dasharray="5,4" stroke-width="1.2"/>
+      <text x="295" y="215" fill="#ffd700" font-size="12">Q*</text>
+      <!-- MR line going from positive to negative, crossing zero at Q* -->
+      <line x1="50" y1="110" x2="560" y2="200" stroke="#4ecdc4" stroke-width="1.8" stroke-dasharray="7,4"/>
+      <text x="540" y="198" fill="#4ecdc4" font-size="11">MR</text>
+      <text x="312" y="30" fill="#ffd700" font-size="11">MR=0</text>
+      <!-- annotations -->
+      <text x="100" y="185" fill="#8b87a8" font-size="10">MR &gt; 0 (TR rising)</text>
+      <text x="390" y="185" fill="#8b87a8" font-size="10">MR &lt; 0 (TR falling)</text>
+    </svg>
+  </div>
+
+  <div class="card">
+    <h3>Worked Example</h3>
+    <p>Demand: P = 100 − 4Q → TR = 100Q − 4Q²</p>
+    <ol class="steps">
+      <li>MR = dTR/dQ = 100 − 8Q</li>
+      <li>Set MR = 0: 100 − 8Q = 0 → Q* = 12.5</li>
+      <li>d²TR/dQ² = −8 &lt; 0 → Maximum confirmed ✓</li>
+      <li>TR* = 100(12.5) − 4(12.5)² = 1250 − 625 = <strong>625</strong></li>
+    </ol>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 9 -->
+<!-- ══════════════════════════════════════ -->
+<div class="section" id="s9">
+  <div class="section-header">
+    <div class="section-num">09</div>
+    <h2>Quick Reference Table</h2>
+  </div>
+
+  <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th>Application</th>
+          <th>Objective Function</th>
+          <th>FOC</th>
+          <th>SOC</th>
+          <th>Optimum Rule</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Profit Max</td>
+          <td>π = TR − TC</td>
+          <td>dπ/dQ = 0</td>
+          <td>d²π/dQ² &lt; 0</td>
+          <td style="color:var(--green)">MR = MC</td>
+        </tr>
+        <tr>
+          <td>Cost Min (AC)</td>
+          <td>AC = TC/Q</td>
+          <td>d(AC)/dQ = 0</td>
+          <td>d²AC/dQ² &gt; 0</td>
+          <td style="color:var(--accent2)">MC = AC</td>
+        </tr>
+        <tr>
+          <td>Revenue Max</td>
+          <td>TR = P × Q</td>
+          <td>dTR/dQ = 0</td>
+          <td>d²TR/dQ² &lt; 0</td>
+          <td style="color:var(--accent4)">MR = 0</td>
+        </tr>
+        <tr>
+          <td>General Max</td>
+          <td>y = f(x)</td>
+          <td>f'(x*) = 0</td>
+          <td>f''(x*) &lt; 0</td>
+          <td style="color:var(--muted)">Concave at x*</td>
+        </tr>
+        <tr>
+          <td>General Min</td>
+          <td>y = f(x)</td>
+          <td>f'(x*) = 0</td>
+          <td>f''(x*) &gt; 0</td>
+          <td style="color:var(--muted)">Convex at x*</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Flowchart: Decision process -->
+  <div class="graph-wrap">
+    <div class="graph-title">Optimization Decision Flowchart</div>
+    <svg viewBox="0 0 680 310" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-height:310px;">
+      <defs>
+        <marker id="arr" markerWidth="8" markerHeight="8" refX="4" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#8b87a8"/>
+        </marker>
+      </defs>
+      <!-- Box styles via rect+text combos -->
+      <!-- Start -->
+      <rect x="260" y="10" width="160" height="38" rx="19" fill="#1a1826" stroke="#a78bfa" stroke-width="1.5"/>
+      <text x="340" y="33" text-anchor="middle" fill="#a78bfa" font-size="12">Given f(x)</text>
+
+      <!-- Arrow down -->
+      <line x1="340" y1="48" x2="340" y2="68" stroke="#8b87a8" stroke-width="1.5" marker-end="url(#arr)"/>
+
+      <!-- FOC box -->
+      <rect x="230" y="68" width="220" height="38" rx="8" fill="#1a1826" stroke="#f5a623" stroke-width="1.5"/>
+      <text x="340" y="85" text-anchor="middle" fill="#f5a623" font-size="12">Step 1: Find f'(x) = 0</text>
+      <text x="340" y="100" text-anchor="middle" fill="#8b87a8" font-size="10">→ get critical point x*</text>
+
+      <!-- Arrow down -->
+      <line x1="340" y1="106" x2="340" y2="126" stroke="#8b87a8" stroke-width="1.5" marker-end="url(#arr)"/>
+
+      <!-- SOC box -->
+      <rect x="230" y="126" width="220" height="38" rx="8" fill="#1a1826" stroke="#4ecdc4" stroke-width="1.5"/>
+      <text x="340" y="143" text-anchor="middle" fill="#4ecdc4" font-size="12">Step 2: Find f''(x*)</text>
+      <text x="340" y="158" text-anchor="middle" fill="#8b87a8" font-size="10">→ evaluate second derivative</text>
+
+      <!-- Arrow left and right -->
+      <line x1="230" y1="145" x2="130" y2="145" stroke="#8b87a8" stroke-width="1.5" marker-end="url(#arr)"/>
+      <line x1="450" y1="145" x2="545" y2="145" stroke="#8b87a8" stroke-width="1.5" marker-end="url(#arr)"/>
+
+      <!-- f'' < 0 box -->
+      <rect x="30" y="125" width="100" height="40" rx="8" fill="rgba(86,207,143,.12)" stroke="#56cf8f" stroke-width="1.5"/>
+      <text x="80" y="143" text-anchor="middle" fill="#56cf8f" font-size="11">f''(x*) &lt; 0</text>
+      <text x="80" y="158" text-anchor="middle" fill="#56cf8f" font-size="11">→ MAXIMUM</text>
+
+      <!-- f'' > 0 box -->
+      <rect x="545" y="125" width="100" height="40" rx="8" fill="rgba(255,107,107,.12)" stroke="#ff6b6b" stroke-width="1.5"/>
+      <text x="595" y="143" text-anchor="middle" fill="#ff6b6b" font-size="11">f''(x*) &gt; 0</text>
+      <text x="595" y="158" text-anchor="middle" fill="#ff6b6b" font-size="11">→ MINIMUM</text>
+
+      <!-- f'' = 0 box -->
+      <rect x="255" y="185" width="170" height="38" rx="8" fill="rgba(139,135,168,.1)" stroke="#8b87a8" stroke-width="1.5"/>
+      <text x="340" y="201" text-anchor="middle" fill="#8b87a8" font-size="11">f''(x*) = 0</text>
+      <text x="340" y="216" text-anchor="middle" fill="#8b87a8" font-size="11">→ Inconclusive</text>
+      <line x1="340" y1="164" x2="340" y2="185" stroke="#8b87a8" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr)"/>
+
+      <!-- labels on arrows -->
+      <text x="168" y="138" fill="#8b87a8" font-size="10">negative</text>
+      <text x="455" y="138" fill="#8b87a8" font-size="10">positive</text>
+      <text x="318" y="178" fill="#8b87a8" font-size="10">= 0</text>
+
+      <!-- Bottom: outcomes -->
+      <line x1="80" y1="165" x2="80" y2="250" stroke="#56cf8f" stroke-width="1.5" marker-end="url(#arr)"/>
+      <rect x="30" y="250" width="100" height="38" rx="8" fill="rgba(86,207,143,.15)" stroke="#56cf8f" stroke-width="1.5"/>
+      <text x="80" y="268" text-anchor="middle" fill="#56cf8f" font-size="11">π max / TR max</text>
+      <text x="80" y="282" text-anchor="middle" fill="#56cf8f" font-size="10">MR=MC or MR=0</text>
+
+      <line x1="595" y1="165" x2="595" y2="250" stroke="#ff6b6b" stroke-width="1.5" marker-end="url(#arr)"/>
+      <rect x="545" y="250" width="100" height="38" rx="8" fill="rgba(255,107,107,.15)" stroke="#ff6b6b" stroke-width="1.5"/>
+      <text x="595" y="268" text-anchor="middle" fill="#ff6b6b" font-size="11">Cost min</text>
+      <text x="595" y="282" text-anchor="middle" fill="#ff6b6b" font-size="10">MC = AC</text>
+    </svg>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 10 -->
+<!-- ══════════════════════════════════════ -->
+<div class="section" id="s10">
+  <div class="exam-corner">
+    <h3>🎯 Exam Corner — Likely Questions (20 Marks)</h3>
+
+    <div class="exam-q"><span>3M</span> Define local and global maxima. How do they differ geometrically? Draw a diagram.</div>
+    <div class="exam-q"><span>5M</span> State and explain the first and second order conditions for maximization and minimization of a single variable function.</div>
+    <div class="exam-q"><span>5M</span> Derive the profit-maximizing output for a firm using calculus. Show that MR = MC is the FOC.</div>
+    <div class="exam-q"><span>4M</span> Show that Total Revenue is maximized when Marginal Revenue equals zero.</div>
+    <div class="exam-q"><span>3M</span> Explain geometrically why the average cost curve is U-shaped and where it is minimized.</div>
+    <div class="exam-q"><span>5M</span> A firm's total cost is TC = Q³ − 6Q² + 15Q + 10. Find the output that minimizes average cost. Verify your answer.</div>
+    <div class="exam-q"><span>5M</span> Demand is P = 80 − 2Q and TC = Q² + 4Q + 10. Find the profit-maximizing output and price. Calculate maximum profit.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- FINAL FORMULA SHEET -->
+<!-- ══════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">★</div>
+    <h2>Last-Minute Formula Sheet</h2>
+  </div>
+  <div class="grid-2">
+    <div>
+      <div class="formula">
+        <span class="label">Critical Point</span>
+        f'(x*) = 0
+      </div>
+      <div class="formula">
+        <span class="label">Maximum Test</span>
+        f'(x*)=0  AND  f''(x*) &lt; 0
+      </div>
+      <div class="formula">
+        <span class="label">Minimum Test</span>
+        f'(x*)=0  AND  f''(x*) &gt; 0
+      </div>
+    </div>
+    <div>
+      <div class="formula">
+        <span class="label">Profit Max Rule</span>
+        MR = MC  (and MC rising)
+      </div>
+      <div class="formula">
+        <span class="label">Revenue Max Rule</span>
+        MR = 0
+      </div>
+      <div class="formula">
+        <span class="label">AC Min Rule</span>
+        MC = AC  (at bottom of AC)
+      </div>
+    </div>
+  </div>
+  <div class="formula" style="margin-top:1rem; border-left-color:var(--accent3);">
+    <span class="label">Marginal Relationships</span>
+    MR = dTR/dQ  |  MC = dTC/dQ  |  AC = TC/Q
+    <br>MR = AR + Q·(dAR/dQ)  |  For competitive firm: MR = P = AR
+  </div>
+</div>
+
+</div><!-- end wrapper -->
+
+<script>
+// Progress bar
+const prog = document.getElementById('progress');
+const btt  = document.getElementById('btt');
+window.addEventListener('scroll', () => {
+  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+  prog.style.width = pct + '%';
+  btt.classList.toggle('show', window.scrollY > 400);
+});
+
+// Stagger section animations
+document.querySelectorAll('.section').forEach((el, i) => {
+  el.style.animationDelay = (i * 0.07) + 's';
+});
+</script>
+</body>
+</html>

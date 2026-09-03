@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A Special Surprise - Department of Economics</title>
+
+    <!-- ===== OPEN GRAPH / WHATSAPP META TAGS ===== -->
+    <meta property="og:title" content="Economics Get Together 2026 - Abhayapuri College" />
+    <meta property="og:description" content="You are cordially invited to the Department of Economics Get Together 2026 at Abhayapuri College." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://eduspark.site/invitation" />
+    <meta property="og:image" content="http://eduspark.site/invitation/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Abhayapuri College - Department of Economics" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Economics Get Together 2026 - Abhayapuri College" />
+    <meta name="twitter:description" content="You are cordially invited to the Department of Economics Get Together 2026 at Abhayapuri College." />
+    <meta name="twitter:image" content="http://eduspark.site/invitation/og-image.jpg" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet" />
+
+    <!-- Libraries for Export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+    </script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'college-navy': '#0B132B',
+                        'college-gold': '#D4AF37',
+                        'college-gold-light': '#F3E5AB',
+                    },
+                    fontFamily: {
+                        'cinzel': ['Cinzel', 'serif'],
+                        'montserrat': ['Montserrat', 'sans-serif'],
+                        'playfair': ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* ===== BASE ===== */
+        * {
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #060A16;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ===== ANIMATED BACKGROUND ===== */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ===== CARD GLOW WRAPPER ===== */
+        #card-glow {
+            position: relative;
+            border-radius: 12px;
+            padding: 6px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.4), rgba(212, 175, 55, 0.05), rgba(212, 175, 55, 0.4));
+            animation: glowPulse 3s ease-in-out infinite alternate;
+            box-shadow: 0 0 60px rgba(212, 175, 55, 0.15), 0 0 120px rgba(212, 175, 55, 0.05);
+        }
+        @keyframes glowPulse {
+            0% {
+                box-shadow: 0 0 40px rgba(212, 175, 55, 0.10), 0 0 80px rgba(212, 175, 55, 0.04);
+            }
+            100% {
+                box-shadow: 0 0 80px rgba(212, 175, 55, 0.25), 0 0 160px rgba(212, 175, 55, 0.08);
+            }
+        }
+
+        /* ===== FADE / SCALE ENTRANCE ===== */
+        .fade-in {
+            animation: fadeIn 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.96);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Card appears with a slight delay and zoom */
+        #card-wrapper {
+            animation: cardAppear 0.9s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            opacity: 0;
+            transform: scale(0.92) translateY(20px);
+        }
+        @keyframes cardAppear {
+            0% {
+                opacity: 0;
+                transform: scale(0.92) translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        /* ===== SPARKLE DOTS AROUND CARD ===== */
+        .sparkle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #F3E5AB, #D4AF37);
+            pointer-events: none;
+            opacity: 0;
+            animation: sparkleFloat 4s ease-in-out infinite;
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.6);
+        }
+        .sparkle:nth-child(1) {
+            top: -12px;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        .sparkle:nth-child(2) {
+            top: -8px;
+            right: 15%;
+            animation-delay: 1.2s;
+            width: 6px;
+            height: 6px;
+        }
+        .sparkle:nth-child(3) {
+            bottom: -10px;
+            left: 20%;
+            animation-delay: 2.4s;
+            width: 10px;
+            height: 10px;
+        }
+        .sparkle:nth-child(4) {
+            bottom: -6px;
+            right: 10%;
+            animation-delay: 0.6s;
+            width: 7px;
+            height: 7px;
+        }
+        .sparkle:nth-child(5) {
+            top: 50%;
+            left: -16px;
+            animation-delay: 1.8s;
+            width: 9px;
+            height: 9px;
+        }
+        .sparkle:nth-child(6) {
+            top: 50%;
+            right: -16px;
+            animation-delay: 3s;
+            width: 8px;
+            height: 8px;
+        }
+        @keyframes sparkleFloat {
+            0%,
+            100% {
+                opacity: 0;
+                transform: scale(0.5) translateY(0);
+            }
+            25% {
+                opacity: 1;
+                transform: scale(1.2) translateY(-6px);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1) translateY(0);
+            }
+            75% {
+                opacity: 1;
+                transform: scale(1.1) translateY(4px);
+            }
+        }
+
+        /* ===== LOADING ===== */
+        .loader {
+            border: 3px solid rgba(212, 175, 55, 0.2);
+            border-radius: 50%;
+            border-top: 3px solid #D4AF37;
+            width: 48px;
+            height: 48px;
+            animation: spin 0.9s linear infinite;
+        }
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ===== BUTTON RIPPLE ===== */
+        .btn-ripple {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.25s ease;
+        }
+        .btn-ripple::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.15), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+        .btn-ripple:hover::after {
+            opacity: 1;
+        }
+
+        /* ===== TOAST ===== */
+        #toast {
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        /* ===== CARD – UNCHANGED (only outer wrapper gets glow) ===== */
+        .card-bg {
+            background: radial-gradient(circle at center, #152243 0%, #060A16 100%);
+        }
+
+        /* ===== RESPONSIVE TWEAKS ===== */
+        @media (max-width: 480px) {
+            .sparkle {
+                display: none;
+            }
+            #card-glow {
+                padding: 3px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== ANIMATED BACKGROUND (Canvas) ===== -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- ===== HEADER ===== -->
+    <header class="relative z-10 w-full py-5 text-center bg-white/5 backdrop-blur-md border-b border-white/10 shadow-lg">
+        <h1 class="text-xl md:text-2xl font-cinzel font-bold text-college-gold tracking-wider drop-shadow-glow">ABHAYAPURI COLLEGE</h1>
+        <p class="text-sm font-montserrat tracking-[0.2em] text-college-gold-light/70 uppercase mt-1">Department of Economics</p>
+    </header>
+
+    <!-- ===== MAIN ===== -->
+    <main class="relative z-10 flex-1 w-full max-w-4xl mx-auto p-4 md:p-8 flex flex-col items-center justify-center min-h-[80vh]">
+
+        <!-- STEP 1: Form -->
+        <div id="setup-view" class="w-full max-w-md bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl p-6 md:p-8 border border-white/10 fade-in">
+            <h2 class="text-2xl font-playfair font-semibold text-center text-white mb-2 drop-shadow">A Special Surprise Awaits</h2>
+            <p class="text-center text-college-gold-light/60 text-sm mb-8">Please enter your details to reveal what we have planned for you.</p>
+
+            <div class="space-y-5">
+                <div>
+                    <label for="user-name" class="block text-sm font-medium text-college-gold-light/80 mb-1">Your Full Name</label>
+                    <input type="text" id="user-name" placeholder="e.g. Saheb Das"
+                    class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/40 focus:ring-2 focus:ring-college-gold focus:border-college-gold outline-none transition-all" required />
+                    <p id="name-error" class="text-rose-400 text-xs mt-1 hidden">Please enter your name to continue.</p>
+                </div>
+
+                <div>
+                    <label for="user-role" class="block text-sm font-medium text-college-gold-light/80 mb-1">Who are you?</label>
+                    <select id="user-role"
+                    class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white focus:ring-2 focus:ring-college-gold focus:border-college-gold outline-none transition-all appearance-none">
+                    <option value="junior" class="text-slate-800">Junior (Fresher)</option>
+                    <option value="senior" class="text-slate-800">Senior</option>
+                    <option value="teacher" class="text-slate-800">Teacher</option>
+                </select>
+            </div>
+
+            <button onclick="generateInvitation()"
+            class="btn-ripple w-full mt-4 bg-college-gold hover:bg-amber-500 text-college-navy font-bold py-3.5 px-4 rounded-lg shadow-lg hover:shadow-2xl transition-all flex items-center justify-center gap-2 text-base">
+            Reveal Now
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+        </button>
+    </div>
+</div>
+
+<!-- STEP 2: Preview -->
+<div id="preview-view" class="hidden w-full max-w-lg mx-auto pb-12">
+
+    <p class="text-center text-college-gold-light/60 text-sm mb-4">✨ The secret is out! Here is your personalized invitation.</p>
+
+    <!-- CARD WITH GLOW WRAPPER & SPARKLES -->
+    <div id="card-wrapper" class="w-full shadow-2xl rounded-sm overflow-hidden mb-8 transition-transform duration-500 hover:scale-[1.02] relative">
+
+        <!-- Sparkles -->
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+
+        <!-- Glow border -->
+        <div id="card-glow">
+            <!-- THE INVITATION CARD -->
+            <div id="invitation-card" class="relative w-full aspect-[4/5] card-bg flex flex-col items-center justify-between p-6 sm:p-10 box-border text-center overflow-hidden">
+
+                <!-- Decorative Borders -->
+                <div class="absolute inset-3 border-2 border-college-gold opacity-80 pointer-events-none"></div>
+                <div class="absolute inset-4 border border-college-gold opacity-40 pointer-events-none"></div>
+
+                <!-- Corner Ornaments -->
+                <svg class="absolute top-5 left-5 w-8 h-8 text-college-gold opacity-60" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2zm0 4.45l1.64 3.84 4.16.35-3.15 2.74.95 4.07-3.6-2.22-3.6 2.22.95-4.07-3.15-2.74 4.16-.35L12 6.45z"/>
+                </svg>
+                <svg class="absolute top-5 right-5 w-8 h-8 text-college-gold opacity-60" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2zm0 4.45l1.64 3.84 4.16.35-3.15 2.74.95 4.07-3.6-2.22-3.6 2.22.95-4.07-3.15-2.74 4.16-.35L12 6.45z"/>
+                </svg>
+
+                <!-- Header -->
+                <div class="mt-6 z-10 flex flex-col items-center">
+                    <div class="w-12 h-12 rounded-full border-2 border-college-gold flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-college-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 14l9-5-9-5-9 5 9 5z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 14l9-5-9-5-9 5 9 5zm0 0v6"/>
+                        </svg>
+                    </div>
+                    <p class="text-college-gold-light text-xs sm:text-sm font-montserrat tracking-[0.2em] mb-3 opacity-90 uppercase">You Are Cordially Invited To</p>
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl font-cinzel font-bold text-college-gold tracking-wider mb-2 leading-tight">GET TOGETHER<br>2026</h1>
+                </div>
+
+                <!-- Department & College -->
+                <div class="z-10 w-full px-4">
+                    <div class="w-3/4 h-[1px] bg-gradient-to-r from-transparent via-college-gold to-transparent mx-auto mb-4 opacity-50"></div>
+                    <h2 class="text-white text-sm sm:text-base font-montserrat tracking-widest uppercase mb-1">Department of Economics</h2>
+                    <h3 class="text-white text-lg sm:text-xl font-cinzel font-bold tracking-widest uppercase mb-4">Abhayapuri College</h3>
+                    <div class="w-3/4 h-[1px] bg-gradient-to-r from-transparent via-college-gold to-transparent mx-auto mt-4 opacity-50"></div>
+                </div>
+
+                <!-- Personalized Greeting -->
+                <div class="z-10 my-4 flex-1 flex flex-col justify-center px-6 text-center">
+                    <h4 id="card-greeting" class="text-2xl sm:text-3xl font-playfair italic text-white mb-3">Dear Name,</h4>
+                    <p id="card-message" class="text-college-gold-light font-montserrat text-sm sm:text-base font-light opacity-90 leading-relaxed max-w-[85%] mx-auto">
+                        Join us as we celebrate our journey together.
+                    </p>
+                </div>
+
+                <!-- Event Details with prominent venue -->
+                <div class="z-10 w-full mb-6 bg-[#D4AF37]/10 border border-[#D4AF37]/30 py-4 px-2 rounded backdrop-blur-sm">
+                    <div class="flex justify-center items-center gap-4 sm:gap-8 text-white font-montserrat mb-4">
+                        <div class="text-right">
+                            <p class="text-xs text-college-gold tracking-widest uppercase mb-0.5">Date</p>
+                            <p class="text-sm sm:text-base font-semibold">05 SEPT 2026</p>
+                        </div>
+                        <div class="w-[1px] h-10 bg-college-gold/50"></div>
+                        <div class="text-left">
+                            <p class="text-xs text-college-gold tracking-widest uppercase mb-0.5">Time</p>
+                            <p class="text-sm sm:text-base font-semibold">10:00 AM</p>
+                        </div>
+                    </div>
+                    <!-- Venue - prominently displayed -->
+                    <div class="mt-1 pt-2 border-t border-college-gold/20">
+                        <p class="text-xs text-college-gold tracking-widest uppercase mb-1">📍 Venue</p>
+                        <p class="text-base sm:text-lg text-white font-bold tracking-widest uppercase bg-college-gold/5 py-1 px-3 rounded-lg inline-block">SCR - 2</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ACTION BUTTONS -->
+    <div class="flex flex-col gap-4">
+        <div class="flex flex-col sm:flex-row gap-3 w-full">
+
+            <!-- Download PNG -->
+            <button onclick="downloadPNG()"
+            class="btn-ripple flex-1 bg-college-navy hover:bg-slate-900 text-white font-medium py-4 px-6 rounded-xl shadow-lg hover:shadow-2xl transition-all flex items-center justify-center gap-2 border border-slate-700">
+            <svg class="w-5 h-5 text-college-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+            <span class="text-lg">↓ Download</span>
+        </button>
+
+        <!-- Share (Web Share API) -->
+        <button onclick="shareInvitation()"
+        class="btn-ripple flex-1 bg-white/10 hover:bg-white/20 text-white font-medium py-4 px-6 rounded-xl shadow border border-white/10 transition-all flex items-center justify-center gap-2 backdrop-blur-sm">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+        </svg>
+        <span>Share</span>
+    </button>
+</div>
+
+<div class="flex flex-col sm:flex-row gap-3 w-full justify-center">
+    <!-- PDF -->
+    <button onclick="downloadPDF()"
+    class="btn-ripple text-college-gold-light/60 hover:text-college-gold-light text-sm font-medium underline underline-offset-4 flex items-center justify-center gap-2 transition-colors py-2 px-4">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+    </svg>
+    Download PDF
+</button>
+</div>
+</div>
+</div>
+
+</main>
+
+<!-- ===== TOAST ===== -->
+<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900/90 backdrop-blur-md border border-white/10 text-white px-6 py-3 rounded-full shadow-2xl transition-all duration-500 opacity-0 pointer-events-none z-50 text-sm font-medium whitespace-nowrap">
+    Notification message
+</div>
+
+<!-- ===== LOADING OVERLAY ===== -->
+<div id="loading-overlay" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex-col items-center justify-center text-white">
+    <div class="loader mb-4"></div>
+    <p id="loading-text" class="text-lg font-montserrat tracking-wide">Preparing...</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- ===== JAVASCRIPT ===== -->
+<!-- ============================================================ -->
+<script>
+    // ===== PARTICLE SYSTEM (Canvas) =====
+    (function initParticles() {
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let w, h;
+        let particles = [];
+        const COUNT = 80;
+
+        function resize() {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * w;
+                this.y = Math.random() * h;
+                this.size = Math.random() * 2.5 + 1.2;
+                this.speedX = (Math.random() - 0.5) * 0.35;
+                this.speedY = (Math.random() - 0.5) * 0.35;
+                this.opacity = Math.random() * 0.5 + 0.15;
+                this.gold = Math.random() > 0.6;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > w) this.speedX *= -1;
+                if (this.y < 0 || this.y > h) this.speedY *= -1;
+            }
+            draw() {
+                const color = this.gold ? `rgba(212, 175, 55, ${this.opacity})` :
+                    `rgba(255, 255, 255, ${this.opacity * 0.6})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = color;
+                ctx.fill();
+                if (this.gold) {
+                    ctx.shadowColor = 'rgba(212,175,55,0.3)';
+                    ctx.shadowBlur = 12;
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
+            }
+        }
+
+        for (let i = 0; i < COUNT; i++) {
+            particles.push(new Particle());
+        }
+
+        function drawLines() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 150) {
+                        const alpha = (1 - dist / 150) * 0.12;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(212, 175, 55, ${alpha})`;
+                        ctx.lineWidth = 0.6;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, w, h);
+            particles.forEach(p => { p.update();
+                p.draw(); });
+            drawLines();
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // handle resize
+        window.addEventListener('resize', () => {
+            resize();
+            particles.forEach(p => {
+                p.x = Math.min(p.x, w);
+                p.y = Math.min(p.y, h);
+            });
+        });
+    })();
+
+    // ===== APP STATE =====
+    let currentUserName = 'Guest';
+
+    function showToast(msg) {
+        const t = document.getElementById('toast');
+        t.innerText = msg;
+        t.classList.remove('opacity-0', 'translate-y-4');
+        clearTimeout(t._timer);
+        t._timer = setTimeout(() => {
+            t.classList.add('opacity-0', 'translate-y-4');
+        }, 3000);
+    }
+
+    function generateGreeting(name, role) {
+        let title, message;
+        switch (role) {
+            case 'junior':
+                title = `Dear ${name},`;
+                message = 'Welcome to Eco family! Join us as we begin this exciting new chapter and celebrate together.';
+                break;
+            case 'senior':
+                title = `Dear ${name},`;
+                message = 'Join us as we celebrate our journey together, relive cherished memories, and look toward the future.';
+                break;
+            case 'teacher':
+                title = `Respected ${name},`;
+                message = 'Your distinguished presence is requested to bless, guide, and inspire our gathering.';
+                break;
+            default:
+                title = `Dear ${name},`;
+                message = 'You are cordially invited to grace the occasion with your esteemed presence.';
+        }
+        return { title, message };
+    }
+
+    function generateInvitation() {
+        const nameInput = document.getElementById('user-name').value.trim();
+        const nameError = document.getElementById('name-error');
+        if (!nameInput) { nameError.classList.remove('hidden'); return; }
+        nameError.classList.add('hidden');
+
+        currentUserName = nameInput;
+        const role = document.getElementById('user-role').value;
+        const { title, message } = generateGreeting(nameInput, role);
+
+        document.getElementById('card-greeting').innerText = title;
+        document.getElementById('card-message').innerText = message;
+
+        document.getElementById('setup-view').classList.add('hidden');
+        const preview = document.getElementById('preview-view');
+        preview.classList.remove('hidden');
+
+        // Re-trigger card entrance animation
+        const wrapper = document.getElementById('card-wrapper');
+        wrapper.style.animation = 'none';
+        requestAnimationFrame(() => {
+            wrapper.style.animation = 'cardAppear 0.9s cubic-bezier(0.23,1,0.32,1) forwards';
+        });
+
+        setTimeout(() => preview.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+    }
+
+    // ===== LOADING =====
+    function showLoading(text) {
+        document.getElementById('loading-text').innerText = text;
+        document.getElementById('loading-overlay').classList.remove('hidden');
+        document.getElementById('loading-overlay').classList.add('flex');
+    }
+
+    function hideLoading() {
+        document.getElementById('loading-overlay').classList.add('hidden');
+        document.getElementById('loading-overlay').classList.remove('flex');
+    }
+
+    // ===== RENDER CARD =====
+    async function renderCardToCanvas() {
+        const card = document.getElementById('invitation-card');
+        // Force a minimum width to ensure proper rendering
+        const targetWidth = 1080;
+        const clientWidth = Math.max(card.offsetWidth, 400);
+        const scale = targetWidth / clientWidth;
+        await document.fonts.ready;
+        return await html2canvas(card, {
+            scale: scale,
+            useCORS: true,
+            allowTaint: true,
+            backgroundColor: '#0B132B',
+            logging: false,
+            width: card.scrollWidth,
+            height: card.scrollHeight
+        });
+    }
+
+    function getFileName(ext) {
+        const safe = currentUserName.replace(/[^a-zA-Z0-9]/g, '_');
+        return `Economics_Get_Together_${safe}.${ext}`;
+    }
+
+    // ===== DOWNLOAD PNG =====
+    async function downloadPNG() {
+        showLoading('Preparing your invitation…');
+        try {
+            // Small delay to ensure loading screen renders
+            await new Promise(resolve => setTimeout(resolve, 100));
+            const canvas = await renderCardToCanvas();
+            const link = document.createElement('a');
+            link.download = getFileName('png');
+            link.href = canvas.toDataURL('image/png', 1.0);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            showToast('✅ Invitation downloaded!');
+        } catch (e) {
+            console.error('Download error:', e);
+            showToast('❌ Failed to generate image. Please try again.');
+        } finally {
+            hideLoading();
+        }
+    }
+
+    // ===== DOWNLOAD PDF =====
+    async function downloadPDF() {
+        showLoading('Generating PDF…');
+        try {
+            await new Promise(resolve => setTimeout(resolve, 100));
+            const canvas = await renderCardToCanvas();
+            const imgData = canvas.toDataURL('image/png', 1.0);
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF({
+                orientation: 'portrait',
+                unit: 'px',
+                format: [canvas.width, canvas.height]
+            });
+            pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+            pdf.save(getFileName('pdf'));
+            showToast('✅ PDF downloaded!');
+        } catch (e) {
+            console.error('PDF error:', e);
+            showToast('❌ Failed to generate PDF. Please try again.');
+        } finally {
+            hideLoading();
+        }
+    }
+
+    // ===== SHARE (Web Share API) =====
+    async function shareInvitation() {
+        showLoading('Preparing image…');
+        try {
+            await new Promise(resolve => setTimeout(resolve, 100));
+            const canvas = await renderCardToCanvas();
+            const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png', 1.0));
+            const file = new File([blob], getFileName('png'), { type: 'image/png' });
+            hideLoading();
+            
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                try {
+                    await navigator.share({
+                        title: 'Economics Get Together 2026',
+                        text: `Join me at the Abhayapuri College Economics Get Together!`,
+                        files: [file]
+                    });
+                } catch (shareErr) {
+                    if (shareErr.name !== 'AbortError') {
+                        console.error('Share error:', shareErr);
+                        showToast('⚠️ Share cancelled or failed.');
+                    }
+                }
+            } else {
+                // Fallback: download the image instead
+                const link = document.createElement('a');
+                link.download = getFileName('png');
+                link.href = canvas.toDataURL('image/png', 1.0);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                showToast('📱 Sharing not supported. Image downloaded instead.');
+            }
+        } catch (e) {
+            hideLoading();
+            console.error('Share error:', e);
+            showToast('❌ Failed to prepare image for sharing.');
+        }
+    }
+
+    // ===== RIPPLE EFFECT ON BUTTONS =====
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.btn-ripple');
+        if (!btn) return;
+        const rect = btn.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        btn.style.setProperty('--x', x + '%');
+        btn.style.setProperty('--y', y + '%');
+    });
+
+    // ===== KEYBOARD: Enter to submit =====
+    document.getElementById('user-name').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') generateInvitation();
+    });
+</script>
+
+</body>
+</html>

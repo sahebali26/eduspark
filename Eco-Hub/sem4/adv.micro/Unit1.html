@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 1: Input Markets — Advanced Microeconomics</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --cream: #faf7f2;
+    --parchment: #f0ead8;
+    --gold: #c9933a;
+    --gold-light: #f0c96a;
+    --rust: #b94f2a;
+    --teal: #1e7a6e;
+    --teal-light: #e8f5f3;
+    --slate: #3d5a80;
+    --slate-light: #e8eef6;
+    --shadow: rgba(26,26,46,0.12);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.75;
+  }
+
+  /* ── HEADER ── */
+  .hero {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 60px 40px 50px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent, transparent 30px,
+      rgba(201,147,58,.07) 30px, rgba(201,147,58,.07) 31px
+    );
+  }
+  .hero-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.8rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+  .hero h1 em {
+    color: var(--gold-light);
+    font-style: italic;
+  }
+  .hero-sub {
+    font-size: 1.05rem;
+    color: rgba(250,247,242,.65);
+    margin-top: 8px;
+  }
+
+  /* ── LAYOUT ── */
+  .wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ── TOC ── */
+  .toc {
+    background: var(--parchment);
+    border: 1.5px solid var(--gold);
+    border-radius: 6px;
+    padding: 32px 36px;
+    margin: 48px 0 40px;
+  }
+  .toc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+  }
+  .toc ol { padding-left: 20px; columns: 2; column-gap: 40px; }
+  @media(max-width:600px){ .toc ol { columns: 1; } }
+  .toc li { margin-bottom: 6px; font-size: 0.92rem; }
+  .toc a { color: var(--slate); text-decoration: none; }
+  .toc a:hover { color: var(--gold); text-decoration: underline; }
+
+  /* ── SECTIONS ── */
+  .section { margin-bottom: 60px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--gold);
+  }
+  .section-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+    min-width: 48px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--slate);
+    margin: 24px 0 10px;
+    padding-left: 12px;
+    border-left: 3px solid var(--slate);
+  }
+
+  p { margin-bottom: 14px; }
+
+  /* ── DEFINITION CARDS ── */
+  .def-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .def-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 18px 20px;
+    box-shadow: 0 2px 8px var(--shadow);
+    border-top: 3px solid var(--teal);
+    transition: transform .15s, box-shadow .15s;
+  }
+  .def-card:hover { transform: translateY(-2px); box-shadow: 0 6px 18px var(--shadow); }
+  .def-term {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--teal);
+    margin-bottom: 6px;
+  }
+  .def-body { font-size: 0.88rem; line-height: 1.6; color: #333; }
+
+  /* ── FORMULA BOX ── */
+  .formula {
+    background: var(--ink);
+    color: var(--gold-light);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.05rem;
+    padding: 18px 24px;
+    border-radius: 8px;
+    margin: 18px 0;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+
+  /* ── CALLOUT ── */
+  .callout {
+    border-left: 4px solid var(--rust);
+    background: #fff8f5;
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 18px 0;
+    font-size: 0.95rem;
+  }
+  .callout-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  .note-box {
+    border-left: 4px solid var(--teal);
+    background: var(--teal-light);
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 18px 0;
+    font-size: 0.93rem;
+  }
+
+  /* ── DIAGRAM WRAPPER ── */
+  .diagram-wrap {
+    background: #fff;
+    border: 1.5px solid #e0ddd5;
+    border-radius: 10px;
+    padding: 24px 16px 16px;
+    margin: 28px 0;
+    box-shadow: 0 2px 12px var(--shadow);
+    text-align: center;
+  }
+  .diagram-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--ink);
+    margin-bottom: 16px;
+    letter-spacing: 0.3px;
+  }
+  .diagram-caption {
+    font-size: 0.82rem;
+    color: #666;
+    margin-top: 12px;
+    line-height: 1.5;
+    font-style: italic;
+  }
+
+  /* ── TABLE ── */
+  table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.91rem; }
+  thead { background: var(--ink); color: var(--cream); }
+  th { padding: 11px 14px; text-align: left; font-family: 'Playfair Display', serif; font-weight: 700; }
+  td { padding: 10px 14px; border-bottom: 1px solid #e8e3d9; }
+  tr:nth-child(even) td { background: var(--parchment); }
+  tr:hover td { background: var(--teal-light); }
+
+  /* ── BULLET LIST ── */
+  ul.styled { padding-left: 0; list-style: none; }
+  ul.styled li { padding: 5px 0 5px 22px; position: relative; font-size: 0.93rem; }
+  ul.styled li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 0.85rem; top: 6px; }
+
+  /* ── Q&A ── */
+  .qa-block { margin: 18px 0; }
+  .qa-q {
+    font-weight: 600;
+    font-family: 'Playfair Display', serif;
+    color: var(--slate);
+    margin-bottom: 6px;
+    font-size: 1rem;
+  }
+  .qa-a { font-size: 0.92rem; padding-left: 16px; border-left: 2px solid #ddd; color: #444; }
+
+  /* ── REVISION BOX ── */
+  .revision {
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 10px;
+    padding: 32px 36px;
+    margin: 48px 0;
+  }
+  .revision h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold-light);
+    font-size: 1.4rem;
+    margin-bottom: 18px;
+  }
+  .revision ul { list-style: none; padding: 0; }
+  .revision li {
+    padding: 7px 0 7px 24px;
+    position: relative;
+    border-bottom: 1px solid rgba(250,247,242,.1);
+    font-size: 0.93rem;
+    line-height: 1.6;
+  }
+  .revision li::before { content: '✓'; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--parchment);
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 0.8rem;
+    color: #888;
+    border-top: 1px solid #ddd;
+    margin-top: 60px;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    .hero { background: #000 !important; -webkit-print-color-adjust: exact; }
+    .diagram-wrap { page-break-inside: avoid; }
+    .section { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-label">Advanced Microeconomics · Unit 1</div>
+  <h1>Input <em>Markets</em></h1>
+  <p class="hero-sub">Labour · Capital · Land · Factor Pricing · Policy</p>
+</div>
+
+<div class="wrapper">
+
+<!-- TOC -->
+<nav class="toc">
+  <div class="toc-title">📋 Table of Contents</div>
+  <ol>
+    <li><a href="#s1">Basic Concepts</a></li>
+    <li><a href="#s2">Derived Demand for Inputs</a></li>
+    <li><a href="#s3">Productivity Concepts & MRP</a></li>
+    <li><a href="#s4">Demand for Labour</a></li>
+    <li><a href="#s5">Input Demand Curve & Shifts</a></li>
+    <li><a href="#s6">Competitive Labour Market</a></li>
+    <li><a href="#s7">Backward Bending Supply Curve</a></li>
+    <li><a href="#s8">Land Market & Ricardian Rent</a></li>
+    <li><a href="#s9">Labour Market & Public Policy</a></li>
+    <li><a href="#s10">Factor Share & Income Distribution</a></li>
+    <li><a href="#s11">Technical Progress</a></li>
+    <li><a href="#diagrams">Key Diagrams</a></li>
+    <li><a href="#qa">Exam Questions & Answers</a></li>
+    <li><a href="#revision">Quick Revision</a></li>
+  </ol>
+</nav>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECTION 1: BASIC CONCEPTS -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section" id="s1">
+  <div class="section-header">
+    <span class="section-num">1</span>
+    <span class="section-title">Basic Concepts</span>
+  </div>
+
+  <div class="def-grid">
+    <div class="def-card">
+      <div class="def-term">👷 Labour Market</div>
+      <div class="def-body">A market where labour services are bought and sold. Firms demand labour for production; workers supply it in exchange for wages.</div>
+    </div>
+    <div class="def-card">
+      <div class="def-term">⚙️ Factors of Production</div>
+      <div class="def-body">Basic resources required for producing goods and services: <strong>Labour, Land, Capital, Entrepreneurship</strong>.</div>
+    </div>
+    <div class="def-card">
+      <div class="def-term">🤝 Labour</div>
+      <div class="def-body">Human effort — physical and mental — used in production. Reward = <strong>Wages</strong>.</div>
+    </div>
+    <div class="def-card">
+      <div class="def-term">🏭 Capital</div>
+      <div class="def-body">Man-made resources (machines, tools, buildings) that increase production efficiency. Reward = <strong>Interest</strong>.</div>
+    </div>
+    <div class="def-card">
+      <div class="def-term">💡 Entrepreneurship</div>
+      <div class="def-body">Ability to organise factors, take risks, and make decisions. Reward = <strong>Profit</strong>.</div>
+    </div>
+    <div class="def-card">
+      <div class="def-term">📈 Derived Demand</div>
+      <div class="def-body">Demand for labour/capital is derived from the demand for the <strong>final goods</strong> they help produce.</div>
+    </div>
+    <div class="def-card">
+      <div class="def-term">📊 Productivity</div>
+      <div class="def-body">Efficiency of an input in producing output — how much output is generated per unit of input.</div>
+    </div>
+    <div class="def-card">
+      <div class="def-term">💰 MRP</div>
+      <div class="def-body">Marginal Revenue Product — additional revenue from hiring one more unit of input.</div>
+    </div>
+  </div>
+
+  <div class="formula">MRP = Marginal Product (MP) × Marginal Revenue (MR)<br>
+  <span style="font-size:.85rem;color:#aaa;">In perfect competition: MRP = MP × Price</span></div>
+
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECTION 2: DERIVED DEMAND -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section" id="s2">
+  <div class="section-header">
+    <span class="section-num">2</span>
+    <span class="section-title">Derived Demand for Inputs</span>
+  </div>
+
+  <p>The demand for factors of production is <strong>not direct</strong>; it is derived from the demand for the final goods and services those factors help create.</p>
+
+  <!-- DIAGRAM: Derived Demand Chain -->
+  <div class="diagram-wrap">
+    <div class="diagram-title">Diagram 1 — The Chain of Derived Demand</div>
+    <svg viewBox="0 0 700 130" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;">
+      <defs>
+        <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#c9933a"/>
+        </marker>
+      </defs>
+      <!-- Box 1 -->
+      <rect x="10" y="35" width="150" height="60" rx="8" fill="#1a1a2e"/>
+      <text x="85" y="61" text-anchor="middle" fill="#f0c96a" font-family="Playfair Display,serif" font-size="13" font-weight="700">Consumer</text>
+      <text x="85" y="79" text-anchor="middle" fill="#faf7f2" font-family="Source Serif 4,serif" font-size="11">Demand for Goods</text>
+      <!-- Arrow -->
+      <line x1="162" y1="65" x2="210" y2="65" stroke="#c9933a" stroke-width="2.5" marker-end="url(#arr)"/>
+      <!-- Box 2 -->
+      <rect x="212" y="35" width="150" height="60" rx="8" fill="#1e7a6e"/>
+      <text x="287" y="61" text-anchor="middle" fill="#f0c96a" font-family="Playfair Display,serif" font-size="13" font-weight="700">Firms Increase</text>
+      <text x="287" y="79" text-anchor="middle" fill="#faf7f2" font-family="Source Serif 4,serif" font-size="11">Production</text>
+      <!-- Arrow -->
+      <line x1="364" y1="65" x2="412" y2="65" stroke="#c9933a" stroke-width="2.5" marker-end="url(#arr)"/>
+      <!-- Box 3 -->
+      <rect x="414" y="35" width="150" height="60" rx="8" fill="#3d5a80"/>
+      <text x="489" y="61" text-anchor="middle" fill="#f0c96a" font-family="Playfair Display,serif" font-size="13" font-weight="700">Higher Demand</text>
+      <text x="489" y="79" text-anchor="middle" fill="#faf7f2" font-family="Source Serif 4,serif" font-size="11">for Labour &amp; Capital</text>
+      <!-- Arrow -->
+      <line x1="566" y1="65" x2="614" y2="65" stroke="#c9933a" stroke-width="2.5" marker-end="url(#arr)"/>
+      <!-- Box 4 -->
+      <rect x="616" y="35" width="70" height="60" rx="8" fill="#b94f2a"/>
+      <text x="651" y="62" text-anchor="middle" fill="#faf7f2" font-family="Playfair Display,serif" font-size="11" font-weight="700">Higher</text>
+      <text x="651" y="78" text-anchor="middle" fill="#faf7f2" font-family="Source Serif 4,serif" font-size="10">Wages</text>
+    </svg>
+    <div class="diagram-caption">Example: ↑ Demand for smartphones → ↑ Demand for workers & machines in smartphone factories.</div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">Key Insight</div>
+    Labour does not satisfy wants directly — it helps produce goods that satisfy wants. Therefore, labour demand is always <em>derived</em> from product demand.
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECTION 3: PRODUCTIVITY & MRP -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section" id="s3">
+  <div class="section-header">
+    <span class="section-num">3</span>
+    <span class="section-title">Productivity Concepts &amp; MRP</span>
+  </div>
+
+  <h3>Marginal Product of Labour (MPL)</h3>
+  <p>Additional output produced by employing one more unit of labour, holding all other inputs constant.</p>
+  <div class="formula">MPL = ΔQ / ΔL</div>
+
+  <h3>Marginal Revenue Product (MRP)</h3>
+  <p>Additional <em>revenue</em> generated by employing one more unit of labour.</p>
+  <div class="formula">MRP = MPL × MR &nbsp;&nbsp;|&nbsp;&nbsp; Under Perfect Competition: MRP = MPL × Price</div>
+
+  <!-- MRP Table -->
+  <table>
+    <thead>
+      <tr><th>Workers (L)</th><th>Output (Q)</th><th>MPL = ΔQ/ΔL</th><th>Price (P)</th><th>MRP = MPL × P</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>10</td><td>10</td><td>₹5</td><td><strong>₹50</strong></td></tr>
+      <tr><td>2</td><td>18</td><td>8</td><td>₹5</td><td><strong>₹40</strong></td></tr>
+      <tr><td>3</td><td>24</td><td>6</td><td>₹5</td><td><strong>₹30</strong></td></tr>
+      <tr><td>4</td><td>28</td><td>4</td><td>₹5</td><td><strong>₹20</strong></td></tr>
+      <tr><td>5</td><td>30</td><td>2</td><td>₹5</td><td><strong>₹10</strong></td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:.85rem;color:#666;">MRP declines as more workers are hired — this is the <em>Law of Diminishing Marginal Returns</em> at work.</p>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECTION 4: DEMAND FOR LABOUR -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section" id="s4">
+  <div class="section-header">
+    <span class="section-num">4</span>
+    <span class="section-title">Demand for Labour</span>
+  </div>
+
+  <p>A firm will hire labour up to the point where <strong>MRP = Wage (W)</strong>. This is the profit-maximization condition for input hiring.</p>
+
+  <!-- DIAGRAM: Labour Demand / MRP = W -->
+  <div class="diagram-wrap">
+    <div class="diagram-title">Diagram 2 — Labour Demand: MRP = Wage Equilibrium</div>
+    <svg viewBox="0 0 500 340" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;">
+      <!-- Axes -->
+      <line x1="70" y1="300" x2="460" y2="300" stroke="#1a1a2e" stroke-width="2"/>
+      <line x1="70" y1="40" x2="70" y2="300" stroke="#1a1a2e" stroke-width="2"/>
+      <!-- Axis arrowheads -->
+      <polygon points="460,296 470,300 460,304" fill="#1a1a2e"/>
+      <polygon points="66,40 70,30 74,40" fill="#1a1a2e"/>
+      <!-- Axis labels -->
+      <text x="465" y="304" font-family="Source Serif 4,serif" font-size="13" fill="#1a1a2e">L</text>
+      <text x="54" y="26" font-family="Source Serif 4,serif" font-size="13" fill="#1a1a2e">W/MRP</text>
+      <!-- MRP curve (downward sloping) -->
+      <path d="M100,80 C160,100 230,160 430,270" stroke="#1e7a6e" stroke-width="3" fill="none"/>
+      <!-- Wage line (horizontal) -->
+      <line x1="70" y1="185" x2="450" y2="185" stroke="#b94f2a" stroke-width="2.2" stroke-dasharray="6,4"/>
+      <!-- Equilibrium point -->
+      <circle cx="260" cy="185" r="6" fill="#c9933a"/>
+      <!-- Drop lines -->
+      <line x1="260" y1="185" x2="260" y2="300" stroke="#c9933a" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <line x1="70" y1="185" x2="260" y2="185" stroke="#c9933a" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <!-- Labels -->
+      <text x="435" y="68" font-family="Playfair Display,serif" font-size="13" fill="#1e7a6e" font-weight="700">MRP</text>
+      <text x="455" y="189" font-family="Playfair Display,serif" font-size="13" fill="#b94f2a" font-weight="700">W</text>
+      <text x="252" y="318" font-family="JetBrains Mono,monospace" font-size="12" fill="#1a1a2e">L*</text>
+      <text x="40" y="189" font-family="JetBrains Mono,monospace" font-size="12" fill="#1a1a2e">W*</text>
+      <text x="258" y="175" font-family="JetBrains Mono,monospace" font-size="11" fill="#c9933a">E</text>
+      <!-- Regions annotation -->
+      <text x="110" y="225" font-family="Source Serif 4,serif" font-size="11" fill="#1e7a6e">MRP &gt; W → Hire more</text>
+      <text x="300" y="140" font-family="Source Serif 4,serif" font-size="11" fill="#b94f2a">MRP &lt; W → Reduce hiring</text>
+    </svg>
+    <div class="diagram-caption">At equilibrium E, the firm hires L* workers at wage W*. If MRP > W, hiring more workers increases profit; if MRP < W, reducing workers improves profit.</div>
+  </div>
+
+  <div class="note-box">
+    <strong>Law of Diminishing Marginal Returns:</strong> As more units of labour are employed (holding capital constant), MPL eventually falls, causing MRP to decline. This is why the labour demand curve is downward sloping.
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECTION 5: INPUT DEMAND CURVE & SHIFTS -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section" id="s5">
+  <div class="section-header">
+    <span class="section-num">5</span>
+    <span class="section-title">Input Demand Curve &amp; Its Shifts</span>
+  </div>
+
+  <p>The input demand curve is essentially the <strong>MRP curve</strong>. It slopes downward due to diminishing marginal productivity.</p>
+
+  <!-- DIAGRAM: Shifts in Labour Demand -->
+  <div class="diagram-wrap">
+    <div class="diagram-title">Diagram 3 — Shifts in the Labour Demand Curve</div>
+    <svg viewBox="0 0 520 320" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;">
+      <!-- Axes -->
+      <line x1="60" y1="280" x2="490" y2="280" stroke="#1a1a2e" stroke-width="2"/>
+      <line x1="60" y1="30" x2="60" y2="280" stroke="#1a1a2e" stroke-width="2"/>
+      <polygon points="490,276 500,280 490,284" fill="#1a1a2e"/>
+      <polygon points="56,30 60,20 64,30" fill="#1a1a2e"/>
+      <text x="505" y="284" font-family="Source Serif 4,serif" font-size="13" fill="#1a1a2e">L</text>
+      <text x="38" y="18" font-family="Source Serif 4,serif" font-size="13" fill="#1a1a2e">W</text>
+
+      <!-- D0 original curve -->
+      <path d="M90,60 C150,90 250,200 430,260" stroke="#3d5a80" stroke-width="2.5" fill="none" stroke-dasharray="5,3"/>
+      <text x="435" y="248" font-family="Playfair Display,serif" font-size="12" fill="#3d5a80" font-weight="700">D₀</text>
+
+      <!-- D1 right shift -->
+      <path d="M160,60 C220,90 320,200 470,255" stroke="#1e7a6e" stroke-width="3" fill="none"/>
+      <text x="474" y="243" font-family="Playfair Display,serif" font-size="12" fill="#1e7a6e" font-weight="700">D₁</text>
+
+      <!-- D2 left shift -->
+      <path d="M50,80 C90,110 170,210 330,268" stroke="#b94f2a" stroke-width="2.5" fill="none" stroke-dasharray="5,3"/>
+      <text x="328" y="258" font-family="Playfair Display,serif" font-size="12" fill="#b94f2a" font-weight="700">D₂</text>
+
+      <!-- Arrows -->
+      <defs>
+        <marker id="arr2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#1e7a6e"/>
+        </marker>
+        <marker id="arr3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#b94f2a"/>
+        </marker>
+      </defs>
+      <line x1="290" y1="130" x2="340" y2="125" stroke="#1e7a6e" stroke-width="2" marker-end="url(#arr2)"/>
+      <line x1="260" y1="130" x2="210" y2="140" stroke="#b94f2a" stroke-width="2" marker-end="url(#arr3)"/>
+
+      <!-- Legend -->
+      <rect x="62" y="35" width="200" height="75" rx="5" fill="white" opacity="0.9" stroke="#ddd"/>
+      <line x1="72" y1="55" x2="100" y2="55" stroke="#1e7a6e" stroke-width="2.5"/>
+      <text x="108" y="59" font-family="Source Serif 4,serif" font-size="10" fill="#1e7a6e">↑ Right shift: Higher output price,</text>
+      <text x="108" y="71" font-family="Source Serif 4,serif" font-size="10" fill="#1e7a6e">better tech, ↑ product demand</text>
+      <line x1="72" y1="90" x2="100" y2="90" stroke="#b94f2a" stroke-width="2.5" stroke-dasharray="4,2"/>
+      <text x="108" y="94" font-family="Source Serif 4,serif" font-size="10" fill="#b94f2a">← Left shift: ↓ product demand,</text>
+      <text x="108" y="106" font-family="Source Serif 4,serif" font-size="10" fill="#b94f2a">↓ output price, ↓ productivity</text>
+    </svg>
+    <div class="diagram-caption">D₀ is the original demand. D₁ represents a rightward shift (increase in demand); D₂ represents a leftward shift (decrease in demand).</div>
+  </div>
+
+  <table>
+    <thead><tr><th>Demand Increases (Rightward Shift)</th><th>Demand Decreases (Leftward Shift)</th></tr></thead>
+    <tbody>
+      <tr><td>↑ Demand for final product</td><td>↓ Demand for final product</td></tr>
+      <tr><td>↑ Technology / Productivity</td><td>↓ Productivity of input</td></tr>
+      <tr><td>↑ Output price</td><td>↓ Output price</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECTION 6: COMPETITIVE LABOUR MARKET -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section" id="s6">
+  <div class="section-header">
+    <span class="section-num">6</span>
+    <span class="section-title">Competitive Labour Market &amp; Wage Determination</span>
+  </div>
+
+  <p>A competitive labour market has many buyers (firms) and sellers (workers), homogeneous labour, and free entry/exit. No single party can influence wages.</p>
+
+  <!-- DIAGRAM: Labour Market Equilibrium -->
+  <div class="diagram-wrap">
+    <div class="diagram-title">Diagram 4 — Wage Determination: Demand &amp; Supply of Labour</div>
+    <svg viewBox="0 0 500 340" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;">
+      <!-- Axes -->
+      <line x1="70" y1="300" x2="460" y2="300" stroke="#1a1a2e" stroke-width="2"/>
+      <line x1="70" y1="40" x2="70" y2="300" stroke="#1a1a2e" stroke-width="2"/>
+      <polygon points="460,296 470,300 460,304" fill="#1a1a2e"/>
+      <polygon points="66,40 70,30 74,40" fill="#1a1a2e"/>
+      <text x="468" y="304" font-family="Source Serif 4,serif" font-size="13" fill="#1a1a2e">L</text>
+      <text x="46" y="26" font-family="Source Serif 4,serif" font-size="13" fill="#1a1a2e">W</text>
+      <!-- Demand curve (downward) -->
+      <path d="M100,80 C200,140 310,230 440,275" stroke="#1e7a6e" stroke-width="3" fill="none"/>
+      <text x="442" y="268" font-family="Playfair Display,serif" font-size="13" fill="#1e7a6e" font-weight="700">D(MRP)</text>
+      <!-- Supply curve (upward) -->
+      <path d="M100,280 C200,240 300,160 400,80" stroke="#3d5a80" stroke-width="3" fill="none"/>
+      <text x="402" y="75" font-family="Playfair Display,serif" font-size="13" fill="#3d5a80" font-weight="700">S</text>
+      <!-- Equilibrium -->
+      <circle cx="255" cy="190" r="7" fill="#c9933a"/>
+      <line x1="255" y1="190" x2="255" y2="300" stroke="#c9933a" stroke-width="1.5" stroke-dasharray="5,4"/>
+      <line x1="70" y1="190" x2="255" y2="190" stroke="#c9933a" stroke-width="1.5" stroke-dasharray="5,4"/>
+      <text x="248" y="320" font-family="JetBrains Mono,monospace" font-size="13" fill="#c9933a" font-weight="600">L*</text>
+      <text x="34" y="195" font-family="JetBrains Mono,monospace" font-size="13" fill="#c9933a" font-weight="600">W*</text>
+      <text x="260" y="185" font-family="JetBrains Mono,monospace" font-size="12" fill="#c9933a">E</text>
+      <!-- Shading surplus / shortage areas -->
+      <text x="310" y="230" font-family="Source Serif 4,serif" font-size="11" fill="#888">Excess Supply</text>
+      <text x="100" y="150" font-family="Source Serif 4,serif" font-size="11" fill="#888">Excess Demand</text>
+    </svg>
+    <div class="diagram-caption">Equilibrium wage W* and employment L* are determined where demand (MRP curve) intersects the supply of labour. Any deviation creates excess demand or excess supply that pushes the market back to equilibrium.</div>
+  </div>
+
+  <ul class="styled">
+    <li>At W* there is neither excess supply nor shortage of labour.</li>
+    <li>If W > W*: surplus labour — wages fall back to equilibrium.</li>
+    <li>If W < W*: labour shortage — wages rise back to equilibrium.</li>
+  </ul>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECTION 7: BACKWARD BENDING SUPPLY -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section" id="s7">
+  <div class="section-header">
+    <span class="section-num">7</span>
+    <span class="section-title">Backward Bending Supply Curve of Labour</span>
+  </div>
+
+  <p>At low wages, higher wages induce more labour supply (<strong>substitution effect</strong> dominates). Beyond a point, workers prefer leisure — the <strong>income effect</strong> dominates, and labour supply falls.</p>
+
+  <!-- DIAGRAM: Backward Bending Supply -->
+  <div class="diagram-wrap">
+    <div class="diagram-title">Diagram 5 — Backward Bending Labour Supply Curve</div>
+    <svg viewBox="0 0 480 340" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;">
+      <!-- Axes -->
+      <line x1="70" y1="300" x2="440" y2="300" stroke="#1a1a2e" stroke-width="2"/>
+      <line x1="70" y1="40" x2="70" y2="300" stroke="#1a1a2e" stroke-width="2"/>
+      <polygon points="440,296 450,300 440,304" fill="#1a1a2e"/>
+      <polygon points="66,40 70,30 74,40" fill="#1a1a2e"/>
+      <text x="454" y="304" font-family="Source Serif 4,serif" font-size="13" fill="#1a1a2e">Hours of Work</text>
+      <text x="30" y="26" font-family="Source Serif 4,serif" font-size="13" fill="#1a1a2e">W</text>
+      <!-- Backward bending curve -->
+      <path d="M130,290 C150,240 200,160 250,110 C280,80 290,65 260,55 C240,48 200,55 150,80" stroke="#b94f2a" stroke-width="3.5" fill="none"/>
+      <!-- Turning point indicator -->
+      <circle cx="252" cy="110" r="5" fill="#c9933a"/>
+      <line x1="252" y1="110" x2="252" y2="300" stroke="#c9933a" stroke-width="1.5" stroke-dasharray="5,4"/>
+      <line x1="70" y1="110" x2="252" y2="110" stroke="#c9933a" stroke-width="1.5" stroke-dasharray="5,4"/>
+      <!-- Annotations -->
+      <text x="255" y="320" font-family="JetBrains Mono,monospace" font-size="11" fill="#c9933a">L_max</text>
+      <text x="28" y="114" font-family="JetBrains Mono,monospace" font-size="11" fill="#c9933a">W_b</text>
+      <!-- Region labels -->
+      <text x="170" y="200" font-family="Source Serif 4,serif" font-size="12" fill="#1e7a6e" font-weight="600">Substitution Effect</text>
+      <text x="165" y="215" font-family="Source Serif 4,serif" font-size="11" fill="#1e7a6e">(work more ↑)</text>
+      <text x="90" y="80" font-family="Source Serif 4,serif" font-size="12" fill="#b94f2a" font-weight="600">Income Effect</text>
+      <text x="90" y="95" font-family="Source Serif 4,serif" font-size="11" fill="#b94f2a">(prefer leisure ↓)</text>
+      <!-- Arrow pointing up on forward section -->
+      <text x="248" y="60" font-family="Playfair Display,serif" font-size="13" fill="#b94f2a" font-weight="700">S</text>
+    </svg>
+    <div class="diagram-caption">Up to W_b (backward-bending point), labour supply rises with wages. Beyond W_b, higher wages reduce labour supplied as workers value leisure more.</div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">Remember for Exam</div>
+    <strong>Substitution Effect:</strong> Leisure becomes more expensive → substitute leisure with work → supply more labour.<br>
+    <strong>Income Effect:</strong> Higher wages mean higher income → "buy" more leisure → supply less labour.
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECTION 8: LAND MARKET & RICARDIAN RENT -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section" id="s8">
+  <div class="section-header">
+    <span class="section-num">8</span>
+    <span class="section-title">Land Market &amp; Ricardian Theory of Rent</span>
+  </div>
+
+  <p>Unlike labour, the <strong>supply of land is perfectly inelastic</strong> (fixed). Therefore, the price of land (rent) is determined entirely by demand.</p>
+
+  <!-- DIAGRAM: Perfectly Inelastic Supply of Land -->
+  <div class="diagram-wrap">
+    <div class="diagram-title">Diagram 6 — Land Market: Perfectly Inelastic Supply</div>
+    <svg viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;">
+      <!-- Axes -->
+      <line x1="70" y1="280" x2="430" y2="280" stroke="#1a1a2e" stroke-width="2"/>
+      <line x1="70" y1="40" x2="70" y2="280" stroke="#1a1a2e" stroke-width="2"/>
+      <polygon points="430,276 440,280 430,284" fill="#1a1a2e"/>
+      <polygon points="66,40 70,30 74,40" fill="#1a1a2e"/>
+      <text x="448" y="284" font-family="Source Serif 4,serif" font-size="13" fill="#1a1a2e">Land (Q)</text>
+      <text x="40" y="26" font-family="Source Serif 4,serif" font-size="13" fill="#1a1a2e">Rent</text>
+
+      <!-- Fixed supply line (vertical) -->
+      <line x1="260" y1="50" x2="260" y2="278" stroke="#1e7a6e" stroke-width="3.5"/>
+      <text x="262" y="45" font-family="Playfair Display,serif" font-size="13" fill="#1e7a6e" font-weight="700">S (Fixed)</text>
+
+      <!-- Demand D1 -->
+      <path d="M90,60 C150,100 220,200 380,265" stroke="#3d5a80" stroke-width="2.5" fill="none"/>
+      <text x="382" y="260" font-family="Playfair Display,serif" font-size="12" fill="#3d5a80" font-weight="700">D₁</text>
+
+      <!-- Demand D2 (higher demand) -->
+      <path d="M120,55 C180,95 250,185 400,250" stroke="#b94f2a" stroke-width="2.5" fill="none" stroke-dasharray="5,3"/>
+      <text x="402" y="244" font-family="Playfair Display,serif" font-size="12" fill="#b94f2a" font-weight="700">D₂</text>
+
+      <!-- Equilibrium points -->
+      <circle cx="260" cy="176" r="5" fill="#3d5a80"/>
+      <line x1="70" y1="176" x2="260" y2="176" stroke="#3d5a80" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <text x="28" y="180" font-family="JetBrains Mono,monospace" font-size="11" fill="#3d5a80">R₁</text>
+
+      <circle cx="260" cy="148" r="5" fill="#b94f2a"/>
+      <line x1="70" y1="148" x2="260" y2="148" stroke="#b94f2a" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <text x="28" y="152" font-family="JetBrains Mono,monospace" font-size="11" fill="#b94f2a">R₂</text>
+
+      <!-- Arrow showing demand rise -->
+      <defs>
+        <marker id="arr4" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L7,3 z" fill="#c9933a"/>
+        </marker>
+      </defs>
+      <line x1="305" y1="175" x2="305" y2="155" stroke="#c9933a" stroke-width="2" marker-end="url(#arr4)"/>
+      <text x="308" y="170" font-family="Source Serif 4,serif" font-size="10" fill="#c9933a">↑ Rent</text>
+    </svg>
+    <div class="diagram-caption">Since supply is fixed, any increase in demand (D₁ → D₂) raises rent (R₁ → R₂) without changing the quantity of land. Rent is entirely demand-determined.</div>
+  </div>
+
+  <h3>Ricardian Theory of Rent</h3>
+
+  <!-- DIAGRAM: Ricardian Rent -->
+  <div class="diagram-wrap">
+    <div class="diagram-title">Diagram 7 — Ricardian Rent (Differential Fertility)</div>
+    <svg viewBox="0 0 520 280" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;">
+      <!-- Axes -->
+      <line x1="60" y1="240" x2="480" y2="240" stroke="#1a1a2e" stroke-width="2"/>
+      <line x1="60" y1="40" x2="60" y2="240" stroke="#1a1a2e" stroke-width="2"/>
+      <text x="490" y="244" font-family="Source Serif 4,serif" font-size="13">Land Grade</text>
+      <text x="25" y="28" font-family="Source Serif 4,serif" font-size="13">Output</text>
+
+      <!-- Land grades A, B, C as bars -->
+      <!-- A (best) -->
+      <rect x="100" y="80" width="80" height="158" fill="#1e7a6e" rx="3"/>
+      <text x="140" y="74" text-anchor="middle" font-family="Playfair Display,serif" font-size="14" fill="#1e7a6e" font-weight="700">A</text>
+      <text x="140" y="258" text-anchor="middle" font-family="Source Serif 4,serif" font-size="11" fill="#1a1a2e">Most Fertile</text>
+
+      <!-- B -->
+      <rect x="230" y="130" width="80" height="108" fill="#3d5a80" rx="3"/>
+      <text x="270" y="124" text-anchor="middle" font-family="Playfair Display,serif" font-size="14" fill="#3d5a80" font-weight="700">B</text>
+      <text x="270" y="258" text-anchor="middle" font-family="Source Serif 4,serif" font-size="11" fill="#1a1a2e">Medium Fertile</text>
+
+      <!-- C (marginal) -->
+      <rect x="360" y="190" width="80" height="48" fill="#b94f2a" rx="3"/>
+      <text x="400" y="184" text-anchor="middle" font-family="Playfair Display,serif" font-size="14" fill="#b94f2a" font-weight="700">C</text>
+      <text x="400" y="258" text-anchor="middle" font-family="Source Serif 4,serif" font-size="11" fill="#1a1a2e">Marginal Land</text>
+
+      <!-- Rent arrows for A -->
+      <line x1="90" y1="190" x2="90" y2="80" stroke="#c9933a" stroke-width="2" stroke-dasharray="4,3"/>
+      <text x="30" y="140" font-family="JetBrains Mono,monospace" font-size="11" fill="#c9933a">Rent A</text>
+
+      <!-- Rent arrows for B -->
+      <line x1="225" y1="190" x2="225" y2="130" stroke="#c9933a" stroke-width="2" stroke-dasharray="4,3"/>
+      <text x="153" y="165" font-family="JetBrains Mono,monospace" font-size="11" fill="#c9933a">Rent B</text>
+
+      <!-- Marginal bar level line -->
+      <line x1="60" y1="190" x2="480" y2="190" stroke="#b94f2a" stroke-width="1.5" stroke-dasharray="8,4"/>
+      <text x="140" y="207" font-family="Source Serif 4,serif" font-size="10" fill="#b94f2a">Marginal output level (C earns zero rent)</text>
+    </svg>
+    <div class="diagram-caption">Rent = output of a given land grade − output of marginal land (C). Marginal land (C) earns zero rent; superior lands A and B earn positive rent due to their higher fertility.</div>
+  </div>
+
+  <div class="note-box">
+    <strong>Key Points (Land Market):</strong><br>
+    • Supply of land is fixed (perfectly inelastic).<br>
+    • Rent is determined entirely by demand.<br>
+    • Ricardian rent arises from differences in land fertility.<br>
+    • The marginal (least fertile) land in use earns zero rent.
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECTION 9: PUBLIC POLICY -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section" id="s9">
+  <div class="section-header">
+    <span class="section-num">9</span>
+    <span class="section-title">Labour Market &amp; Public Policy</span>
+  </div>
+
+  <!-- DIAGRAM: Minimum Wage -->
+  <div class="diagram-wrap">
+    <div class="diagram-title">Diagram 8 — Effect of Minimum Wage (Price Floor)</div>
+    <svg viewBox="0 0 500 320" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;">
+      <!-- Axes -->
+      <line x1="70" y1="280" x2="440" y2="280" stroke="#1a1a2e" stroke-width="2"/>
+      <line x1="70" y1="40" x2="70" y2="280" stroke="#1a1a2e" stroke-width="2"/>
+      <polygon points="440,276 450,280 440,284" fill="#1a1a2e"/>
+      <polygon points="66,40 70,30 74,40" fill="#1a1a2e"/>
+      <text x="458" y="284" font-family="Source Serif 4,serif" font-size="13" fill="#1a1a2e">L</text>
+      <text x="46" y="26" font-family="Source Serif 4,serif" font-size="13" fill="#1a1a2e">W</text>
+
+      <!-- Demand -->
+      <path d="M100,70 C180,130 300,220 430,265" stroke="#1e7a6e" stroke-width="2.5" fill="none"/>
+      <text x="432" y="260" font-family="Playfair Display,serif" font-size="12" fill="#1e7a6e" font-weight="700">D</text>
+      <!-- Supply -->
+      <path d="M100,270 C180,230 280,160 390,80" stroke="#3d5a80" stroke-width="2.5" fill="none"/>
+      <text x="392" y="76" font-family="Playfair Display,serif" font-size="12" fill="#3d5a80" font-weight="700">S</text>
+
+      <!-- Equilibrium -->
+      <circle cx="240" cy="185" r="5" fill="#c9933a"/>
+      <line x1="70" y1="185" x2="240" y2="185" stroke="#c9933a" stroke-width="1.2" stroke-dasharray="4,3"/>
+      <text x="28" y="190" font-family="JetBrains Mono,monospace" font-size="11" fill="#c9933a">W*</text>
+
+      <!-- Minimum wage line (above equilibrium) -->
+      <line x1="70" y1="135" x2="430" y2="135" stroke="#b94f2a" stroke-width="2.5"/>
+      <text x="436" y="139" font-family="Playfair Display,serif" font-size="12" fill="#b94f2a" font-weight="700">Wₘ</text>
+
+      <!-- Points on curves at Wm -->
+      <circle cx="172" cy="135" r="5" fill="#b94f2a"/>
+      <circle cx="312" cy="135" r="5" fill="#b94f2a"/>
+      <line x1="172" y1="135" x2="172" y2="280" stroke="#b94f2a" stroke-width="1.2" stroke-dasharray="4,3"/>
+      <line x1="312" y1="135" x2="312" y2="280" stroke="#b94f2a" stroke-width="1.2" stroke-dasharray="4,3"/>
+      <text x="158" y="298" font-family="JetBrains Mono,monospace" font-size="11" fill="#b94f2a">Ld</text>
+      <text x="300" y="298" font-family="JetBrains Mono,monospace" font-size="11" fill="#b94f2a">Ls</text>
+
+      <!-- Unemployment arrow -->
+      <defs>
+        <marker id="arr5" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L7,3 z" fill="#b94f2a"/>
+        </marker>
+      </defs>
+      <line x1="178" y1="265" x2="305" y2="265" stroke="#b94f2a" stroke-width="2" marker-end="url(#arr5)"/>
+      <text x="200" y="260" font-family="Source Serif 4,serif" font-size="11" fill="#b94f2a">Unemployment</text>
+    </svg>
+    <div class="diagram-caption">Minimum wage Wₘ is set above equilibrium W*. At Wₘ: firms demand less labour (Ld) but workers supply more (Ls). The gap Ls − Ld = unemployment.</div>
+  </div>
+
+  <table>
+    <thead><tr><th>Policy</th><th>Purpose</th><th>Effect</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Minimum Wage</strong></td><td>Protect workers from low pay</td><td>May cause unemployment if set too high</td></tr>
+      <tr><td><strong>Trade Unions</strong></td><td>Increase bargaining power</td><td>Higher wages, possible employment reduction</td></tr>
+      <tr><td><strong>Employment Guarantee</strong></td><td>Reduce unemployment</td><td>Floor for employment levels</td></tr>
+      <tr><td><strong>Skill Programs</strong></td><td>Improve worker productivity</td><td>Shifts MRP curve rightward</td></tr>
+      <tr><td><strong>Social Security</strong></td><td>Worker welfare safety net</td><td>Reduces urgency to accept low wages</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECTION 10: FACTOR SHARE -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section" id="s10">
+  <div class="section-header">
+    <span class="section-num">10</span>
+    <span class="section-title">Factor Share &amp; Income Distribution</span>
+  </div>
+
+  <div class="def-grid">
+    <div class="def-card" style="border-top-color:#1e7a6e;">
+      <div class="def-term" style="color:#1e7a6e;">👷 Labour → Wages</div>
+      <div class="def-body">Paid based on marginal productivity of labour (MPL × Price)</div>
+    </div>
+    <div class="def-card" style="border-top-color:#3d5a80;">
+      <div class="def-term" style="color:#3d5a80;">🌍 Land → Rent</div>
+      <div class="def-body">Determined by demand; includes Ricardian differential rent</div>
+    </div>
+    <div class="def-card" style="border-top-color:#c9933a;">
+      <div class="def-term" style="color:#c9933a;">🏭 Capital → Interest</div>
+      <div class="def-body">Return to capital based on its marginal productivity</div>
+    </div>
+    <div class="def-card" style="border-top-color:#b94f2a;">
+      <div class="def-term" style="color:#b94f2a;">💼 Entrepreneur → Profit</div>
+      <div class="def-body">Residual income after paying all other factors; reward for risk</div>
+    </div>
+  </div>
+
+  <p>Each factor is paid according to its <strong>marginal productivity</strong>. This is the basis of the <em>Marginal Productivity Theory of Distribution</em>.</p>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECTION 11: TECHNICAL PROGRESS -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section" id="s11">
+  <div class="section-header">
+    <span class="section-num">11</span>
+    <span class="section-title">Technical Progress</span>
+  </div>
+
+  <p>Technical progress improves production efficiency and shifts the MRP curve, thereby affecting demand for inputs.</p>
+
+  <table>
+    <thead><tr><th>Type</th><th>Definition</th><th>Effect on Inputs</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Labour-Saving</strong></td><td>Produces same output with less labour</td><td>↓ Labour demand, ↑ Capital demand</td></tr>
+      <tr><td><strong>Capital-Saving</strong></td><td>Produces same output with less capital</td><td>↑ Labour demand, ↓ Capital demand</td></tr>
+      <tr><td><strong>Neutral</strong></td><td>Increases efficiency of both equally</td><td>↑ Both labour and capital demand proportionally</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note-box">
+    Technical progress generally shifts the MRP curve <strong>rightward</strong>, increasing demand for inputs at any given wage rate.
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- EXAM Q&A -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section" id="qa">
+  <div class="section-header">
+    <span class="section-num" style="font-size:1.6rem;">📝</span>
+    <span class="section-title">Exam Questions &amp; Model Answers</span>
+  </div>
+
+  <h3>1-Mark Definitions</h3>
+  <div class="qa-block">
+    <div class="qa-q">Q1. Define derived demand.</div>
+    <div class="qa-a">Derived demand is the demand for a factor of production that arises indirectly from the demand for the final goods and services it helps produce. For example, labour demand depends on product demand.</div>
+  </div>
+  <div class="qa-block">
+    <div class="qa-q">Q2. What is partial factor productivity?</div>
+    <div class="qa-a">Output produced per unit of a single input (e.g., Labour Productivity = Output ÷ Labour), keeping all other inputs constant.</div>
+  </div>
+  <div class="qa-block">
+    <div class="qa-q">Q3. What is MRP?</div>
+    <div class="qa-a">Marginal Revenue Product (MRP) = MPL × MR. It is the additional revenue a firm earns by hiring one more unit of labour.</div>
+  </div>
+
+  <h3>5-Mark Questions</h3>
+  <div class="qa-block">
+    <div class="qa-q">Q4. Explain the Ricardian Theory of Rent.</div>
+    <div class="qa-a">According to David Ricardo, rent arises due to differences in the fertility of land. Land is fixed in supply and varies in quality. As population increases, cultivation extends from fertile to less fertile land. Rent = output of superior land − output of marginal land. The marginal (least fertile) land earns zero rent; superior lands earn positive differential rent.</div>
+  </div>
+  <div class="qa-block">
+    <div class="qa-q">Q5. Explain how wages are determined in a competitive labour market.</div>
+    <div class="qa-a">Wages are determined by the intersection of labour demand (downward-sloping MRP curve) and labour supply. At equilibrium wage W*, quantity demanded equals quantity supplied. If wages exceed W*, there is surplus labour pushing wages down; if wages fall below W*, there is a shortage pushing wages up.</div>
+  </div>
+  <div class="qa-block">
+    <div class="qa-q">Q6. Explain the backward bending supply curve of labour.</div>
+    <div class="qa-a">At low wages, the substitution effect dominates — higher wages make leisure more expensive, so workers substitute leisure with work, increasing labour supply. Beyond a critical wage level (W_b), the income effect dominates — workers are rich enough to prefer leisure, so supply falls. The curve bends backward at W_b.</div>
+  </div>
+
+  <h3>10-Mark Question</h3>
+  <div class="qa-block">
+    <div class="qa-q">Q7. Explain demand for labour in a perfectly competitive market when (i) labour is the only variable factor and (ii) several variable factors.</div>
+    <div class="qa-a">
+      <strong>(i) One Variable Factor (Labour only):</strong> The firm's labour demand curve is its MRP curve. MRP = MPL × Price. The firm hires labour until MRP = Wage. Since MPL diminishes with employment, MRP falls, giving a downward-sloping demand curve.
+      <br><br>
+      <strong>(ii) Several Variable Factors:</strong> When capital and other factors can also vary, the analysis becomes more complex. A wage fall has two effects: (a) the <em>substitution effect</em> — firms substitute labour for capital, increasing labour demand; (b) the <em>output effect</em> — lower costs enable higher production, further increasing labour demand. The labour demand curve is therefore more elastic when multiple factors are variable. Firms choose the least-cost combination of inputs to maximize profit.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- QUICK REVISION -->
+<!-- ══════════════════════════════════════════ -->
+<div class="revision" id="revision">
+  <h2>🧠 Quick Revision — Key Points</h2>
+  <ul>
+    <li>Demand for labour is <strong>derived</strong> from demand for final goods and services.</li>
+    <li><strong>MRP = MPL × Price</strong> (under perfect competition). This is the firm's labour demand curve.</li>
+    <li>Profit maximization: hire labour until <strong>MRP = Wage</strong>. If MRP > W → hire more; if MRP < W → reduce hiring.</li>
+    <li>The labour demand curve is downward sloping due to the <strong>Law of Diminishing Marginal Returns</strong>.</li>
+    <li>The labour supply curve is <strong>backward bending</strong> — income effect dominates at high wages.</li>
+    <li>Supply of land is <strong>perfectly inelastic</strong> — rent is entirely demand-determined.</li>
+    <li>Ricardian rent = difference in output between superior and marginal land. Marginal land earns <strong>zero rent</strong>.</li>
+    <li>Minimum wage above equilibrium causes <strong>unemployment</strong> (Ls > Ld).</li>
+    <li>Government policies: minimum wage, trade unions, skill programs, social security.</li>
+    <li>Technical progress shifts the MRP curve rightward, generally increasing input demand.</li>
+    <li>Factor rewards: Labour → Wages, Land → Rent, Capital → Interest, Entrepreneur → Profit.</li>
+  </ul>
+</div>
+
+</div><!-- /wrapper -->
+
+<footer>
+  Unit 1: Input Markets &nbsp;|&nbsp; Advanced Microeconomics &nbsp;|&nbsp; Professional Study Notes
+</footer>
+
+</body>
+</html>

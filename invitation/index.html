@@ -24,6 +24,18 @@
     <meta property="og:url" content="https://www.eduspark.site/invitation/" />
     <meta name="twitter:card" content="summary_large_image" />
 
+     <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    
+    <!-- Libraries for Export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
     <script>
         tailwind.config = {
             theme: {
@@ -52,7 +64,7 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
+        
         /* Loading Spinner */
         .loader {
             border: 3px solid rgba(212, 175, 55, 0.3);
@@ -67,120 +79,31 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Card background gradient */
+        /* Ensure card background prints flawlessly */
         .card-bg {
-            background: radial-gradient(circle at 30% 20%, #1f2f5a 0%, #0B132B 80%);
-        }
-
-        /* ---------- ATTRACTIVE ANIMATED BACKGROUND (particle / shimmer) ---------- */
-        .animated-bg {
-            position: relative;
-            background: #0B132B;
-            overflow: hidden;
-        }
-        .animated-bg::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.07) 0%, transparent 45%),
-                radial-gradient(circle at 40% 80%, rgba(255, 215, 0, 0.03) 0%, transparent 50%);
-            z-index: 0;
-            pointer-events: none;
-            animation: shimmerFloat 12s ease-in-out infinite alternate;
-        }
-        .animated-bg::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: repeating-linear-gradient(45deg, 
-                transparent 0px, 
-                transparent 40px, 
-                rgba(212, 175, 55, 0.01) 40px, 
-                rgba(212, 175, 55, 0.01) 42px);
-            z-index: 0;
-            pointer-events: none;
-            animation: patternMove 18s linear infinite;
-        }
-
-        @keyframes shimmerFloat {
-            0% { transform: scale(1) rotate(0deg); opacity: 0.6; }
-            100% { transform: scale(1.2) rotate(3deg); opacity: 1; }
-        }
-        @keyframes patternMove {
-            0% { background-position: 0 0; }
-            100% { background-position: 120px 120px; }
-        }
-
-        /* Floating golden dots (particle effect) */
-        .particle-dots {
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-            overflow: hidden;
-        }
-        .particle-dots span {
-            position: absolute;
-            display: block;
-            width: 6px;
-            height: 6px;
-            background: rgba(212, 175, 55, 0.3);
-            border-radius: 50%;
-            animation: floatDot 20s infinite alternate ease-in-out;
-            box-shadow: 0 0 12px rgba(212, 175, 55, 0.1);
-        }
-        .particle-dots span:nth-child(1) { left: 10%; top: 20%; animation-duration: 18s; width: 8px; height: 8px; }
-        .particle-dots span:nth-child(2) { left: 85%; top: 40%; animation-duration: 22s; animation-delay: 1s; }
-        .particle-dots span:nth-child(3) { left: 25%; top: 75%; animation-duration: 20s; animation-delay: 0.5s; width: 10px; height: 10px; opacity: 0.2; }
-        .particle-dots span:nth-child(4) { left: 60%; top: 15%; animation-duration: 25s; animation-delay: 2s; width: 5px; height: 5px; }
-        .particle-dots span:nth-child(5) { left: 45%; top: 90%; animation-duration: 19s; animation-delay: 0.2s; width: 7px; height: 7px; }
-        .particle-dots span:nth-child(6) { left: 70%; top: 60%; animation-duration: 23s; animation-delay: 1.5s; }
-
-        @keyframes floatDot {
-            0% { transform: translate(0, 0) scale(1); opacity: 0.2; }
-            50% { transform: translate(30px, -40px) scale(1.5); opacity: 0.6; }
-            100% { transform: translate(-20px, 30px) scale(0.8); opacity: 0.2; }
-        }
-
-        /* Ensure the card & content sit above background */
-        .content-overlay {
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Keep card design pristine */
-        #invitation-card {
-            background: radial-gradient(circle at 30% 20%, #1f2f5a 0%, #0B132B 80%);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+            background: radial-gradient(circle at center, #152243 0%, #060A16 100%);
         }
     </style>
 </head>
-<body class="min-h-screen text-slate-800 font-montserrat flex flex-col selection:bg-college-gold selection:text-white animated-bg">
-
-    <!-- Particle dots (floating background) -->
-    <div class="particle-dots">
-        <span></span><span></span><span></span><span></span><span></span><span></span>
-    </div>
+<body class="bg-slate-50 min-h-screen text-slate-800 font-montserrat flex flex-col selection:bg-college-gold selection:text-white">
 
     <!-- Header (Kept general to maintain suspense) -->
-    <header class="relative z-10 w-full py-6 text-center bg-white/90 backdrop-blur-sm shadow-sm border-b border-slate-200/60">
+    <header class="w-full py-6 text-center bg-white shadow-sm border-b border-slate-200">
         <h1 class="text-xl md:text-2xl font-cinzel font-bold text-college-navy tracking-wider">ABHAYAPURI COLLEGE</h1>
         <p class="text-sm font-montserrat tracking-widest text-slate-500 uppercase mt-1">Department of Economics</p>
     </header>
 
-    <main class="relative z-10 flex-1 w-full max-w-4xl mx-auto p-4 md:p-8 flex flex-col items-center justify-center">
+    <main class="flex-1 w-full max-w-4xl mx-auto p-4 md:p-8 flex flex-col items-center justify-center relative">
         
         <!-- STEP 1: Form View (Suspenseful) -->
-        <div id="setup-view" class="w-full max-w-md bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl p-6 md:p-8 border border-slate-100/60 fade-in">
+        <div id="setup-view" class="w-full max-w-md bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-slate-100 fade-in">
             <h2 class="text-2xl font-playfair font-semibold text-center text-slate-800 mb-2">A Special Surprise Awaits</h2>
             <p class="text-center text-slate-500 text-sm mb-8">Please enter your details to reveal what we have planned for you.</p>
             
             <div class="space-y-5">
                 <div>
                     <label for="user-name" class="block text-sm font-medium text-slate-700 mb-1">Your Full Name</label>
-                    <input type="text" id="user-name" placeholder="e.g. Saheb Das" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-college-gold focus:border-college-gold outline-none transition-all" required />
+                    <input type="text" id="user-name" placeholder="e.g. Saheb Ali" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-college-gold focus:border-college-gold outline-none transition-all" required>
                     <p id="name-error" class="text-red-500 text-xs mt-1 hidden">Please enter your name to continue.</p>
                 </div>
                 
@@ -203,7 +126,7 @@
         <!-- STEP 2: Preview & Actions (Hidden initially) -->
         <div id="preview-view" class="hidden w-full max-w-lg mx-auto fade-in pb-12">
             
-            <p class="text-center text-slate-200 text-sm mb-4 drop-shadow-md">The secret is out! Here is your personalized invitation.</p>
+            <p class="text-center text-slate-500 text-sm mb-4">The secret is out! Here is your personalized invitation.</p>
 
             <!-- THE INVITATION CARD (1080x1350 aspect ratio container) -->
             <div id="card-wrapper" class="w-full shadow-2xl rounded-sm overflow-hidden mb-8 transform transition-transform hover:scale-[1.02] duration-300">
@@ -215,7 +138,7 @@
                     <div class="absolute inset-3 border-2 border-college-gold opacity-80 pointer-events-none"></div>
                     <div class="absolute inset-4 border border-college-gold opacity-40 pointer-events-none"></div>
                     
-                    <!-- Corner Ornaments (SVG) -->
+                    <!-- Corner Ornaments (CSS via pseudo-elements would work, but using SVGs is safer for html2canvas) -->
                     <svg class="absolute top-5 left-5 w-8 h-8 text-college-gold opacity-60" viewBox="0 0 24 24" fill="currentColor"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2zm0 4.45l1.64 3.84 4.16.35-3.15 2.74.95 4.07-3.6-2.22-3.6 2.22.95-4.07-3.15-2.74 4.16-.35L12 6.45z"/></svg>
                     <svg class="absolute top-5 right-5 w-8 h-8 text-college-gold opacity-60" viewBox="0 0 24 24" fill="currentColor"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2zm0 4.45l1.64 3.84 4.16.35-3.15 2.74.95 4.07-3.6-2.22-3.6 2.22.95-4.07-3.15-2.74 4.16-.35L12 6.45z"/></svg>
 
@@ -278,7 +201,7 @@
                     </button>
                 </div>
                 
-                <button onclick="downloadPDF()" class="text-slate-200 hover:text-white text-sm font-medium underline underline-offset-4 flex items-center justify-center gap-2 transition-colors py-2">
+                <button onclick="downloadPDF()" class="text-slate-500 hover:text-slate-800 text-sm font-medium underline underline-offset-4 flex items-center justify-center gap-2 transition-colors py-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
                     Download PDF version instead
                 </button>
@@ -352,13 +275,16 @@
             const role = document.getElementById('user-role').value;
             const { title, message } = generateGreeting(nameInput, role);
 
+            // Update DOM
             document.getElementById('card-greeting').innerText = title;
             document.getElementById('card-message').innerText = message;
 
+            // Switch views
             document.getElementById('setup-view').classList.add('hidden');
             const previewView = document.getElementById('preview-view');
             previewView.classList.remove('hidden');
             
+            // Scroll to preview smoothly
             previewView.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
@@ -373,12 +299,22 @@
             document.getElementById('loading-overlay').classList.remove('flex');
         }
 
+        /**
+         * Core rendering function. 
+         * Calculates precise scale to ensure a ~1080x1350 output 
+         * regardless of the user's mobile screen size.
+         */
         async function renderCardToCanvas() {
             const card = document.getElementById('invitation-card');
+            
+            // Force 1080px width resolution export for high-quality sharing
             const targetWidth = 1080;
+            // The visual width on screen
             const clientWidth = card.offsetWidth; 
+            // Calculate scale multiplier
             const scale = targetWidth / clientWidth;
 
+            // Allow font loading time if just revealed
             await document.fonts.ready;
 
             return await html2canvas(card, {
@@ -397,6 +333,7 @@
         async function downloadPNG() {
             showLoading("Preparing your invitation...");
             
+            // Small timeout to allow the loading UI to render before main thread blocks
             setTimeout(async () => {
                 try {
                     const canvas = await renderCardToCanvas();
@@ -428,6 +365,7 @@
                     
                     const { jsPDF } = window.jspdf;
                     
+                    // Create PDF with exact dimensions matching the generated canvas
                     const pdf = new jsPDF({
                         orientation: 'portrait',
                         unit: 'px',
@@ -457,6 +395,7 @@
                         const filename = getFormattedFileName('png');
                         const file = new File([blob], filename, { type: 'image/png' });
                         
+                        // Check if Web Share API supports file sharing
                         if (navigator.canShare && navigator.canShare({ files: [file] })) {
                             hideLoading();
                             try {
@@ -466,6 +405,7 @@
                                     files: [file]
                                 });
                             } catch (shareError) {
+                                // User cancelled or share failed
                                 console.log("Share action:", shareError);
                             }
                         } else {
